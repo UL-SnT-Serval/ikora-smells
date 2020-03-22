@@ -13,6 +13,7 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
         smellChecks.put(SmellMetric.Type.RESOURCE_OPTIMISM, new ResourceOptimismCheck());
         smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
+        smellChecks.put(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, new ConditionalTestLogic());
     }
 
     public SmellDetector(Set<SmellMetric.Type> smellsToDetect){
