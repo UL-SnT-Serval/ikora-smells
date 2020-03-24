@@ -6,7 +6,8 @@ public class SmellMetric {
         RESOURCE_OPTIMISM,
         HARD_CODED_VALUES,
         CONDITIONAL_TEST_LOGIC,
-        TEST_CODE_DUPLICATION
+        TEST_CODE_DUPLICATION,
+        LACK_OF_DOCUMENTATION
     }
 
     private final Type type;
