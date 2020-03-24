@@ -2,7 +2,6 @@ package tech.ikora.smells.visitors;
 
 import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
-import tech.ikora.analytics.visitor.VisitorUtils;
 import tech.ikora.model.*;
 
 import java.util.Optional;
@@ -26,6 +25,6 @@ public class HardCodedValuesVisitor extends TreeVisitor {
             }
         }
 
-        VisitorUtils.traverseDependencies(this, call, memory);
+        super.visit(call, memory);
     }
 }

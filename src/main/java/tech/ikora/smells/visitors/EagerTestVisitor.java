@@ -4,7 +4,6 @@ import edu.stanford.nlp.simple.Sentence;
 import org.ejml.simple.SimpleMatrix;
 import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
-import tech.ikora.analytics.visitor.VisitorUtils;
 import tech.ikora.model.UserKeyword;
 import tech.ikora.smells.utils.WordFrequency;
 
@@ -35,7 +34,7 @@ public class EagerTestVisitor extends TreeVisitor {
 
         wordFrequency.addWords(position, sentence.lemmas());
 
-        VisitorUtils.traverseSteps(this, keyword, memory);
+       super.visit(keyword, memory);
     }
 
     private String clean(String sentence){

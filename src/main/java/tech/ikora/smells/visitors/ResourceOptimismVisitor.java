@@ -26,6 +26,6 @@ public class ResourceOptimismVisitor extends TreeVisitor {
             }
         }
 
-        VisitorUtils.traverseDependencies(this, call, memory);
+        super.visit(call, memory);
     }
 }
