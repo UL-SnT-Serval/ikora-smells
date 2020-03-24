@@ -7,6 +7,7 @@ public class SmellMetric {
         HARD_CODED_VALUES,
         CONDITIONAL_TEST_LOGIC,
         TEST_CODE_DUPLICATION,
+        MISSING_ASSERTION,
         LACK_OF_DOCUMENTATION
     }
 
