@@ -21,6 +21,11 @@ class EagerTestCheck implements SmellCheck{
         }
 
         List<SimpleMatrix> frequencyVectors = visitor.getFrequencyVectors();
+
+        if(frequencyVectors.isEmpty() || frequencyVectors.get(0).numCols() == 0){
+            return new SmellMetric(SmellMetric.Type.EAGER_TEST, Double.NaN);
+        }
+
         int size = frequencyVectors.size();
         double sum = 0.0;
 
