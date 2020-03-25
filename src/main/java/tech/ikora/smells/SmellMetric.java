@@ -26,4 +26,8 @@ public class SmellMetric {
     public double getValue() {
         return value;
     }
+
+    public static SmellMetric nan(Type type){
+        return new SmellMetric(type, Double.NaN);
+    }
 }
