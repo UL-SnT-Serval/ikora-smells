@@ -22,11 +22,11 @@ public class SmellDetector {
         this.smellsToDetect = smellsToDetect;
     }
 
-    public Map<SmellMetric.Type, SmellMetric> computeMetrics(TestCase testCase){
-       Map<SmellMetric.Type, SmellMetric> metrics = new HashMap<>();
+    public Set<SmellMetric> computeMetrics(TestCase testCase){
+        Set<SmellMetric> metrics = new HashSet<>();
 
        for(SmellMetric.Type type: smellsToDetect){
-            metrics.put(type, smellChecks.get(type).computeMetric(testCase));
+            metrics.add(smellChecks.get(type).computeMetric(testCase));
        }
 
         return metrics;
