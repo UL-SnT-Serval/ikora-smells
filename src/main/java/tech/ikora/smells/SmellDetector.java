@@ -1,6 +1,7 @@
 package tech.ikora.smells;
 
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.checks.*;
 
 import java.util.*;
 
@@ -9,13 +10,28 @@ public class SmellDetector {
     private final Set<SmellMetric.Type> smellsToDetect;
 
     static {
-        smellChecks = new HashMap<>(5);
+        smellChecks = new HashMap<>(SmellMetric.Type.values().length);
 
+        smellChecks.put(SmellMetric.Type.OBSCURE_TEST, new ObscureTestCheck());
+        smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
+        smellChecks.put(SmellMetric.Type.TEST_CLONES, new TestClonesCheck());
+        smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCHeck());
+        smellChecks.put(SmellMetric.Type.LACK_OF_ENCAPSULATION, new LackOfEncapsulationCheck());
+        smellChecks.put(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, new LoggingInFixtureCodeCheck());
+        smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, new HidingTestDateInFixtureCodeCheck());
+        smellChecks.put(SmellMetric.Type.IMPLEMENTATION_DEPENDENT, new ImplementationDependentCheck());
+        smellChecks.put(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, new StinkySynchronizationCheck());
+        smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new ResultsOnTheFlyCheck());
+        smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
+        smellChecks.put(SmellMetric.Type.COMPLEX_SELECTORS, new ComplexSelectorsCheck());
         smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
-        smellChecks.put(SmellMetric.Type.RESOURCE_OPTIMISM, new ResourceOptimismCheck());
-        smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
-        smellChecks.put(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, new ConditionalTestLogic());
-        smellChecks.put(SmellMetric.Type.LACK_OF_DOCUMENTATION, new LackOfDocumentationCheck());
+        smellChecks.put(SmellMetric.Type.USING_PERSONAL_PRONOUN, new UsingPersonalPronounCheck());
+        smellChecks.put(SmellMetric.Type.MISSING_ASSERTION, new MissingAssertionCheck());
+        smellChecks.put(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, new HardCodedEnvironmentConfiguration());
+        smellChecks.put(SmellMetric.Type.CONDITIONAL_ASSERTION, new ConditionalAssertionCheck());
+        smellChecks.put(SmellMetric.Type.OVER_CHECKING, new OverCheckingCheck());
+        smellChecks.put(SmellMetric.Type.SNEAKY_CHECKING, new SneakyCheckingCheck());
+        smellChecks.put(SmellMetric.Type.DATA_CREEP, new DataCreepCheck());
     }
 
     public SmellDetector(Set<SmellMetric.Type> smellsToDetect){
@@ -30,5 +46,9 @@ public class SmellDetector {
        }
 
         return metrics;
+    }
+
+    public static SmellDetector all(){
+        return new SmellDetector(smellChecks.keySet());
     }
 }

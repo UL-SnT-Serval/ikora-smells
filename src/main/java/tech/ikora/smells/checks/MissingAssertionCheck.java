@@ -1,7 +1,9 @@
-package tech.ikora.smells;
+package tech.ikora.smells.checks;
 
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.MissingAssertionVisitor;
 
 public class MissingAssertionCheck implements SmellCheck {

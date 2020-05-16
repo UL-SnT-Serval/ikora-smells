@@ -1,4 +1,4 @@
-package tech.ikora.smells.visitors;
+package tech.ikora.smells;
 
 import tech.ikora.BuildConfiguration;
 import tech.ikora.builder.BuildResult;
