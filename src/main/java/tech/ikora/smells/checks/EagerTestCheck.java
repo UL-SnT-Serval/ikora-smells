@@ -11,7 +11,7 @@ import tech.ikora.smells.visitors.EagerTestVisitor;
 
 import java.util.List;
 
-class EagerTestCheck implements SmellCheck {
+public class EagerTestCheck implements SmellCheck {
     @Override
     public SmellMetric computeMetric(TestCase testCase) {
         EagerTestVisitor visitor = new EagerTestVisitor(testCase.getSteps().size());

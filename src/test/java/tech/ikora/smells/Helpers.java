@@ -45,7 +45,7 @@ public class Helpers {
 
     public static TestCase getTestCase(Project project, String name){
         final List<TestCase> testCases = project.getTestCases().stream()
-                .filter(testCase -> name.equalsIgnoreCase(testCase.getName().getText()))
+                .filter(testCase -> name.equalsIgnoreCase(testCase.getName()))
                 .collect(Collectors.toList());
 
         if(testCases.size() != 1){
