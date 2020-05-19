@@ -5,7 +5,7 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellMetric;
 
-public class HidingTestDateInFixtureCodeCheck implements SmellCheck {
+public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     @Override
     public SmellMetric computeMetric(TestCase testCase) {
         throw new NotImplementedException("Check is not implemented yet: " + this.getClass().getName());
