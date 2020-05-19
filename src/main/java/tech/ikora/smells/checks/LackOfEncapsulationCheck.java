@@ -20,7 +20,7 @@ public class LackOfEncapsulationCheck implements SmellCheck {
             });
         }
 
-        int metric = libraryKeywordCalls[0] == 0 ? 0 : 1;
+        double metric = (double)libraryKeywordCalls[0] / (double)testCase.getSteps().size();
 
         return new SmellMetric(SmellMetric.Type.LACK_OF_ENCAPSULATION, metric);
     }
