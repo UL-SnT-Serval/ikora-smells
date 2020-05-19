@@ -8,6 +8,8 @@ import tech.ikora.smells.SmellMetric;
 public class UsingPersonalPronounCheck implements SmellCheck {
     @Override
     public SmellMetric computeMetric(TestCase testCase) {
+
+
         throw new NotImplementedException("Check is not implemented yet: " + this.getClass().getName());
     }
 }

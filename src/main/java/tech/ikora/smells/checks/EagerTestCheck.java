@@ -1,15 +1,17 @@
-package tech.ikora.smells;
+package tech.ikora.smells.checks;
 
 import edu.stanford.nlp.neural.NeuralUtils;
 import org.ejml.simple.SimpleMatrix;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.EagerTestVisitor;
 
 import java.util.List;
 
-class EagerTestCheck implements SmellCheck{
+class EagerTestCheck implements SmellCheck {
     @Override
     public SmellMetric computeMetric(TestCase testCase) {
         EagerTestVisitor visitor = new EagerTestVisitor(testCase.getSteps().size());
@@ -39,8 +41,8 @@ class EagerTestCheck implements SmellCheck{
             }
         }
 
-        double mean = sum / (double)size;
+        double metric = 1 -  (sum / (double)size);
 
-        return new SmellMetric(SmellMetric.Type.EAGER_TEST, mean);
+        return new SmellMetric(SmellMetric.Type.EAGER_TEST, metric);
     }
 }

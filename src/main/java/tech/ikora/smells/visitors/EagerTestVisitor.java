@@ -28,7 +28,7 @@ public class EagerTestVisitor extends TreeVisitor {
 
     @Override
     public void visit(UserKeyword keyword, VisitorMemory memory) {
-        final String name = keyword.getName().getText().toLowerCase();
+        final String name = keyword.getName().toLowerCase();
         final String cleanName = clean(name);
         final Sentence sentence = new Sentence(cleanName);
 

@@ -12,6 +12,8 @@ public class LackOfDocumentationCheck implements SmellCheck {
         LackOfDocumentationVisitor visitor = new LackOfDocumentationVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        return new SmellMetric(SmellMetric.Type.LACK_OF_DOCUMENTATION, visitor.getDocumentedKeywordProportion());
+        double metric = visitor.getDocumentedKeywordProportion();
+
+        return new SmellMetric(SmellMetric.Type.LACK_OF_DOCUMENTATION, metric);
     }
 }

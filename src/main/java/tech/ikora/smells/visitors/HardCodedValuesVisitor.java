@@ -16,7 +16,7 @@ public class HardCodedValuesVisitor extends TreeVisitor {
     @Override
     public void visit(KeywordCall call, VisitorMemory memory) {
         for(Argument argument: call.getArgumentList()){
-            final Optional<Node> definition = argument.getDefinition();
+            final Optional<SourceNode> definition = argument.getDefinition();
 
             if(definition.isPresent()){
                 if(definition.get() instanceof Literal){
