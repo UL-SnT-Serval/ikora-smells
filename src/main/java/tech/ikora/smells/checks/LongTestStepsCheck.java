@@ -9,13 +9,15 @@ import tech.ikora.smells.SmellMetric;
 public class LongTestStepsCheck implements SmellCheck {
     @Override
     public SmellMetric computeMetric(TestCase testCase) {
-        int largestStep = 0;
+        int longSteps = 0;
 
         for(Step step: testCase.getSteps()){
-            largestStep = Math.max(largestStep, KeywordStatistics.getSequenceSize(step));
+            if(KeywordStatistics.getSequenceSize(step) > 50){
+                ++longSteps;
+            }
         }
 
-        double metric = largestStep < 100 ? (double)largestStep/100.0 : 1.0;
+        double metric = (double)longSteps / (double)testCase.getSteps().size();
 
         return new SmellMetric(SmellMetric.Type.LONG_TEST_STEPS, metric);
     }
