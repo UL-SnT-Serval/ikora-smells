@@ -7,7 +7,7 @@ import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.OneActionVisitor;
 
-public class MiddleManCHeck implements SmellCheck {
+public class MiddleManCheck implements SmellCheck {
     @Override
     public SmellMetric computeMetric(TestCase testCase) {
         OneActionVisitor visitor = new OneActionVisitor(Keyword.Type.ACTION);

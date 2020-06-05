@@ -15,7 +15,7 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.OBSCURE_TEST, new ObscureTestCheck());
         smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
         smellChecks.put(SmellMetric.Type.TEST_CLONES, new TestClonesCheck());
-        smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCHeck());
+        smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCheck());
         smellChecks.put(SmellMetric.Type.LACK_OF_ENCAPSULATION, new LackOfEncapsulationCheck());
         smellChecks.put(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, new LoggingInFixtureCodeCheck());
         smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, new HidingTestDataInFixtureCodeCheck());
