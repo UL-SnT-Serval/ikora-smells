@@ -8,7 +8,7 @@ import tech.ikora.model.KeywordCall;
 
 import java.util.Optional;
 
-public class ResourceOptimismVisitor extends TreeVisitor {
+public class SleepCounterVisitor extends TreeVisitor {
     private int sleepCounter = 0;
 
     public int getNumberSleepCalls() {
