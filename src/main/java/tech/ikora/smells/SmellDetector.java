@@ -1,6 +1,8 @@
 package tech.ikora.smells;
 
+import tech.ikora.analytics.clones.Clones;
 import tech.ikora.model.TestCase;
+import tech.ikora.model.UserKeyword;
 import tech.ikora.smells.checks.*;
 
 import java.util.*;
@@ -8,6 +10,7 @@ import java.util.*;
 public class SmellDetector {
     private final static Map<SmellMetric.Type, SmellCheck> smellChecks;
     private final Set<SmellMetric.Type> smellsToDetect;
+    private final Clones<UserKeyword> clones;
 
     static {
         smellChecks = new HashMap<>(SmellMetric.Type.values().length);
@@ -34,21 +37,26 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.DATA_CREEP, new DataCreepCheck());
     }
 
-    public SmellDetector(Set<SmellMetric.Type> smellsToDetect){
+    public SmellDetector(Set<SmellMetric.Type> smellsToDetect, Clones<UserKeyword> clones){
         this.smellsToDetect = smellsToDetect;
+        this.clones = clones;
+    }
+
+    public Clones<UserKeyword> getClones(){
+        return this.clones;
     }
 
     public Set<SmellMetric> computeMetrics(TestCase testCase){
         Set<SmellMetric> metrics = new HashSet<>();
 
        for(SmellMetric.Type type: smellsToDetect){
-            metrics.add(smellChecks.get(type).computeMetric(testCase));
+            metrics.add(smellChecks.get(type).computeMetric(testCase, this));
        }
 
         return metrics;
     }
 
-    public static SmellDetector all(){
-        return new SmellDetector(smellChecks.keySet());
+    public static SmellDetector all(Clones<UserKeyword> clones){
+        return new SmellDetector(smellChecks.keySet(), clones);
     }
 }

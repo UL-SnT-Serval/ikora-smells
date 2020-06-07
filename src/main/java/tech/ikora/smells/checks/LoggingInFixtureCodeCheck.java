@@ -6,11 +6,12 @@ import tech.ikora.model.Keyword;
 import tech.ikora.model.KeywordCall;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 
 public class LoggingInFixtureCodeCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase) {
+    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
         int statements = countStatements(testCase.getSetup()) + countStatements(testCase.getTearDown());
         int logging = countLogging(testCase.getSetup()) + countLogging(testCase.getTearDown());
 

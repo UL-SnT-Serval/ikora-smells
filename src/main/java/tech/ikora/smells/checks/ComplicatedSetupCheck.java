@@ -3,11 +3,12 @@ package tech.ikora.smells.checks;
 import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 
 public class ComplicatedSetupCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase) {
+    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
         double metric = 0.0;
 
         if(testCase.getSetup() != null){

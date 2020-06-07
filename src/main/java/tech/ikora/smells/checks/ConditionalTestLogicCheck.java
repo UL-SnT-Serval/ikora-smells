@@ -3,12 +3,13 @@ package tech.ikora.smells.checks;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.ConditionalTestLogicVisitor;
 
 public class ConditionalTestLogicCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase) {
+    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
         ConditionalTestLogicVisitor visitor = new ConditionalTestLogicVisitor();
         visitor.visit(testCase, new PathMemory());
 

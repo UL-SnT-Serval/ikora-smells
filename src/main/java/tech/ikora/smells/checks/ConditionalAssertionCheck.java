@@ -3,6 +3,7 @@ package tech.ikora.smells.checks;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.*;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.CollectAssertionsVisitor;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase) {
+    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
         CollectAssertionsVisitor visitor = new CollectAssertionsVisitor();
         visitor.visit(testCase, new PathMemory());
 

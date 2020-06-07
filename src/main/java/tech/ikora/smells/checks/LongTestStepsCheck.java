@@ -4,11 +4,12 @@ import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 
 public class LongTestStepsCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase) {
+    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
         int longSteps = 0;
 
         for(Step step: testCase.getSteps()){

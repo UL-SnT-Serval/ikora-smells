@@ -6,6 +6,7 @@ import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.EagerTestVisitor;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class EagerTestCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase) {
+    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
         EagerTestVisitor visitor = new EagerTestVisitor(testCase.getSteps().size());
 
         int position = 0;
