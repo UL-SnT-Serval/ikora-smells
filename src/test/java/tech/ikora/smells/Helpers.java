@@ -4,28 +4,26 @@ import tech.ikora.BuildConfiguration;
 import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
+import tech.ikora.model.Projects;
 import tech.ikora.model.TestCase;
 
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class Helpers {
-    public static Project compileProjects(String projectName){
+    public static Projects compileProjects(String projectName){
         final BuildResult result = Builder.build(getResourceFile(projectName), new BuildConfiguration(), true);
-        final Optional<Project> project = result.getProject(projectName);
 
-        if(project.isPresent()){
-            return project.get();
+        if(result.getProjects().isEmpty()){
+            fail("Failed to load projects");
         }
 
-        fail(String.format("Failed to load project %s", projectName));
-        return null;
+        return result.getProjects();
     }
 
     public static File getResourceFile(String name){
@@ -43,7 +41,13 @@ public class Helpers {
         return file;
     }
 
-    public static TestCase getTestCase(Project project, String name){
+    public static TestCase getTestCase(Projects projects, String name){
+        if(projects.size() != 1){
+            fail("Expected only one project to be loaded");
+        }
+
+        final Project project = projects.iterator().next();
+
         final List<TestCase> testCases = project.getTestCases().stream()
                 .filter(testCase -> name.equalsIgnoreCase(testCase.getName()))
                 .collect(Collectors.toList());
