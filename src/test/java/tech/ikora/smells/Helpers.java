@@ -4,7 +4,6 @@ import tech.ikora.BuildConfiguration;
 import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
-import tech.ikora.model.Projects;
 import tech.ikora.model.TestCase;
 
 import java.io.File;
@@ -16,14 +15,14 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class Helpers {
-    public static Projects compileProjects(String projectName){
+    public static Project compileProject(String projectName){
         final BuildResult result = Builder.build(getResourceFile(projectName), new BuildConfiguration(), true);
 
-        if(result.getProjects().isEmpty()){
+        if(result.getProjects().size() != 1){
             fail("Failed to load projects");
         }
 
-        return result.getProjects();
+        return result.getProjects().iterator().next();
     }
 
     public static File getResourceFile(String name){
@@ -39,26 +38,5 @@ public class Helpers {
         }
 
         return file;
-    }
-
-    public static TestCase getTestCase(Projects projects, String name){
-        if(projects.size() != 1){
-            fail("Expected only one project to be loaded");
-        }
-
-        final Project project = projects.iterator().next();
-
-        final List<TestCase> testCases = project.getTestCases().stream()
-                .filter(testCase -> name.equalsIgnoreCase(testCase.getName()))
-                .collect(Collectors.toList());
-
-        if(testCases.size() != 1){
-            fail(String.format("Expected to get 1 test case with the name '%s' in project '%s' but got %d instead",
-                    name,
-                    project.getName(),
-                    testCases.size()));
-        }
-
-        return testCases.get(0);
     }
 }
