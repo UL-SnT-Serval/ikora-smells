@@ -131,8 +131,8 @@ public class ComplexLocatorVisitor extends TreeVisitor {
         CompoundSelector compoundSelector = selector.getCompoundSelector();
 
         int size = 1;
-        while (compoundSelector.previous != null){
-            compoundSelector = compoundSelector.previous.getSecond();
+        while (compoundSelector.getPrevious() != null){
+            compoundSelector = compoundSelector.getPrevious().getSecond();
             ++size;
         }
 
