@@ -16,4 +16,4 @@ Follow the link
 
 *** Variables ***
 ${simple}  link_to_click
-${complex}  #covid-form > div > div.react-grid-Container > div > div > div.react-grid-Header > div > div > div:nth-child(3) > div
+${complex}  css:.covid-form > div > div.react-grid-Container > div > div > div.react-grid-Header > div > div > div:nth-child(3) > div

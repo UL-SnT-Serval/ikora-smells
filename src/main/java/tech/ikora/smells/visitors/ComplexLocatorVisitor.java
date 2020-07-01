@@ -15,11 +15,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import org.apache.xpath.XPath;
+import javax.xml.transform.TransformerException;
 
 public class ComplexLocatorVisitor extends TreeVisitor {
     private int complexLocators = 0;
     private int locators = 0;
+
+    private static final Pattern xPathPattern =  Pattern.compile("^xpath\\:", Pattern.CASE_INSENSITIVE);
+    private static final Pattern cssPattern =  Pattern.compile("^css\\:", Pattern.CASE_INSENSITIVE);
 
     public int getComplexLocators() {
         return complexLocators;
@@ -123,11 +131,33 @@ public class ComplexLocatorVisitor extends TreeVisitor {
     }
 
     private boolean isComplex(final String value){
-        final Selector selector = SelectorParser.parse(value);
-        return getNodeNumber(selector) > 4;
+        int maxSize = 4;
+
+        if(xPathPattern.matcher(value).find()){
+            return getXPathSize(value.replaceAll(xPathPattern.pattern(), "")) > maxSize;
+        }
+        else if(cssPattern.matcher(value).find()){
+            return getCssSize(value.replaceAll(cssPattern.pattern(), "")) > maxSize;
+        }
+
+        return false;
     }
 
-    private int getNodeNumber(final Selector selector){
+    private int getXPathSize(final String value) {
+        int size = 1;
+
+        try {
+            final XPath xPath = new XPath(value, null, null, 0);
+            size = xPath.getExpression().exprGetNumChildren();
+        } catch (TransformerException e) {
+            // it will just be ignored and count as a default type
+        }
+
+        return size;
+    }
+
+    private int getCssSize(final String value){
+        final Selector selector = SelectorParser.parse(value);
         CompoundSelector compoundSelector = selector.getCompoundSelector();
 
         int size = 1;
