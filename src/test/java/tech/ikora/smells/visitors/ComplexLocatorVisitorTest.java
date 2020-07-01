@@ -64,7 +64,7 @@ public class ComplexLocatorVisitorTest {
         ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
         visitor.visit(followLink, new FixedMemory(1, KeywordCall.class));
 
-        assertEquals(0, visitor.getComplexLocators());
+        assertEquals(1, visitor.getComplexLocators());
         assertEquals(2, visitor.getLocators());
     }
 }

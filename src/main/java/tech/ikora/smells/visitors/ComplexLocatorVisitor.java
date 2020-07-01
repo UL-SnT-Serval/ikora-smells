@@ -5,6 +5,9 @@ import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.builder.ValueResolver;
 import tech.ikora.model.*;
 import tech.ikora.smells.utils.Permutations;
+import tech.ikora.smells.utils.css.parser.SelectorParser;
+import tech.ikora.smells.utils.css.selector.CompoundSelector;
+import tech.ikora.smells.utils.css.selector.Selector;
 import tech.ikora.types.BaseTypeList;
 import tech.ikora.types.LocatorType;
 
@@ -119,7 +122,20 @@ public class ComplexLocatorVisitor extends TreeVisitor {
         return values;
     }
 
-    private boolean isComplex(String value){
-        return false;
+    private boolean isComplex(final String value){
+        final Selector selector = SelectorParser.parse(value);
+        return getNodeNumber(selector) > 4;
+    }
+
+    private int getNodeNumber(final Selector selector){
+        CompoundSelector compoundSelector = selector.getCompoundSelector();
+
+        int size = 1;
+        while (compoundSelector.previous != null){
+            compoundSelector = compoundSelector.previous.getSecond();
+            ++size;
+        }
+
+        return size;
     }
 }
