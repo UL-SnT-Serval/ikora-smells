@@ -92,7 +92,8 @@ public class ComplexLocatorVisitor extends TreeVisitor {
     }
 
     private List<String> getParameterValue(final Variable variable){
-        final Optional<UserKeyword> userKeyword = getUserKeywordFromParameter(variable);
+        final Optional<UserKeyword> userKeyword = ValueResolver.getUserKeywordFromArgument(variable);
+
         if(!userKeyword.isPresent()){
             return Collections.emptyList();
         }
@@ -116,17 +117,6 @@ public class ComplexLocatorVisitor extends TreeVisitor {
         }
 
         return values;
-    }
-
-    private Optional<UserKeyword> getUserKeywordFromParameter(final Variable variable){
-        if(variable.getAstParent() == null
-                || variable.getAstParent().getAstParent() != null
-                || !(variable.getAstParent().getAstParent() instanceof UserKeyword)){
-            return Optional.empty();
-        }
-
-        UserKeyword userKeyword = (UserKeyword)variable.getAstParent().getAstParent();
-        return userKeyword.getArguments() == variable.getAstParent() ? Optional.of(userKeyword) : Optional.empty();
     }
 
     private boolean isComplex(String value){

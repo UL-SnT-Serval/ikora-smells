@@ -53,4 +53,18 @@ public class ComplexLocatorVisitorTest {
         assertEquals(0, visitor.getComplexLocators());
         assertEquals(1, visitor.getLocators());
     }
+
+    @Test
+    void testVisitCallWithArgumentLocator(){
+        Project locatorProject = Helpers.compileProject("complex-locator.robot");
+
+        final UserKeyword followLink = locatorProject.findUserKeyword("complex-locator", "Follow the link").iterator().next();
+        assertNotNull(followLink);
+
+        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
+        visitor.visit(followLink, new FixedMemory(1, KeywordCall.class));
+
+        assertEquals(0, visitor.getComplexLocators());
+        assertEquals(2, visitor.getLocators());
+    }
 }
