@@ -10,6 +10,11 @@ Test case with all personal pronoun
     When I put my usernam and password
     Then I should be on the welcome page
 
+Test case with some personal pronoun
+    Given I am on login page
+    When I put my usernam and password
+    Then welcome page should be open
+
 *** Keywords ***
 Browser is opened to login page
     Log    Browser is opened to login page

@@ -33,4 +33,13 @@ public class UsingPersonalPronounCheckTest {
 
         assertEquals(metric.getValue(), 1.0);
     }
+
+    @Test
+    void testWithSomePronoun(){
+        final TestCase testCase = project.findTestCase("usingPersonalPronoun", "Test case with some personal pronoun").iterator().next();
+        final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
+        final SmellMetric metric = check.computeMetric(testCase, null);
+
+        assertEquals(metric.getValue(), 0.6666, 0.0001);
+    }
 }
