@@ -15,6 +15,6 @@ public class ComplexLocatorCheck implements SmellCheck {
 
         double metric = (double)visitor.getComplexLocators() / (double)visitor.getLocators();
 
-        return new SmellMetric(SmellMetric.Type.HARD_CODED_VALUES, metric);
+        return new SmellMetric(SmellMetric.Type.COMPLEX_LOCATORS, metric);
     }
 }

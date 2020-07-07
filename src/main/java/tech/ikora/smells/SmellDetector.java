@@ -15,18 +15,16 @@ public class SmellDetector {
     static {
         smellChecks = new HashMap<>(SmellMetric.Type.values().length);
 
-        smellChecks.put(SmellMetric.Type.OBSCURE_TEST, new ObscureTestCheck());
         smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
         smellChecks.put(SmellMetric.Type.TEST_CLONES, new TestClonesCheck());
         smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCheck());
         smellChecks.put(SmellMetric.Type.LACK_OF_ENCAPSULATION, new LackOfEncapsulationCheck());
         smellChecks.put(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, new LoggingInFixtureCodeCheck());
         smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, new HidingTestDataInFixtureCodeCheck());
-        smellChecks.put(SmellMetric.Type.IMPLEMENTATION_DEPENDENT, new ImplementationDependentCheck());
         smellChecks.put(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, new StinkySynchronizationSyndromeCheck());
         smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new ResultsOnTheFlyCheck());
         smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
-        smellChecks.put(SmellMetric.Type.COMPLEX_SELECTORS, new ComplexLocatorCheck());
+        smellChecks.put(SmellMetric.Type.COMPLEX_LOCATORS, new ComplexLocatorCheck());
         smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
         smellChecks.put(SmellMetric.Type.USING_PERSONAL_PRONOUN, new UsingPersonalPronounCheck());
         smellChecks.put(SmellMetric.Type.MISSING_ASSERTION, new MissingAssertionCheck());
@@ -34,7 +32,6 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.CONDITIONAL_ASSERTION, new ConditionalAssertionCheck());
         smellChecks.put(SmellMetric.Type.OVER_CHECKING, new OverCheckingCheck());
         smellChecks.put(SmellMetric.Type.SNEAKY_CHECKING, new SneakyCheckingCheck());
-        smellChecks.put(SmellMetric.Type.DATA_CREEP, new DataCreepCheck());
     }
 
     public SmellDetector(Set<SmellMetric.Type> smellsToDetect, Clones<UserKeyword> clones){
