@@ -1,7 +1,8 @@
 package tech.ikora.smells;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import tech.ikora.builder.BuildResult;
+import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.checks.UsingPersonalPronounCheck;
@@ -9,16 +10,31 @@ import tech.ikora.smells.checks.UsingPersonalPronounCheck;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UsingPersonalPronounCheckTest {
-    private static Project project;
-
-    @BeforeAll
-    static void loadProject(){
-        project = Helpers.compileProject("usingPersonalPronoun.robot");
-    }
-
     @Test
     void testWithNoPronoun(){
-        final TestCase testCase = project.findTestCase("usingPersonalPronoun", "Test case without personal pronoun").iterator().next();
+        final String code =
+                "*** Test Cases ***\n" +
+                "\n" +
+                "Test case without personal pronoun\n" +
+                "    Given browser is opened to login page\n" +
+                "    When user \"demo\" logs in with password \"mode\"\n" +
+                "    Then welcome page should be open\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Browser is opened to login page\n" +
+                "    Log    Browser is opened to login page\n" +
+                "\n" +
+                "User \"${username}\" logs in with password \"${password}\"\n" +
+                "    Log    ${username}\n" +
+                "    Log    ${password}\n" +
+                "\n" +
+                "Welcome page should be open\n" +
+                "    Log    Welcome page should be open\n";
+
+        final BuildResult result = Builder.build(code, true);
+        final Project project = result.getProjects().iterator().next();
+
+        final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case without personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
         final SmellMetric metric = check.computeMetric(testCase, null);
 
@@ -27,7 +43,28 @@ public class UsingPersonalPronounCheckTest {
 
     @Test
     void testWithAllPronoun(){
-        final TestCase testCase = project.findTestCase("usingPersonalPronoun", "Test case with all personal pronoun").iterator().next();
+        final String code =
+                "*** Test Cases ***\n" +
+                "\n" +
+                "Test case with all personal pronoun\n" +
+                "    Given I am on login page\n" +
+                "    When I put my usernam and password\n" +
+                "    Then I should be on the welcome page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "I am on login page\n" +
+                "    Log    I am on login page\n" +
+                "\n" +
+                "I put my usernam and password\n" +
+                "    Log    I put my usernam and password\n" +
+                "\n" +
+                "I should be on the welcome page\n" +
+                "    Log    I should be on the welcome page";
+
+        final BuildResult result = Builder.build(code, true);
+        final Project project = result.getProjects().iterator().next();
+
+        final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with all personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
         final SmellMetric metric = check.computeMetric(testCase, null);
 
@@ -36,7 +73,38 @@ public class UsingPersonalPronounCheckTest {
 
     @Test
     void testWithSomePronoun(){
-        final TestCase testCase = project.findTestCase("usingPersonalPronoun", "Test case with some personal pronoun").iterator().next();
+        final String code =
+                "*** Test Cases ***\n" +
+                "\n" +
+                "Test case with some personal pronoun\n" +
+                "    Given I am on login page\n" +
+                "    When I put my usernam and password\n" +
+                "    Then welcome page should be open\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Browser is opened to login page\n" +
+                "    Log    Browser is opened to login page\n" +
+                "\n" +
+                "User \"${username}\" logs in with password \"${password}\"\n" +
+                "    Log    ${username}\n" +
+                "    Log    ${password}\n" +
+                "\n" +
+                "Welcome page should be open\n" +
+                "    Log    Welcome page should be open\n" +
+                "\n" +
+                "I am on login page\n" +
+                "    Log    I am on login page\n" +
+                "\n" +
+                "I put my usernam and password\n" +
+                "    Log    I put my usernam and password\n" +
+                "\n" +
+                "I should be on the welcome page\n" +
+                "    Log    I should be on the welcome page";
+
+        final BuildResult result = Builder.build(code, true);
+        final Project project = result.getProjects().iterator().next();
+
+        final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with some personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
         final SmellMetric metric = check.computeMetric(testCase, null);
 
