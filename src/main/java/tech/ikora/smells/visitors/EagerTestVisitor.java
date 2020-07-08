@@ -2,14 +2,13 @@ package tech.ikora.smells.visitors;
 
 import edu.stanford.nlp.simple.Sentence;
 import org.ejml.simple.SimpleMatrix;
-import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.model.UserKeyword;
 import tech.ikora.smells.utils.WordFrequency;
 
 import java.util.List;
 
-public class EagerTestVisitor extends TreeVisitor {
+public class EagerTestVisitor extends SmellVisitor {
     private int position;
     private final WordFrequency wordFrequency;
 

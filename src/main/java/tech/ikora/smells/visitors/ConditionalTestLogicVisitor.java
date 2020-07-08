@@ -1,12 +1,11 @@
 package tech.ikora.smells.visitors;
 
-import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.model.ForLoop;
 import tech.ikora.model.Keyword;
 import tech.ikora.model.KeywordCall;
 
-public class ConditionalTestLogicVisitor extends TreeVisitor {
+public class ConditionalTestLogicVisitor extends SmellVisitor {
     private int conditionsCount = 0;
 
     public int getConditionsCount(){
@@ -18,6 +17,7 @@ public class ConditionalTestLogicVisitor extends TreeVisitor {
         call.getKeyword().ifPresent(k -> {
             if(k.getType() == Keyword.Type.CONTROL_FLOW){
                 ++this.conditionsCount;
+                addNode(call);
             }
         });
 
@@ -27,6 +27,8 @@ public class ConditionalTestLogicVisitor extends TreeVisitor {
     @Override
     public void visit(ForLoop forLoop, VisitorMemory memory) {
         ++this.conditionsCount;
+        addNode(forLoop);
+
         super.visit(forLoop, memory);
     }
 }

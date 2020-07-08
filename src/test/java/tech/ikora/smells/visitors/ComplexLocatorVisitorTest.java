@@ -45,6 +45,7 @@ public class ComplexLocatorVisitorTest {
 
         assertEquals(0, visitor.getComplexLocators());
         assertEquals(0, visitor.getLocators());
+        assertEquals(0, visitor.getNodes().size());
     }
 
     @Test
@@ -81,6 +82,7 @@ public class ComplexLocatorVisitorTest {
 
         assertEquals(0, visitor.getComplexLocators());
         assertEquals(1, visitor.getLocators());
+        assertEquals(0, visitor.getNodes().size());
     }
 
     @Test
@@ -117,6 +119,7 @@ public class ComplexLocatorVisitorTest {
 
         assertEquals(0, visitor.getComplexLocators());
         assertEquals(1, visitor.getLocators());
+        assertEquals(0, visitor.getNodes().size());
     }
 
     @Test
@@ -153,5 +156,9 @@ public class ComplexLocatorVisitorTest {
 
         assertEquals(1, visitor.getComplexLocators());
         assertEquals(2, visitor.getLocators());
+        assertEquals(1, visitor.getNodes().size());
+
+        final String value = visitor.getNodes().iterator().next().getName();
+        assertEquals("css:.covid-form > div > div.react-grid-Container > div > div > div.react-grid-Header > div > div > div:nth-child(3) > div", value);
     }
 }

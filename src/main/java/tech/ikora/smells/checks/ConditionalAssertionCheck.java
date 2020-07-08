@@ -5,22 +5,26 @@ import tech.ikora.model.*;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.visitors.CollectAssertionsVisitor;
+import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 import java.util.Optional;
 
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
-        CollectAssertionsVisitor visitor = new CollectAssertionsVisitor();
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.ASSERTION);
         visitor.visit(testCase, new PathMemory());
 
-        int totalAssertions = visitor.getAssertions().size();
-        long conditionalAssertions = visitor.getAssertions().stream().filter(this::isConditional).count();
+        int totalAssertions = visitor.getNodes().size();
+        long conditionalAssertions = visitor.getNodes().stream()
+                .map(n -> (KeywordCall)n)
+                .filter(this::isConditional)
+                .count();
 
         double metric = totalAssertions > 0 ? (double)conditionalAssertions / (double)totalAssertions : 0.0;
 
-        return new SmellMetric(SmellMetric.Type.CONDITIONAL_ASSERTION, metric);
+        return new SmellResult(SmellMetric.Type.CONDITIONAL_ASSERTION, metric, visitor.getNodes());
     }
 
     private boolean isConditional(KeywordCall assertion) {

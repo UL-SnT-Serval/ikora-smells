@@ -82,12 +82,12 @@ public class EagerTestCheckTest {
 
     @Test
     void testCheck(){
-        final BuildResult result = Builder.build(codeLogin, true);
-        final Project project = result.getProjects().iterator().next();
+        final BuildResult build = Builder.build(codeLogin, true);
+        final Project project = build.getProjects().iterator().next();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final EagerTestCheck check = new EagerTestCheck();
-        final SmellMetric metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, null);
 
         assertThat(metric.getValue(), allOf(greaterThan(0.0), lessThan(1.0)));
     }

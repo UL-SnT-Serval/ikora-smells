@@ -1,6 +1,5 @@
 package tech.ikora.smells.visitors;
 
-import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.model.Keyword;
 import tech.ikora.model.KeywordCall;
@@ -10,19 +9,17 @@ import tech.ikora.model.UserKeyword;
 import java.util.List;
 import java.util.Optional;
 
-public class OneActionVisitor extends TreeVisitor {
-    private int singleActionCount;
+public class OneActionVisitor extends SmellVisitor {
     private int keywordsCount;
     private Keyword.Type type;
 
     public OneActionVisitor(Keyword.Type type){
-        this.singleActionCount = 0;
         this.keywordsCount = 0;
         this.type = type;
     }
 
     public int getSingleActionCount(){
-        return singleActionCount;
+        return getNodes().size();
     }
 
     public int getKeywordsCount() {
@@ -32,7 +29,7 @@ public class OneActionVisitor extends TreeVisitor {
     @Override
     public void visit(UserKeyword keyword, VisitorMemory memory) {
         if(isSingleActionKeyword(keyword.getSteps())){
-            ++singleActionCount;
+            addNode(keyword);
         }
 
         ++keywordsCount;

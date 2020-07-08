@@ -2,7 +2,6 @@ package tech.ikora.smells;
 
 public class SmellMetric {
     public enum Type{
-        OBSCURE_TEST,
         HARD_CODED_VALUES,
         CONDITIONAL_TEST_LOGIC,
         LONG_TEST_STEPS,
@@ -11,7 +10,6 @@ public class SmellMetric {
         LACK_OF_ENCAPSULATION,
         LOGGING_IN_FIXTURE_CODE,
         HIDING_TEST_DATA_IN_FIXTURE_CODE,
-        IMPLEMENTATION_DEPENDENT,
         STINKY_SYNCHRONIZATION_SYNDROME,
         CALCULATE_EXPECTED_RESULTS_ON_THE_FLY,
         COMPLICATED_SETUP_SCENARIOS,
@@ -23,7 +21,6 @@ public class SmellMetric {
         CONDITIONAL_ASSERTION,
         OVER_CHECKING,
         SNEAKY_CHECKING,
-        DATA_CREEP,
         LACK_OF_DOCUMENTATION
     }
 

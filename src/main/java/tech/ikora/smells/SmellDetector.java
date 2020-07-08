@@ -43,14 +43,14 @@ public class SmellDetector {
         return this.clones;
     }
 
-    public Set<SmellMetric> computeMetrics(TestCase testCase){
-        Set<SmellMetric> metrics = new HashSet<>();
+    public SmellResults computeMetrics(TestCase testCase){
+        SmellResults results = new SmellResults();
 
        for(SmellMetric.Type type: smellsToDetect){
-            metrics.add(smellChecks.get(type).computeMetric(testCase, this));
+           results.add(smellChecks.get(type).computeMetric(testCase, this));
        }
 
-        return metrics;
+        return results;
     }
 
     public static SmellDetector all(Clones<UserKeyword> clones){

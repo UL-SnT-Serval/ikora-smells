@@ -1,31 +1,22 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.visitor.CountCallByTypeVisitor;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.Keyword;
-import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 public class MissingAssertionCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.ASSERTION);
+        visitor.visit(testCase, new PathMemory());
 
-        int missingAssertionSteps = 0;
+        double metric = visitor.getNodes().isEmpty() ? 0. : 1.;
 
-        for(Step step: testCase.getSteps()){
-            CountCallByTypeVisitor visitor = new CountCallByTypeVisitor(Keyword.Type.ASSERTION);
-            visitor.visit(step, new PathMemory());
-
-            if(visitor.getCount() == 0){
-                ++missingAssertionSteps;
-            }
-        }
-
-        double metric = (double)missingAssertionSteps / (double)testCase.getSteps().size();
-
-        return new SmellMetric(SmellMetric.Type.MISSING_ASSERTION, metric);
+        return new SmellResult(SmellMetric.Type.MISSING_ASSERTION, metric, visitor.getNodes());
     }
 }

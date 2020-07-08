@@ -1,16 +1,19 @@
 package tech.ikora.smells.visitors;
 
-import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.model.*;
 
 import java.util.Optional;
 
-public class HardCodedValuesVisitor extends TreeVisitor {
-    private int hardcodedValuesCounter = 0;
+public class HardCodedValuesVisitor extends SmellVisitor {
+    private int totalArguments = 0;
 
     public int getNumberHardcodedValues() {
-        return hardcodedValuesCounter;
+        return getNodes().size();
+    }
+
+    public int getTotalArguments(){
+        return totalArguments;
     }
 
     @Override
@@ -20,8 +23,9 @@ public class HardCodedValuesVisitor extends TreeVisitor {
 
             if(definition.isPresent()){
                 if(definition.get() instanceof Literal){
-                    ++hardcodedValuesCounter;
+                    addNode(argument);
                 }
+                else ++totalArguments;
             }
         }
 

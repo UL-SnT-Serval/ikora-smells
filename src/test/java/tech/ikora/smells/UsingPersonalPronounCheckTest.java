@@ -31,12 +31,12 @@ public class UsingPersonalPronounCheckTest {
                 "Welcome page should be open\n" +
                 "    Log    Welcome page should be open\n";
 
-        final BuildResult result = Builder.build(code, true);
-        final Project project = result.getProjects().iterator().next();
+        final BuildResult build = Builder.build(code, true);
+        final Project project = build.getProjects().iterator().next();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case without personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
-        final SmellMetric metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, null);
 
         assertEquals(metric.getValue(), 0.0);
     }
@@ -61,12 +61,12 @@ public class UsingPersonalPronounCheckTest {
                 "I should be on the welcome page\n" +
                 "    Log    I should be on the welcome page";
 
-        final BuildResult result = Builder.build(code, true);
-        final Project project = result.getProjects().iterator().next();
+        final BuildResult build = Builder.build(code, true);
+        final Project project = build.getProjects().iterator().next();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with all personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
-        final SmellMetric metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, null);
 
         assertEquals(metric.getValue(), 1.0);
     }
@@ -101,12 +101,12 @@ public class UsingPersonalPronounCheckTest {
                 "I should be on the welcome page\n" +
                 "    Log    I should be on the welcome page";
 
-        final BuildResult result = Builder.build(code, true);
-        final Project project = result.getProjects().iterator().next();
+        final BuildResult build = Builder.build(code, true);
+        final Project project = build.getProjects().iterator().next();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with some personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
-        final SmellMetric metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, null);
 
         assertEquals(metric.getValue(), 0.6666, 0.0001);
     }

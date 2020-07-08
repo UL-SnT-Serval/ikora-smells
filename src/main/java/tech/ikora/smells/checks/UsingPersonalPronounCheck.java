@@ -3,27 +3,33 @@ package tech.ikora.smells.checks;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UsingPersonalPronounCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
-        long personalPronoun = calculateUsingPersonalPronoun(testCase.getSteps());
-        double metric = (double)personalPronoun / (double)testCase.getSteps().size();
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+        Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase.getSteps());
+        double metric = (double)nodes.size() / (double)testCase.getSteps().size();
 
-        return new SmellMetric(SmellMetric.Type.USING_PERSONAL_PRONOUN, metric);
+        return new SmellResult(SmellMetric.Type.USING_PERSONAL_PRONOUN, metric, nodes);
     }
 
-    private long calculateUsingPersonalPronoun(List<Step> steps){
-        return steps.stream().filter(this::isUsingPersonalPronoun).count();
+    private Set<SourceNode> collectStepsUsingPersonalPronoun(List<Step> steps){
+        return steps.stream().filter(this::isUsingPersonalPronoun)
+                .map(s -> (SourceNode)s)
+                .collect(Collectors.toSet());
     }
 
     private boolean isUsingPersonalPronoun(Step step){

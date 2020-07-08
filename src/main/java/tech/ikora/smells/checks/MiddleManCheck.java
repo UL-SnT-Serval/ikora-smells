@@ -6,11 +6,12 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
 import tech.ikora.smells.visitors.OneActionVisitor;
 
 public class MiddleManCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         OneActionVisitor visitor = new OneActionVisitor(Keyword.Type.ACTION);
         visitor.visit(testCase, new PathMemory());
 
@@ -18,6 +19,6 @@ public class MiddleManCheck implements SmellCheck {
         final int keywordsCounts = visitor.getKeywordsCount();
         final double metric = (double)singleActionCount / (double)keywordsCounts;
 
-        return new SmellMetric(SmellMetric.Type.MIDDLE_MAN, metric);
+        return new SmellResult(SmellMetric.Type.MIDDLE_MAN, metric, visitor.getNodes());
     }
 }

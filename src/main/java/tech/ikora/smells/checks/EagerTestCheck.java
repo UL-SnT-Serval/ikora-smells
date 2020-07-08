@@ -8,13 +8,15 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
 import tech.ikora.smells.visitors.EagerTestVisitor;
 
+import java.util.Collections;
 import java.util.List;
 
 public class EagerTestCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         EagerTestVisitor visitor = new EagerTestVisitor(testCase.getSteps().size());
 
         int position = 0;
@@ -26,7 +28,7 @@ public class EagerTestCheck implements SmellCheck {
         List<SimpleMatrix> frequencyVectors = visitor.getFrequencyVectors();
 
         if(frequencyVectors.isEmpty() || frequencyVectors.get(0).numCols() == 0){
-            return new SmellMetric(SmellMetric.Type.EAGER_TEST, Double.NaN);
+            return new SmellResult(SmellMetric.Type.EAGER_TEST, Double.NaN, Collections.emptySet());
         }
 
         int size = frequencyVectors.size();
@@ -44,6 +46,6 @@ public class EagerTestCheck implements SmellCheck {
 
         double metric = 1 -  (sum / (double)size);
 
-        return new SmellMetric(SmellMetric.Type.EAGER_TEST, metric);
+        return new SmellResult(SmellMetric.Type.EAGER_TEST, metric, Collections.emptySet());
     }
 }

@@ -5,14 +5,19 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
 import tech.ikora.smells.visitors.SleepCounterVisitor;
 
 public class StinkySynchronizationSyndromeCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
-        SleepCounterVisitor visitor = new SleepCounterVisitor();
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+        final SleepCounterVisitor visitor = new SleepCounterVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        return new SmellMetric(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, visitor.getNumberSleepCalls());
+        final int sleepCalls = visitor.getSleepCalls();
+        final int syncCalls = visitor.getSyncCalls();
+        final double metric = (double)sleepCalls / (double)syncCalls;
+
+        return new SmellResult(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, metric, visitor.getNodes());
     }
 }

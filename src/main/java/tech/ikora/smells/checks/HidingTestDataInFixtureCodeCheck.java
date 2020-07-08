@@ -6,16 +6,17 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.visitors.ActionCounterVisitor;
+import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
-        ActionCounterVisitor visitor = new ActionCounterVisitor(Keyword.Type.GET);
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.GET);
         visitor.visit(testCase.getSetup(), new PathMemory());
 
-        double metric = (double)visitor.getActionCount() / (double)visitor.getTotalCallCount();
+        double metric = (double)visitor.getNodes().size() / (double)visitor.getTotalVisited();
 
-        return new SmellMetric(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, metric);
+        return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, metric, visitor.getNodes());
     }
 }

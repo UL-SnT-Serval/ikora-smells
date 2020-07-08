@@ -5,16 +5,19 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
 import tech.ikora.smells.visitors.LackOfDocumentationVisitor;
 
 public class LackOfDocumentationCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         LackOfDocumentationVisitor visitor = new LackOfDocumentationVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        double metric = visitor.getDocumentedKeywordProportion();
+        final int documented = visitor.getDocumentedKeyword();
+        final int total = visitor.getTotalKeywords();
+        final double metric = (double)documented / (double)total;
 
-        return new SmellMetric(SmellMetric.Type.LACK_OF_DOCUMENTATION, metric);
+        return new SmellResult(SmellMetric.Type.LACK_OF_DOCUMENTATION, metric, visitor.getNodes());
     }
 }

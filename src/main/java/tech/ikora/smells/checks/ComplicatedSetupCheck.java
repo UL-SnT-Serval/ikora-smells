@@ -5,10 +5,13 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
+import tech.ikora.smells.SmellResult;
+
+import java.util.Collections;
 
 public class ComplicatedSetupCheck implements SmellCheck {
     @Override
-    public SmellMetric computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         double metric = 0.0;
 
         if(testCase.getSetup() != null){
@@ -18,6 +21,6 @@ public class ComplicatedSetupCheck implements SmellCheck {
             metric = (double)setupSize / (double)(setupSize + testCaseSize);
         }
 
-        return new SmellMetric(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, metric);
+        return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, metric, Collections.emptySet());
     }
 }

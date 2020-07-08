@@ -1,6 +1,6 @@
 package tech.ikora.smells.visitors;
 
-import tech.ikora.analytics.visitor.TreeVisitor;
+import org.apache.commons.lang3.tuple.Pair;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.builder.ValueResolver;
 import tech.ikora.model.*;
@@ -15,22 +15,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.xpath.XPath;
 import javax.xml.transform.TransformerException;
 
-public class ComplexLocatorVisitor extends TreeVisitor {
-    private int complexLocators = 0;
+public class ComplexLocatorVisitor extends SmellVisitor {
     private int locators = 0;
 
     private static final Pattern xPathPattern =  Pattern.compile("^xpath\\:", Pattern.CASE_INSENSITIVE);
     private static final Pattern cssPattern =  Pattern.compile("^css\\:", Pattern.CASE_INSENSITIVE);
 
     public int getComplexLocators() {
-        return complexLocators;
+        return getNodes().size();
     }
 
     public int getLocators() {
@@ -51,9 +49,9 @@ public class ComplexLocatorVisitor extends TreeVisitor {
                 for(int index: locatorIndexes){
                     if(argumentList.isExpendedUntilPosition(index)){
                         final Argument argument = argumentList.get(index);
-                        for(String value: getArgumentValues(argument)){
-                            if(isComplex(value)){
-                                ++complexLocators;
+                        for(Pair<String, SourceNode> value: getArgumentValues(argument)){
+                            if(isComplex(value.getLeft())){
+                                addNode(value.getRight());
                             }
 
                             ++locators;
@@ -66,18 +64,18 @@ public class ComplexLocatorVisitor extends TreeVisitor {
         super.visit(call, memory);
     }
 
-    private List<String> getArgumentValues(Argument argument){
-        List<String> values = new ArrayList<>();
+    private List<Pair<String, SourceNode>> getArgumentValues(Argument argument){
+        List<Pair<String, SourceNode>> values = new ArrayList<>();
 
         for(Node node: ValueResolver.getValueNodes(argument)){
             if(node instanceof Literal){
-                values.add(node.getName());
+                values.add(Pair.of(node.getName(), (SourceNode) node));
             }
             else if(node instanceof Argument){
-                values.add(node.getName());
+                values.add(Pair.of(node.getName(), (SourceNode) node));
             }
             else if (node instanceof LibraryVariable){
-                values.add(node.getName());
+                values.add(Pair.of(node.getName(), argument));
             }
             else if(node instanceof VariableAssignment){
                 values.addAll(getAssignmentValue((VariableAssignment)node));
@@ -90,26 +88,26 @@ public class ComplexLocatorVisitor extends TreeVisitor {
         return values;
     }
 
-    private List<String> getAssignmentValue(final VariableAssignment assignment){
+    private List<Pair<String, SourceNode>> getAssignmentValue(final VariableAssignment assignment){
         final List<List<String>> values = new ArrayList<>();
 
         for(Argument argument: assignment.getValues()){
-            values.add(getArgumentValues(argument));
+            values.add(getArgumentValues(argument).stream().map(Pair::getLeft).collect(Collectors.toList()));
         }
 
         return Permutations.permutations(values).stream()
-                .map(v -> String.join("\t", v))
+                .map(v -> Pair.of(String.join("\t", v), (SourceNode)assignment))
                 .collect(Collectors.toList());
     }
 
-    private List<String> getParameterValue(final Variable variable){
+    private List<Pair<String, SourceNode>> getParameterValue(final Variable variable){
         final Optional<UserKeyword> userKeyword = ValueResolver.getUserKeywordFromArgument(variable);
 
         if(!userKeyword.isPresent()){
             return Collections.emptyList();
         }
 
-        final List<String> values = new ArrayList<>();
+        final List<Pair<String, SourceNode>> values = new ArrayList<>();
         final int position = userKeyword.get().getArguments().indexOf(variable);
 
         for(Node node: userKeyword.get().getDependencies()){

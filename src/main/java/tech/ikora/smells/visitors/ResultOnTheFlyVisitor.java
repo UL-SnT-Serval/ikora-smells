@@ -1,6 +1,5 @@
 package tech.ikora.smells.visitors;
 
-import tech.ikora.analytics.visitor.TreeVisitor;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.model.*;
 import tech.ikora.types.BaseType;
@@ -8,12 +7,11 @@ import tech.ikora.types.BaseTypeList;
 
 import java.util.Optional;
 
-public class ResultOnTheFlyVisitor extends TreeVisitor {
-    private int onTheFly = 0;
+public class ResultOnTheFlyVisitor extends SmellVisitor {
     private int expected = 0;
 
     public int getOnTheFly() {
-        return onTheFly;
+        return getNodes().size();
     }
 
     public int getExpected() {
@@ -64,7 +62,7 @@ public class ResultOnTheFlyVisitor extends TreeVisitor {
     private void processVariable(Variable variable){
         for(Node definition: variable.getDefinition(Link.Import.BOTH)){
            if(isComputed(definition)){
-               ++this.onTheFly;
+               addNode(variable);
            }
         }
     }
