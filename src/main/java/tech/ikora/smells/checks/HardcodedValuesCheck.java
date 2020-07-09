@@ -6,7 +6,6 @@ import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.SmellResult;
-import tech.ikora.smells.utils.StatementCounter;
 import tech.ikora.smells.visitors.HardCodedValuesVisitor;
 
 public class HardcodedValuesCheck implements SmellCheck {
@@ -15,7 +14,7 @@ public class HardcodedValuesCheck implements SmellCheck {
         HardCodedValuesVisitor visitor = new HardCodedValuesVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getNumberHardcodedValues() / (double) StatementCounter.getCount(testCase);
+        double metric = (double)visitor.getNumberHardcodedValues() / (double) visitor.getTotalArguments();
 
         return new SmellResult(SmellMetric.Type.HARD_CODED_VALUES, metric, visitor.getNodes());
     }

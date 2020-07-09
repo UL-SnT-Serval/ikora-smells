@@ -14,8 +14,8 @@ public class ComplicatedSetupCheck implements SmellCheck {
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         double metric = 0.0;
 
-        if(testCase.getSetup() != null){
-            int setupSize = KeywordStatistics.getSequenceSize(testCase.getSetup());
+        if(testCase.getSetup().isPresent()){
+            int setupSize = KeywordStatistics.getSequenceSize(testCase.getSetup().get());
             int testCaseSize = KeywordStatistics.getSequenceSize(testCase);
 
             metric = (double)setupSize / (double)(setupSize + testCaseSize);

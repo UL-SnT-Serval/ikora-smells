@@ -13,9 +13,9 @@ public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.GET);
-        visitor.visit(testCase.getSetup(), new PathMemory());
+        testCase.getSetup().ifPresent(s -> visitor.visit(s, new PathMemory()));
 
-        double metric = (double)visitor.getNodes().size() / (double)visitor.getTotalVisited();
+        double metric = visitor.getTotalVisited() > 0 ? (double)visitor.getNodes().size() / (double)visitor.getTotalVisited() : 0.;
 
         return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, metric, visitor.getNodes());
     }

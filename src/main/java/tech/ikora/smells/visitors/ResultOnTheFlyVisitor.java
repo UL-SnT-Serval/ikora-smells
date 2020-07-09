@@ -56,7 +56,7 @@ public class ResultOnTheFlyVisitor extends SmellVisitor {
             return Optional.empty();
         }
 
-        return call.getArgumentList().get(index).getDefinition();
+        return Optional.of(call.getArgumentList().get(index).getDefinition());
     }
 
     private void processVariable(Variable variable){

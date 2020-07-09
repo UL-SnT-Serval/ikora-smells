@@ -25,10 +25,10 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new ResultsOnTheFlyCheck());
         smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
         smellChecks.put(SmellMetric.Type.COMPLEX_LOCATORS, new ComplexLocatorCheck());
-        smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
-        smellChecks.put(SmellMetric.Type.USING_PERSONAL_PRONOUN, new UsingPersonalPronounCheck());
+        //smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
+        //smellChecks.put(SmellMetric.Type.USING_PERSONAL_PRONOUN, new UsingPersonalPronounCheck());
         smellChecks.put(SmellMetric.Type.MISSING_ASSERTION, new MissingAssertionCheck());
-        smellChecks.put(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, new HardCodedEnvironmentConfiguration());
+        //smellChecks.put(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, new HardCodedEnvironmentConfiguration());
         smellChecks.put(SmellMetric.Type.CONDITIONAL_ASSERTION, new ConditionalAssertionCheck());
         smellChecks.put(SmellMetric.Type.OVER_CHECKING, new OverCheckingCheck());
         smellChecks.put(SmellMetric.Type.SNEAKY_CHECKING, new SneakyCheckingCheck());

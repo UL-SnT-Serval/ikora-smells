@@ -2,12 +2,9 @@ package tech.ikora.smells;
 
 import tech.ikora.model.SourceNode;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class SmellResults {
+public class SmellResults implements Iterable<SmellResult> {
     private final Map<SmellMetric.Type, SmellResult> results;
 
     public SmellResults(){
@@ -36,5 +33,10 @@ public class SmellResults {
         }
 
         return smellResult.getNodes();
+    }
+
+    @Override
+    public Iterator<SmellResult> iterator() {
+        return results.values().iterator();
     }
 }

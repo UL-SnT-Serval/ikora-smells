@@ -3,7 +3,6 @@ package tech.ikora.smells.checks;
 import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.Keyword;
-import tech.ikora.model.KeywordCall;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
@@ -17,7 +16,9 @@ import java.util.Set;
 public class LoggingInFixtureCodeCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
-        int statements = countStatements(testCase.getSetup()) + countStatements(testCase.getTearDown());
+        int statements = testCase.getSetup().map(KeywordStatistics::getStatementCount).orElse(0)
+                + testCase.getTearDown().map(KeywordStatistics::getStatementCount).orElse(0);
+
         Set<SourceNode> nodes = getFixtureLoggingNodes(testCase);
 
         double metric = (double)nodes.size() / (double)statements;
@@ -25,24 +26,11 @@ public class LoggingInFixtureCodeCheck implements SmellCheck {
         return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, metric, nodes);
     }
 
-    private int countStatements(KeywordCall fixture){
-        if(fixture == null){
-            return 0;
-        }
-
-        return KeywordStatistics.getStatementCount(fixture);
-    }
-
     private Set<SourceNode> getFixtureLoggingNodes(TestCase testCase){
         CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.LOG);
 
-        if(testCase.getSetup() != null){
-            visitor.visit(testCase.getSetup(), new PathMemory());
-        }
-
-        if(testCase.getTearDown() != null){
-            visitor.visit(testCase.getTearDown(), new PathMemory());
-        }
+        testCase.getSetup().ifPresent(s -> visitor.visit(s, new PathMemory()));
+        testCase.getTearDown().ifPresent(s -> visitor.visit(s, new PathMemory()));
 
         return visitor.getNodes();
     }
