@@ -81,7 +81,7 @@ public class EagerTestCheckTest {
     }
 
     @Test
-    void testCheck(){
+    void testDetectionWithExampleProject(){
         final BuildResult build = Builder.build(codeLogin, true);
         final Project project = build.getProjects().iterator().next();
 

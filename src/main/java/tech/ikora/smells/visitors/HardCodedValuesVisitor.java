@@ -20,7 +20,8 @@ public class HardCodedValuesVisitor extends SmellVisitor {
             if(argument.isType(Literal.class)){
                 addNode(argument);
             }
-            else ++totalArguments;
+
+            ++totalArguments;
         }
 
         super.visit(call, memory);
