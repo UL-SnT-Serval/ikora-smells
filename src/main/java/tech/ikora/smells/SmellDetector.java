@@ -15,6 +15,7 @@ public class SmellDetector {
     static {
         smellChecks = new HashMap<>(SmellMetric.Type.values().length);
 
+        smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
         smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
         smellChecks.put(SmellMetric.Type.TEST_CLONES, new TestClonesCheck());
         smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCheck());
