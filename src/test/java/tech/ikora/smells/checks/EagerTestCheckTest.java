@@ -1,4 +1,4 @@
-package tech.ikora.smells;
+package tech.ikora.smells.checks;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
-import tech.ikora.smells.checks.EagerTestCheck;
+import tech.ikora.smells.SmellResult;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

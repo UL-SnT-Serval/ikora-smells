@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.builder.ValueResolver;
 import tech.ikora.model.*;
+import tech.ikora.smells.utils.LocatorUtils;
 import tech.ikora.smells.utils.Permutations;
 import tech.ikora.smells.utils.css.parser.SelectorParser;
 import tech.ikora.smells.utils.css.selector.CompoundSelector;
@@ -18,14 +19,12 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.apache.xpath.XPath;
-import javax.xml.transform.TransformerException;
+
 
 public class ComplexLocatorVisitor extends SmellVisitor {
     private int locators = 0;
 
-    private static final Pattern xPathPattern =  Pattern.compile("^xpath\\:", Pattern.CASE_INSENSITIVE);
-    private static final Pattern cssPattern =  Pattern.compile("^css\\:", Pattern.CASE_INSENSITIVE);
+
 
     public int getComplexLocators() {
         return getNodes().size();
@@ -50,7 +49,7 @@ public class ComplexLocatorVisitor extends SmellVisitor {
                     if(argumentList.isExpendedUntilPosition(index)){
                         final Argument argument = argumentList.get(index);
                         for(Pair<String, SourceNode> value: getArgumentValues(argument)){
-                            if(isComplex(value.getLeft())){
+                            if(LocatorUtils.isComplex(value.getLeft(), 4)){
                                 addNode(value.getRight());
                             }
 
@@ -126,44 +125,5 @@ public class ComplexLocatorVisitor extends SmellVisitor {
         }
 
         return values;
-    }
-
-    private boolean isComplex(final String value){
-        int maxSize = 4;
-
-        if(xPathPattern.matcher(value).find()){
-            return getXPathSize(value.replaceAll(xPathPattern.pattern(), "")) > maxSize;
-        }
-        else if(cssPattern.matcher(value).find()){
-            return getCssSize(value.replaceAll(cssPattern.pattern(), "")) > maxSize;
-        }
-
-        return false;
-    }
-
-    private int getXPathSize(final String value) {
-        int size = 1;
-
-        try {
-            final XPath xPath = new XPath(value, null, null, 0);
-            size = xPath.getExpression().exprGetNumChildren();
-        } catch (TransformerException e) {
-            // it will just be ignored and count as a default type
-        }
-
-        return size;
-    }
-
-    private int getCssSize(final String value){
-        final Selector selector = SelectorParser.parse(value);
-        CompoundSelector compoundSelector = selector.getCompoundSelector();
-
-        int size = 1;
-        while (compoundSelector.getPrevious() != null){
-            compoundSelector = compoundSelector.getPrevious().getSecond();
-            ++size;
-        }
-
-        return size;
     }
 }

@@ -32,7 +32,7 @@ public class LackOfEncapsulationCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> previousNodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes) {
         return false;
     }
 }

@@ -7,10 +7,7 @@ import tech.ikora.model.Argument;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
 import tech.ikora.model.Variable;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.HardCodedValuesVisitor;
 
 import java.util.Optional;
@@ -29,9 +26,9 @@ public class HardcodedValuesCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes){
-        for(Action action: SmellCheck.getActionsByType(change, Action.Type.CHANGE_STEP_ARGUMENT)) {
-            final Optional<SourceNode> oldNode = SmellCheck.toSourceNode(action.getLeft());
-            final Optional<SourceNode> newNode = SmellCheck.toSourceNode(action.getRight());
+        for(Action action: NodeUtils.getActionsByType(change, Action.Type.CHANGE_STEP_ARGUMENT)) {
+            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
 
             if(oldNode.isPresent()
                     && newNode.isPresent()

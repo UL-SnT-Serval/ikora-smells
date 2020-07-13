@@ -4,10 +4,7 @@ import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.*;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 import java.util.Optional;
@@ -16,13 +13,13 @@ import java.util.Set;
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
-        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.ASSERTION);
+        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
         visitor.visit(testCase, new PathMemory());
 
         int totalAssertions = visitor.getNodes().size();
         long conditionalAssertions = visitor.getNodes().stream()
                 .map(n -> (KeywordCall)n)
-                .filter(this::isConditional)
+                .filter(this::isCallingAssertion)
                 .count();
 
         double metric = totalAssertions > 0 ? (double)conditionalAssertions / (double)totalAssertions : 0.0;
@@ -32,9 +29,13 @@ public class ConditionalAssertionCheck implements SmellCheck {
 
     public boolean isFix(Difference change, Set<SourceNode> nodes) {
         for(Action action: change.getActions()){
-            final Optional<SourceNode> oldNode = SmellCheck.toSourceNode(action.getLeft());
+            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
 
-            if(nodes.contains(action.getLeft()) && SmellCheck.isCallType(action.getLeft(), Keyword.Type.ASSERTION)){
+            if(oldNode.isPresent()
+                    && newNode.isPresent()
+                    && nodes.contains(oldNode.get())
+                    && NodeUtils.isCallType(newNode.get(), Keyword.Type.ASSERTION, true)){
                 return true;
             }
         }
@@ -42,14 +43,11 @@ public class ConditionalAssertionCheck implements SmellCheck {
         return false;
     }
 
-    private boolean isConditional(KeywordCall assertion) {
-        SourceNode parent = assertion.getAstParent();
-
-        if(KeywordCall.class.isAssignableFrom(parent.getClass())){
-            Optional<Keyword> keywordOptional = ((KeywordCall)parent).getKeyword();
-
-            if(keywordOptional.isPresent()){
-                return keywordOptional.get().getType() == Keyword.Type.CONTROL_FLOW;
+    private boolean isCallingAssertion(KeywordCall assertion) {
+        for(Argument argument: assertion.getArgumentList()){
+            if(argument.isType(KeywordCall.class)){
+                final KeywordCall call = (KeywordCall)argument.getDefinition();
+                return NodeUtils.isCallType(call, Keyword.Type.ASSERTION, true);
             }
         }
 

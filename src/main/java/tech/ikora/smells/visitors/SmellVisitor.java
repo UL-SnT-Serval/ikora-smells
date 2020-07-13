@@ -1,9 +1,10 @@
 package tech.ikora.smells.visitors;
 
 import tech.ikora.analytics.visitor.TreeVisitor;
-import tech.ikora.model.SourceNode;
+import tech.ikora.model.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public abstract class SmellVisitor extends TreeVisitor {
