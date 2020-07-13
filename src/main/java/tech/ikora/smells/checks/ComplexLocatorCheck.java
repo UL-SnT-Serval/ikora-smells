@@ -1,12 +1,16 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
+import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
 import tech.ikora.smells.SmellMetric;
 import tech.ikora.smells.visitors.ComplexLocatorVisitor;
 import tech.ikora.smells.SmellResult;
+
+import java.util.Set;
 
 public class ComplexLocatorCheck implements SmellCheck {
     @Override
@@ -17,5 +21,10 @@ public class ComplexLocatorCheck implements SmellCheck {
         double metric = (double)visitor.getComplexLocators() / (double)visitor.getLocators();
 
         return new SmellResult(SmellMetric.Type.COMPLEX_LOCATORS, metric, visitor.getNodes());
+    }
+
+    @Override
+    public boolean isFix(Difference change, Set<SourceNode> previousNodes) {
+        return false;
     }
 }

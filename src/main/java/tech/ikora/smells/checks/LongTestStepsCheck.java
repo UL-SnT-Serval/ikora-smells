@@ -1,5 +1,6 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;
@@ -26,5 +27,10 @@ public class LongTestStepsCheck implements SmellCheck {
         double metric = (double)nodes.size() / (double)testCase.getSteps().size();
 
         return new SmellResult(SmellMetric.Type.LONG_TEST_STEPS, metric, nodes);
+    }
+
+    @Override
+    public boolean isFix(Difference change, Set<SourceNode> previousNodes) {
+        return false;
     }
 }

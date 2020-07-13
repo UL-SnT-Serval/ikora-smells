@@ -1,5 +1,6 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Difference;
 import tech.ikora.model.*;
 import tech.ikora.smells.SmellCheck;
 import tech.ikora.smells.SmellDetector;
@@ -28,5 +29,10 @@ public class LackOfEncapsulationCheck implements SmellCheck {
         double metric = (double)libraryKeywordCalls[0] / (double)testCase.getSteps().size();
 
         return new SmellResult(SmellMetric.Type.LACK_OF_ENCAPSULATION, metric, nodes);
+    }
+
+    @Override
+    public boolean isFix(Difference change, Set<SourceNode> previousNodes) {
+        return false;
     }
 }

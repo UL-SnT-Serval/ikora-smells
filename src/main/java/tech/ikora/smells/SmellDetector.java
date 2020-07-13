@@ -1,6 +1,8 @@
 package tech.ikora.smells;
 
+import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.clones.Clones;
+import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
 import tech.ikora.model.UserKeyword;
 import tech.ikora.smells.checks.*;
@@ -10,7 +12,8 @@ import java.util.*;
 public class SmellDetector {
     private final static Map<SmellMetric.Type, SmellCheck> smellChecks;
     private final Set<SmellMetric.Type> smellsToDetect;
-    private final Clones<UserKeyword> clones;
+
+    private Clones<UserKeyword> clones;
 
     static {
         smellChecks = new HashMap<>(SmellMetric.Type.values().length);
@@ -35,8 +38,12 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.SNEAKY_CHECKING, new SneakyCheckingCheck());
     }
 
-    public SmellDetector(Set<SmellMetric.Type> smellsToDetect, Clones<UserKeyword> clones){
+    public SmellDetector(Set<SmellMetric.Type> smellsToDetect){
         this.smellsToDetect = smellsToDetect;
+        this.clones = new Clones<>();
+    }
+
+    public void setClones(Clones<UserKeyword> clones){
         this.clones = clones;
     }
 
@@ -54,7 +61,11 @@ public class SmellDetector {
         return results;
     }
 
-    public static SmellDetector all(Clones<UserKeyword> clones){
-        return new SmellDetector(smellChecks.keySet(), clones);
+    public static boolean isFix(SmellMetric.Type type, Set<SourceNode> nodes, Difference change){
+        return smellChecks.get(type).isFix(change, nodes);
+    }
+
+    public static SmellDetector all(){
+        return new SmellDetector(smellChecks.keySet());
     }
 }

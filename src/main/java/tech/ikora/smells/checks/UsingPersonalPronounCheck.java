@@ -3,6 +3,7 @@ package tech.ikora.smells.checks;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import tech.ikora.analytics.Difference;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
@@ -24,6 +25,11 @@ public class UsingPersonalPronounCheck implements SmellCheck {
         double metric = (double)nodes.size() / (double)testCase.getSteps().size();
 
         return new SmellResult(SmellMetric.Type.USING_PERSONAL_PRONOUN, metric, nodes);
+    }
+
+    @Override
+    public boolean isFix(Difference change, Set<SourceNode> previousNodes) {
+        return false;
     }
 
     private Set<SourceNode> collectStepsUsingPersonalPronoun(List<Step> steps){

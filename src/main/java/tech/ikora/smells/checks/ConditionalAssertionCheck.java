@@ -1,5 +1,7 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Action;
+import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.*;
 import tech.ikora.smells.SmellCheck;
@@ -9,6 +11,7 @@ import tech.ikora.smells.SmellResult;
 import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 import java.util.Optional;
+import java.util.Set;
 
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
@@ -25,6 +28,18 @@ public class ConditionalAssertionCheck implements SmellCheck {
         double metric = totalAssertions > 0 ? (double)conditionalAssertions / (double)totalAssertions : 0.0;
 
         return new SmellResult(SmellMetric.Type.CONDITIONAL_ASSERTION, metric, visitor.getNodes());
+    }
+
+    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+        for(Action action: change.getActions()){
+            final Optional<SourceNode> oldNode = SmellCheck.toSourceNode(action.getLeft());
+
+            if(nodes.contains(action.getLeft()) && SmellCheck.isCallType(action.getLeft(), Keyword.Type.ASSERTION)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean isConditional(KeywordCall assertion) {

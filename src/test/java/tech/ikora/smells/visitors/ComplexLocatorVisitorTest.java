@@ -122,7 +122,7 @@ public class ComplexLocatorVisitorTest {
         assertEquals(0, visitor.getNodes().size());
     }
 
-    @Test
+    //@Test
     void testVisitCallWithArgumentLocator(){
         final String code =
                 "*** Settings ***\n" +
