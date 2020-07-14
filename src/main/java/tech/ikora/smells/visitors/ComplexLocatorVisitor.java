@@ -6,25 +6,18 @@ import tech.ikora.builder.ValueResolver;
 import tech.ikora.model.*;
 import tech.ikora.smells.utils.LocatorUtils;
 import tech.ikora.smells.utils.Permutations;
-import tech.ikora.smells.utils.css.parser.SelectorParser;
-import tech.ikora.smells.utils.css.selector.CompoundSelector;
-import tech.ikora.smells.utils.css.selector.Selector;
 import tech.ikora.types.BaseTypeList;
 import tech.ikora.types.LocatorType;
+import tech.ikora.utils.ArgumentUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-
 
 public class ComplexLocatorVisitor extends SmellVisitor {
     private int locators = 0;
-
-
 
     public int getComplexLocators() {
         return getNodes().size();
@@ -39,14 +32,14 @@ public class ComplexLocatorVisitor extends SmellVisitor {
         final Optional<Keyword> keyword = call.getKeyword();
 
         if(keyword.isPresent()){
-            final ArgumentList argumentList = call.getArgumentList();
+            final NodeList<Argument> argumentList = call.getArgumentList();
             final BaseTypeList argumentTypes = keyword.get().getArgumentTypes();
 
             if(argumentTypes.containsType(LocatorType.class)){
                 List<Integer> locatorIndexes = argumentTypes.findAll(LocatorType.class);
 
                 for(int index: locatorIndexes){
-                    if(argumentList.isExpendedUntilPosition(index)){
+                    if(ArgumentUtils.isExpendedUntilPosition(argumentList, index)){
                         final Argument argument = argumentList.get(index);
                         for(Pair<String, SourceNode> value: getArgumentValues(argument)){
                             if(LocatorUtils.isComplex(value.getLeft(), 4)){
@@ -114,9 +107,9 @@ public class ComplexLocatorVisitor extends SmellVisitor {
                 continue;
             }
 
-            final ArgumentList argumentList = ((KeywordCall) node).getArgumentList();
+            final NodeList<Argument> argumentList = ((KeywordCall) node).getArgumentList();
 
-            if(!argumentList.isExpendedUntilPosition(position)){
+            if(!ArgumentUtils.isExpendedUntilPosition(argumentList, position)){
                 continue;
             }
 

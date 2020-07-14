@@ -4,6 +4,7 @@ import tech.ikora.analytics.visitor.VisitorMemory;
 import tech.ikora.model.*;
 import tech.ikora.types.BaseType;
 import tech.ikora.types.BaseTypeList;
+import tech.ikora.utils.ArgumentUtils;
 
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class ResultOnTheFlyVisitor extends SmellVisitor {
         }
 
         final int index = argumentTypes.indexOf(expected.get());
-        if(!call.getArgumentList().isExpendedUntilPosition(index)){
+        if(!ArgumentUtils.isExpendedUntilPosition(call.getArgumentList(), index)){
             return Optional.empty();
         }
 
