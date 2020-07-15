@@ -64,7 +64,7 @@ public class ComplexLocatorVisitor extends SmellVisitor {
                 values.add(Pair.of(node.getName(), (SourceNode) node));
             }
             else if(node instanceof Argument){
-                values.add(Pair.of(node.getName(), (SourceNode) node));
+                values.add(Pair.of(node.getName(), ((Argument)node).getDefinition()));
             }
             else if (node instanceof LibraryVariable){
                 values.add(Pair.of(node.getName(), argument));

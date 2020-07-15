@@ -18,7 +18,7 @@ public class HardCodedValuesVisitor extends SmellVisitor {
     public void visit(KeywordCall call, VisitorMemory memory) {
         for(Argument argument: call.getArgumentList()){
             if(argument.isType(Literal.class)){
-                addNode(argument);
+                addNode(argument.getDefinition());
             }
 
             ++totalArguments;

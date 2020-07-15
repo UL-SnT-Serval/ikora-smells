@@ -34,7 +34,7 @@ public class ComplexLocatorCheck implements SmellCheck {
                 && newNode.isPresent()
                 && nodes.contains(oldNode.get())
                 && Literal.class.isAssignableFrom(newNode.get().getClass())
-                && LocatorUtils.isComplex(newNode.get().getName(), 4)){
+                && !LocatorUtils.isComplex(newNode.get().getName(), 4)){
                 return true;
             }
         }
