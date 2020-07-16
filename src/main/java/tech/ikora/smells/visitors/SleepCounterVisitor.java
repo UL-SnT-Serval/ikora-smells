@@ -23,7 +23,7 @@ public class SleepCounterVisitor extends SmellVisitor {
         final Optional<Keyword> keyword = call.getKeyword();
 
         if(keyword.isPresent()){
-            if(keyword.get().getType() == Keyword.Type.SYNCHRONISATION){
+            if(keyword.get().getType() == Keyword.Type.SYNCHRONIZATION){
                 if(keyword.get() instanceof Sleep){
                     addNode(call);
                 }
