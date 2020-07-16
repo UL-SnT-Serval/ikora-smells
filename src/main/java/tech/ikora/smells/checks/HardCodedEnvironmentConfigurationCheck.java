@@ -10,7 +10,7 @@ import tech.ikora.smells.visitors.HardCodedValuesVisitor;
 
 import java.util.Set;
 
-public class HardcodedValuesCheck implements SmellCheck {
+public class HardCodedEnvironmentConfigurationCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         HardCodedValuesVisitor visitor = new HardCodedValuesVisitor();
@@ -18,11 +18,11 @@ public class HardcodedValuesCheck implements SmellCheck {
 
         double metric = (double)visitor.getNumberHardcodedValues() / (double) visitor.getTotalArguments();
 
-        return new SmellResult(SmellMetric.Type.HARD_CODED_VALUES, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, metric, visitor.getNodes());
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes){
+    public boolean isFix(Difference change, Set<SourceNode> nodes) {
         return SmellCheck.isFix(change, nodes, Action.Type.CHANGE_VALUE_TYPE);
     }
 }
