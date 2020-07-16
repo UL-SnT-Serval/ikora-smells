@@ -4,8 +4,7 @@ import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.model.*;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NodeUtils {
@@ -17,9 +16,9 @@ public class NodeUtils {
         return SourceNode.class.isAssignableFrom(differentiable.getClass()) ? Optional.of((SourceNode)differentiable) : Optional.empty();
     }
 
-    public static Set<Action> getActionsByType(Difference change, Action.Type type){
+    public static Set<Action> getActionsByType(Difference change, Action.Type... types){
         return change.getActions().stream()
-                .filter(a -> a.getType() == type)
+                .filter(a -> Arrays.asList(types).contains(a.getType()))
                 .collect(Collectors.toSet());
     }
 

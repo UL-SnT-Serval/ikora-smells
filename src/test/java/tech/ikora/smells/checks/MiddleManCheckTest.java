@@ -33,7 +33,7 @@ public class MiddleManCheckTest {
         final MiddleManCheck check = new MiddleManCheck();
         final SmellResult metric = check.computeMetric(testCase, null);
 
-        assertEquals(metric.getValue(), 0.5, 0.0001);
+        assertEquals(0.5, metric.getValue(), 0.0001);
     }
 
     @Test

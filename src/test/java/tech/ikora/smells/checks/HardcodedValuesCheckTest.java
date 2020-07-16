@@ -46,6 +46,6 @@ public class HardcodedValuesCheckTest {
         final HardcodedValuesCheck check = new HardcodedValuesCheck();
         final SmellResult metric = check.computeMetric(testCase, null);
 
-        assertEquals(metric.getValue(), 0.14285, 0.0001);
+        assertEquals(0.14285, metric.getValue(), 0.0001);
     }
 }

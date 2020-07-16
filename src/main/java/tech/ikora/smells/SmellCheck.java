@@ -11,8 +11,8 @@ public interface SmellCheck {
     SmellResult computeMetric(TestCase testCase, SmellDetector detector);
     boolean isFix(Difference change, Set<SourceNode> nodes);
 
-    static boolean isFix(Difference change, Set<SourceNode> nodes, Action.Type type){
-        for(Action action: NodeUtils.getActionsByType(change, type)) {
+    static boolean isFix(Difference change, Set<SourceNode> nodes, Action.Type... types){
+        for(Action action: NodeUtils.getActionsByType(change, types)) {
             final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
             final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
 
