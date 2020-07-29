@@ -20,7 +20,7 @@ public class ComplicatedSetupCheckTest {
                 "\n" +
                 "*** Keywords ***\n" +
                 "Open Browser To Login Page\n" +
-                "    Open Browser    http://${SERVER}/    chrome\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
                 "    Maximize Browser Window\n" +
                 "\n" +
                 "User \"${username}\" logs in with password \"${password}\"\n" +
