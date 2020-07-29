@@ -2,20 +2,16 @@ package tech.ikora.smells.checks;
 
 import edu.stanford.nlp.neural.NeuralUtils;
 import org.ejml.simple.SimpleMatrix;
+import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.EagerTestVisitor;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class EagerTestCheck implements SmellCheck {
     @Override
@@ -49,11 +45,11 @@ public class EagerTestCheck implements SmellCheck {
 
         double metric = 1 -  (sum / (double)size);
 
-        return new SmellResult(SmellMetric.Type.EAGER_TEST, metric, Collections.emptySet());
+        return new SmellResult(SmellMetric.Type.EAGER_TEST, metric, new HashSet<>(testCase.getSteps()));
     }
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes) {
-        return false;
+        return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_STEP);
     }
 }

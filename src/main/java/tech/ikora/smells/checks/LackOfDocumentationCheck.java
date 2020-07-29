@@ -1,5 +1,6 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
@@ -27,6 +28,6 @@ public class LackOfDocumentationCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes) {
-        return false;
+        return change.getActions().stream().anyMatch(a -> a.getType() == Action.Type.ADD_DOCUMENTATION);
     }
 }

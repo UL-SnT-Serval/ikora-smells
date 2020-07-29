@@ -3,14 +3,12 @@ package tech.ikora.smells.checks;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +27,19 @@ public class UsingPersonalPronounCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes) {
+        for(Action action: change.getActions()){
+            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
+
+            if(oldNode.isPresent()
+                    && newNode.isPresent()
+                    && nodes.contains(oldNode.get())
+                    && !isUsingPersonalPronoun((Step)newNode.get())
+            ){
+                return true;
+            }
+        }
+
         return false;
     }
 

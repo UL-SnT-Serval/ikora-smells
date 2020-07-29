@@ -1,5 +1,6 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.analytics.visitor.PathMemory;
@@ -29,7 +30,7 @@ public class LoggingInFixtureCodeCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes) {
-        return false;
+        return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_STEP);
     }
 
     private Set<SourceNode> getFixtureLoggingNodes(TestCase testCase){
