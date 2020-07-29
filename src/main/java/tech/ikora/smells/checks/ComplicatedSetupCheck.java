@@ -7,7 +7,7 @@ import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.*;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,14 +16,18 @@ public class ComplicatedSetupCheck implements SmellCheck {
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
         double metric = 0.0;
 
+        Set<SourceNode> nodes = new HashSet<>();
+
         if(testCase.getSetup().isPresent()){
             int setupSize = KeywordStatistics.getSequenceSize(testCase.getSetup().get());
             int testCaseSize = KeywordStatistics.getSequenceSize(testCase);
 
+            nodes.add(testCase.getSetup().get());
+
             metric = (double)setupSize / (double)(setupSize + testCaseSize);
         }
 
-        return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, metric, Collections.singleton(testCase.getSetup().get()));
+        return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, metric, nodes);
     }
 
     @Override
