@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ConditionalAssertionCheckTest {
     @Test
     void testWithOneDirectConditionalAssertion(){
-        String code =
+        final String code =
                 "*** Test Cases ***\n" +
                 "Some very interesting test\n" +
                 "    Make some clever assertion\n" +

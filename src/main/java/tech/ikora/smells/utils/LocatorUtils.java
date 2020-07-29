@@ -1,16 +1,14 @@
 package tech.ikora.smells.utils;
 
-import org.apache.xpath.XPath;
 import tech.ikora.smells.utils.css.parser.SelectorParser;
 import tech.ikora.smells.utils.css.selector.CompoundSelector;
 import tech.ikora.smells.utils.css.selector.Selector;
 
-import javax.xml.transform.TransformerException;
 import java.util.regex.Pattern;
 
 public class LocatorUtils {
-    private static final Pattern xPathPattern =  Pattern.compile("^xpath\\:", Pattern.CASE_INSENSITIVE);
-    private static final Pattern cssPattern =  Pattern.compile("^css\\:", Pattern.CASE_INSENSITIVE);
+    private static final Pattern xPathPattern =  Pattern.compile("^xpath:", Pattern.CASE_INSENSITIVE);
+    private static final Pattern cssPattern =  Pattern.compile("^css:", Pattern.CASE_INSENSITIVE);
 
     public static boolean isComplex(final String value, int maxSize){
         if(xPathPattern.matcher(value).find()){
@@ -24,16 +22,7 @@ public class LocatorUtils {
     }
 
     private static int getXPathSize(final String value) {
-        int size = 1;
-
-        try {
-            final XPath xPath = new XPath(value, null, null, 0);
-            size = xPath.getExpression().exprGetNumChildren();
-        } catch (TransformerException e) {
-            // it will just be ignored and count as a default type
-        }
-
-        return size;
+        return value.replaceAll("^(//|/)", "").split("/").length;
     }
 
     private static int getCssSize(final String value){
