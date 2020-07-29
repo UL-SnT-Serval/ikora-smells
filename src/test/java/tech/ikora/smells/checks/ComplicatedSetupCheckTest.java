@@ -58,6 +58,6 @@ public class ComplicatedSetupCheckTest {
         final ComplicatedSetupCheck check = new ComplicatedSetupCheck();
         final SmellResult metric = check.computeMetric(testCase, null);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(Double.NaN, metric.getValue(), 0.0001);
     }
 }

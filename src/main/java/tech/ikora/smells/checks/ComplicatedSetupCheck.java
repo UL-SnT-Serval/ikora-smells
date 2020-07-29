@@ -14,7 +14,7 @@ import java.util.Set;
 public class ComplicatedSetupCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
-        double metric = 0.0;
+        double metric = Double.NaN;
 
         Set<SourceNode> nodes = new HashSet<>();
 
