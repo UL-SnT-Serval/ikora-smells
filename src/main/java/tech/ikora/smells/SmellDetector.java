@@ -1,10 +1,8 @@
 package tech.ikora.smells;
 
 import tech.ikora.analytics.Difference;
-import tech.ikora.analytics.clones.Clones;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
-import tech.ikora.model.UserKeyword;
 import tech.ikora.smells.checks.*;
 
 import java.util.*;
@@ -12,8 +10,6 @@ import java.util.*;
 public class SmellDetector {
     private final static Map<SmellMetric.Type, SmellCheck> smellChecks;
     private final Set<SmellMetric.Type> smellsToDetect;
-
-    private Clones<UserKeyword> clones;
 
     static {
         smellChecks = new HashMap<>(SmellMetric.Type.values().length);
@@ -40,29 +36,20 @@ public class SmellDetector {
 
     public SmellDetector(Set<SmellMetric.Type> smellsToDetect){
         this.smellsToDetect = smellsToDetect;
-        this.clones = new Clones<>();
     }
 
-    public void setClones(Clones<UserKeyword> clones){
-        this.clones = clones;
-    }
-
-    public Clones<UserKeyword> getClones(){
-        return this.clones;
-    }
-
-    public SmellResults computeMetrics(TestCase testCase){
+    public SmellResults computeMetrics(TestCase testCase, SmellConfiguration configuration){
         SmellResults results = new SmellResults();
 
        for(SmellMetric.Type type: smellsToDetect){
-           results.add(smellChecks.get(type).computeMetric(testCase, this));
+           results.add(smellChecks.get(type).computeMetric(testCase, configuration));
        }
 
         return results;
     }
 
-    public static boolean isFix(SmellMetric.Type type, Set<SourceNode> nodes, Difference change){
-        return smellChecks.get(type).isFix(change, nodes);
+    public static boolean isFix(SmellMetric.Type type, Set<SourceNode> nodes, Difference change, SmellConfiguration configuration){
+        return smellChecks.get(type).isFix(change, nodes, configuration);
     }
 
     public static SmellDetector all(){

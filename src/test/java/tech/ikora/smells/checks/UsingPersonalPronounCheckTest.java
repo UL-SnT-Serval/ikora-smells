@@ -5,6 +5,7 @@ import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellConfiguration;
 import tech.ikora.smells.SmellResult;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,9 +35,11 @@ public class UsingPersonalPronounCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case without personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getValue(), 0.0001);
     }
@@ -64,9 +67,11 @@ public class UsingPersonalPronounCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with all personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getValue(), 0.0001);
     }
@@ -104,9 +109,11 @@ public class UsingPersonalPronounCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with some personal pronoun").iterator().next();
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0.6666, metric.getValue(), 0.0001);
     }

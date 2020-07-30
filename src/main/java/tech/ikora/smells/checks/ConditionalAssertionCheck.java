@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
         visitor.visit(testCase, new PathMemory());
 
@@ -27,7 +27,7 @@ public class ConditionalAssertionCheck implements SmellCheck {
         return new SmellResult(SmellMetric.Type.CONDITIONAL_ASSERTION, metric, visitor.getNodes());
     }
 
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         for(Action action: change.getActions()){
             final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
             final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());

@@ -5,6 +5,7 @@ import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellConfiguration;
 import tech.ikora.smells.SmellResult;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,9 +32,11 @@ class LackOfEncapsulationCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final LackOfEncapsulationCheck check = new LackOfEncapsulationCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(metric.getValue(), 0.33333, 0.0001);
     }
@@ -58,9 +61,11 @@ class LackOfEncapsulationCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final LackOfEncapsulationCheck check = new LackOfEncapsulationCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getValue(), 0.0001);
     }

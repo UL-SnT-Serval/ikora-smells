@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 
 public class LongTestStepsCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         Set<SourceNode> nodes = new HashSet<>();
 
         for(Step step: testCase.getSteps()){
-            if(KeywordStatistics.getSequenceSize(step) > 10){
+            if(KeywordStatistics.getSequenceSize(step) > configuration.getMaximumStepSize()){
                 nodes.add(step);
             }
         }
@@ -33,9 +33,9 @@ public class LongTestStepsCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         for(KeywordDefinition keyword: getPreviousSteps(change, nodes)){
-            if(KeywordStatistics.getSequenceSize(keyword) < 10){
+            if(KeywordStatistics.getSequenceSize(keyword) < configuration.getMaximumStepSize()){
                 return true;
             }
         }

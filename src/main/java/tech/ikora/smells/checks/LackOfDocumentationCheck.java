@@ -5,17 +5,14 @@ import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.LackOfDocumentationVisitor;
 
 import java.util.Set;
 
 public class LackOfDocumentationCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         LackOfDocumentationVisitor visitor = new LackOfDocumentationVisitor();
         visitor.visit(testCase, new PathMemory());
 
@@ -27,7 +24,7 @@ public class LackOfDocumentationCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         return change.getActions().stream().anyMatch(a -> a.getType() == Action.Type.ADD_DOCUMENTATION);
     }
 }

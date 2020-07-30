@@ -6,6 +6,7 @@ import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellConfiguration;
 import tech.ikora.smells.SmellResult;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -85,9 +86,11 @@ public class EagerTestCheckTest {
         final BuildResult build = Builder.build(codeLogin, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final EagerTestCheck check = new EagerTestCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertThat(metric.getValue(), allOf(greaterThan(0.0), lessThan(1.0)));
     }

@@ -5,6 +5,7 @@ import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellConfiguration;
 import tech.ikora.smells.SmellResult;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,9 +33,11 @@ class LoggingInFixtureCodeCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final LoggingInFixtureCodeCheck check = new LoggingInFixtureCodeCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0.3333, metric.getValue(), 0.0001);
     }
@@ -60,9 +63,11 @@ class LoggingInFixtureCodeCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final LoggingInFixtureCodeCheck check = new LoggingInFixtureCodeCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getValue(), 0.0001);
     }
@@ -83,9 +88,11 @@ class LoggingInFixtureCodeCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final LoggingInFixtureCodeCheck check = new LoggingInFixtureCodeCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(Double.NaN, metric.getValue(), 0.0001);
     }

@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class HardcodedValuesCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         HardCodedValuesVisitor visitor = new HardCodedValuesVisitor();
         visitor.visit(testCase, new PathMemory());
 
@@ -22,7 +22,7 @@ public class HardcodedValuesCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes){
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration){
         return SmellCheck.isFix(change, nodes, Action.Type.CHANGE_VALUE_TYPE);
     }
 }

@@ -8,8 +8,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface SmellCheck {
-    SmellResult computeMetric(TestCase testCase, SmellDetector detector);
-    boolean isFix(Difference change, Set<SourceNode> nodes);
+    SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration);
+    boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration);
 
     static boolean isFix(Difference change, Set<SourceNode> nodes, Action.Type... types){
         for(Action action: NodeUtils.getActionsByType(change, types)) {

@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class ComplexLocatorCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
         visitor.visit(testCase, new PathMemory());
 
@@ -25,7 +25,7 @@ public class ComplexLocatorCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         for(Action action: change.getActions()){
             final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
             final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());

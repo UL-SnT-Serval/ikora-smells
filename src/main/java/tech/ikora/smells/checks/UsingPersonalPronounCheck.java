@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class UsingPersonalPronounCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase.getSteps());
         double metric = (double)nodes.size() / (double)testCase.getSteps().size();
 
@@ -26,7 +26,7 @@ public class UsingPersonalPronounCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         for(Action action: change.getActions()){
             final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
             final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());

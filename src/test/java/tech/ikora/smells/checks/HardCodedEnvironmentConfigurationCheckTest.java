@@ -5,6 +5,7 @@ import tech.ikora.builder.BuildResult;
 import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
+import tech.ikora.smells.SmellConfiguration;
 import tech.ikora.smells.SmellResult;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,9 +53,11 @@ class HardCodedEnvironmentConfigurationCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final HardCodedEnvironmentConfigurationCheck check = new HardCodedEnvironmentConfigurationCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getValue(), 0.0001);
     }
@@ -75,6 +78,7 @@ class HardCodedEnvironmentConfigurationCheckTest {
         final Project project = build.getProjects().iterator().next();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
+
         final HardCodedEnvironmentConfigurationCheck check = new HardCodedEnvironmentConfigurationCheck();
         final SmellResult metric = check.computeMetric(testCase, null);
 

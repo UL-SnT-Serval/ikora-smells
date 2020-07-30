@@ -7,10 +7,7 @@ import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.Keyword;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 import java.util.Collections;
@@ -18,7 +15,7 @@ import java.util.Set;
 
 public class LoggingInFixtureCodeCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         Set<SourceNode> nodes = Collections.emptySet();
         double metric = Double.NaN;
 
@@ -34,7 +31,7 @@ public class LoggingInFixtureCodeCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_STEP);
     }
 

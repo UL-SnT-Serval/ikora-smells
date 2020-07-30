@@ -6,6 +6,7 @@ import tech.ikora.builder.Builder;
 import tech.ikora.model.Project;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.SmellCheck;
+import tech.ikora.smells.SmellConfiguration;
 import tech.ikora.smells.SmellResult;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,9 +28,12 @@ class LongTestStepsCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+        configuration.setMaximumStepSize(10);
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final SmellCheck check = new LongTestStepsCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getValue(), 0.0001);
     }
@@ -59,9 +63,12 @@ class LongTestStepsCheckTest {
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
 
+        final SmellConfiguration configuration = new SmellConfiguration();
+        configuration.setMaximumStepSize(10);
+
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
         final SmellCheck check = new LongTestStepsCheck();
-        final SmellResult metric = check.computeMetric(testCase, null);
+        final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getValue(), 0.0001);
     }

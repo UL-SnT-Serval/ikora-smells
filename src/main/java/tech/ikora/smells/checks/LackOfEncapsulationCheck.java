@@ -3,17 +3,14 @@ package tech.ikora.smells.checks;
 import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.model.*;
-import tech.ikora.smells.SmellCheck;
-import tech.ikora.smells.SmellDetector;
-import tech.ikora.smells.SmellMetric;
-import tech.ikora.smells.SmellResult;
+import tech.ikora.smells.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class LackOfEncapsulationCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         int[] libraryKeywordCalls = { 0 };
 
         Set<SourceNode> nodes = new HashSet<>();
@@ -33,7 +30,7 @@ public class LackOfEncapsulationCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_STEP, Action.Type.CHANGE_STEP);
     }
 }

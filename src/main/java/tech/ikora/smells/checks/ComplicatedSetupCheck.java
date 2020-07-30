@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class ComplicatedSetupCheck implements SmellCheck {
     @Override
-    public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
+    public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         double metric = Double.NaN;
 
         Set<SourceNode> nodes = new HashSet<>();
@@ -31,7 +31,7 @@ public class ComplicatedSetupCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes) {
+    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
         for(Action action: change.getActions()){
             final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
             final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
