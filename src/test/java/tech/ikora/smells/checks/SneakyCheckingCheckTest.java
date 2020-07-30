@@ -46,6 +46,42 @@ class SneakyCheckingCheckTest {
     }
 
     @Test
+    void testWithBlockOfOneSneakyAssertionWithLogging(){
+        final String code =
+                "*** Test Cases ***\n" +
+                        "Valid Login\n" +
+                        "    Input username    user\n" +
+                        "    Input password    password\n" +
+                        "    Submit Credentials\n" +
+                        "    Welcome Page Should Be Open\n" +
+                        "\n" +
+                        "*** Keywords ***\n" +
+                        "Input Username\n" +
+                        "    [Arguments]    ${username}\n" +
+                        "    Input Text    username_field    ${username}\n" +
+                        "\n" +
+                        "Input Password\n" +
+                        "    [Arguments]    ${password}\n" +
+                        "    Input Text    password_field    ${password}\n" +
+                        "\n" +
+                        "Submit Credentials\n" +
+                        "    Click Button    login_button\n" +
+                        "\n" +
+                        "Welcome Page Should Be Open\n" +
+                        "    Log    Asserting that page has the correct location\n" +
+                        "    Location Should Be    http://example.com/welcome.html\n";
+
+        final BuildResult build = Builder.build(code, true);
+        final Project project = build.getProjects().iterator().next();
+
+        final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
+        final MiddleManCheck check = new MiddleManCheck();
+        final SmellResult metric = check.computeMetric(testCase, null);
+
+        assertEquals(0.25, metric.getValue(), 0.0001);
+    }
+
+    @Test
     void testWithBlockOfTwoSneakyAssertion(){
         final String code =
                 "*** Test Cases ***\n" +
