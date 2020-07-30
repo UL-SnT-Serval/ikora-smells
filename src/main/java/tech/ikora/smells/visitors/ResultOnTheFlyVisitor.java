@@ -69,21 +69,6 @@ public class ResultOnTheFlyVisitor extends SmellVisitor {
     }
 
     private boolean isComputed(Node definition){
-        if(!(definition instanceof Variable)){
-            return false;
-        }
-
-        final SourceNode parent = getParent((Variable) definition);
-        return (parent instanceof UserKeyword) || (parent instanceof Assignment);
-    }
-
-    private SourceNode getParent(Variable variable){
-        final SourceNode astParent = variable.getAstParent();
-
-        if(!(astParent instanceof NodeList)){
-            return null;
-        }
-
-        return astParent.getAstParent();
+        return (definition instanceof UserKeyword) || (definition instanceof Assignment);
     }
 }
