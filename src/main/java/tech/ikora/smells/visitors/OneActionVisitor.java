@@ -5,13 +5,17 @@ import tech.ikora.model.Keyword;
 import tech.ikora.model.UserKeyword;
 import tech.ikora.smells.NodeUtils;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class OneActionVisitor extends SmellVisitor {
     private int keywordsCount;
-    private Keyword.Type type;
+    private Set<Keyword.Type> types;
 
-    public OneActionVisitor(Keyword.Type type){
+    public OneActionVisitor(Keyword.Type... types){
         this.keywordsCount = 0;
-        this.type = type;
+        this.types = new HashSet<>(Arrays.asList(types));
     }
 
     public int getSingleActionCount(){
@@ -24,7 +28,7 @@ public class OneActionVisitor extends SmellVisitor {
 
     @Override
     public void visit(UserKeyword keyword, VisitorMemory memory) {
-        if(NodeUtils.isSingleAction(keyword, this.type)){
+        if(NodeUtils.isSingleAction(keyword, this.types)){
             addNode(keyword);
         }
 

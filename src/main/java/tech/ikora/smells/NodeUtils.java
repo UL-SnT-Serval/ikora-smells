@@ -30,7 +30,7 @@ public class NodeUtils {
         return false;
     }
 
-    public static boolean isSingleAction(UserKeyword keyword, Keyword.Type type){
+    public static boolean isSingleAction(UserKeyword keyword, Set<Keyword.Type> types){
         return keyword.getSteps().stream()
                 .map(Step::getKeywordCall)
                 .filter(Optional::isPresent)
@@ -40,7 +40,7 @@ public class NodeUtils {
                 .map(Optional::get)
                 .map(Keyword::getType)
                 .filter(t -> t != Keyword.Type.LOG)
-                .anyMatch(t -> t != type);
+                .anyMatch(types::contains);
     }
 
     public static boolean isType(KeywordCall call, Keyword.Type type, boolean allowIndirectCall){
@@ -55,7 +55,7 @@ public class NodeUtils {
         }
 
         if(allowIndirectCall && UserKeyword.class.isAssignableFrom(keyword.get().getClass())){
-            return isSingleAction((UserKeyword)keyword.get(), type);
+            return isSingleAction((UserKeyword)keyword.get(), Collections.singleton(type));
         }
 
         return false;

@@ -16,7 +16,7 @@ import java.util.Set;
 public class MiddleManCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellDetector detector) {
-        OneActionVisitor visitor = new OneActionVisitor(Keyword.Type.ACTION);
+        OneActionVisitor visitor = new OneActionVisitor(Keyword.Type.USER);
         visitor.visit(testCase, new PathMemory());
 
         final int singleActionCount = visitor.getSingleActionCount();
