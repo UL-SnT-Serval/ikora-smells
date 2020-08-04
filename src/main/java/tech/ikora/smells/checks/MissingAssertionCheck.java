@@ -1,10 +1,9 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
-import tech.ikora.model.Keyword;
-import tech.ikora.model.SourceNode;
-import tech.ikora.model.TestCase;
+import tech.ikora.model.*;
 import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
@@ -23,6 +22,29 @@ public class MissingAssertionCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        for(Action action: change.getActions()){
+            if(action.getType() == Action.Type.ADD_STEP && isAddAssertion((Step)action.getRight())){
+                return true;
+            }
+
+            if(action.getType() == Action.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword)action.getLeft())){
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    private boolean isAddAssertion(Step step){
+        return step.getKeywordCall()
+                .flatMap(Step::getKeywordCall)
+                .map(KeywordCall::getKeywordType)
+                .map(t -> t == Keyword.Type.ASSERTION)
+                .orElse(false);
+    }
+
+    private boolean isAddAssertion(UserKeyword keyword){
+        return keyword.getSteps().stream()
+                .anyMatch(this::isAddAssertion);
     }
 }
