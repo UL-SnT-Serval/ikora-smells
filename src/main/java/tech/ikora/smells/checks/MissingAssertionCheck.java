@@ -27,7 +27,7 @@ public class MissingAssertionCheck implements SmellCheck {
                 return true;
             }
 
-            if(action.getType() == Action.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword)action.getLeft())){
+            if(action.getType() == Action.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword)action.getRight())){
                 return true;
             }
         }
