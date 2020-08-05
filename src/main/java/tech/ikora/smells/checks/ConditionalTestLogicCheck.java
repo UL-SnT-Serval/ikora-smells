@@ -1,5 +1,6 @@
 package tech.ikora.smells.checks;
 
+import tech.ikora.analytics.Action;
 import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
@@ -14,12 +15,13 @@ public class ConditionalTestLogicCheck implements SmellCheck {
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         ConditionalTestLogicVisitor visitor = new ConditionalTestLogicVisitor();
         visitor.visit(testCase, new PathMemory());
+        float metric = (float)visitor.getNodes().size() / (float)visitor.getConditionsCount();
 
-        return new SmellResult(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, visitor.getConditionsCount(), visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, metric, visitor.getNodes());
     }
 
     @Override
     public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return false;
+        return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_STEP, Action.Type.CHANGE_STEP);
     }
 }
