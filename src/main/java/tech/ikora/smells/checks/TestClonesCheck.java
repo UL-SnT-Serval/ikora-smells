@@ -16,7 +16,7 @@ public class TestClonesCheck implements SmellCheck {
         CloneVisitor visitor = new CloneVisitor(configuration.getClones());
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getCloneCount() / (double)visitor.getTotalKeywordsCounter();
+        double metric = (double)visitor.getCloneCount() / (double)visitor.getTotalKeywordsCount();
 
         return new SmellResult(SmellMetric.Type.TEST_CLONES, metric, visitor.getNodes());
     }

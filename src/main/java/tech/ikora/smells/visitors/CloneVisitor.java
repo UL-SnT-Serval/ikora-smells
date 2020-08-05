@@ -18,7 +18,7 @@ public class CloneVisitor extends SmellVisitor {
         return getNodes().size();
     }
 
-    public int getTotalKeywordsCounter() {
+    public int getTotalKeywordsCount() {
         return totalKeywordsCounter;
     }
 
