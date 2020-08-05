@@ -3,14 +3,15 @@ package tech.ikora.smells.visitors;
 import tech.ikora.analytics.clones.Clone;
 import tech.ikora.analytics.clones.Clones;
 import tech.ikora.analytics.visitor.VisitorMemory;
+import tech.ikora.model.KeywordDefinition;
 import tech.ikora.model.UserKeyword;
 
 public class CloneVisitor extends SmellVisitor {
     private int totalKeywordsCounter;
 
-    private final Clones<UserKeyword> clones;
+    private final Clones<KeywordDefinition> clones;
 
-    public CloneVisitor(Clones<UserKeyword> clones){
+    public CloneVisitor(Clones<KeywordDefinition> clones){
         this.clones = clones;
     }
 
