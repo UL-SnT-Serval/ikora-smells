@@ -1,6 +1,6 @@
 package tech.ikora.smells;
 
-import tech.ikora.analytics.Action;
+import tech.ikora.analytics.Edit;
 import tech.ikora.model.*;
 
 import java.util.Arrays;
@@ -9,14 +9,14 @@ import java.util.Set;
 
 public interface SmellCheck {
     SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration);
-    boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration);
+    boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration);
 
-    static boolean isFix(Action action, Set<SourceNode> nodes, Action.Type... types){
-        if(Arrays.stream(types).noneMatch(t -> action.getType() == t)){
+    static boolean isFix(Edit edit, Set<SourceNode> nodes, Edit.Type... types){
+        if(Arrays.stream(types).noneMatch(t -> edit.getType() == t)){
             return false;
         }
 
-        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
         return oldNode.isPresent() && nodes.contains(oldNode.get());
     }
 }

@@ -3,8 +3,7 @@ package tech.ikora.smells.checks;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
+import tech.ikora.analytics.Edit;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;
 import tech.ikora.model.TestCase;
@@ -26,13 +25,13 @@ public class UsingPersonalPronounCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        if(action.getType() != Action.Type.CHANGE_NAME){
+    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        if(edit.getType() != Edit.Type.CHANGE_NAME){
             return false;
         }
 
-        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
-        final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
+        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
+        final Optional<SourceNode> newNode = NodeUtils.toSourceNode(edit.getRight());
 
         return oldNode.isPresent()
                 && newNode.isPresent()

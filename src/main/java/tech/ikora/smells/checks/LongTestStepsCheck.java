@@ -1,6 +1,6 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Action;
+import tech.ikora.analytics.Edit;
 import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.model.KeywordDefinition;
 import tech.ikora.model.SourceNode;
@@ -28,8 +28,8 @@ public class LongTestStepsCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        final KeywordDefinition previousStep = getPreviousStep(action, nodes);
+    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        final KeywordDefinition previousStep = getPreviousStep(edit, nodes);
 
         if(previousStep == null){
             return false;
@@ -38,16 +38,16 @@ public class LongTestStepsCheck implements SmellCheck {
         return KeywordStatistics.getSequenceSize(previousStep) < configuration.getMaximumStepSize();
     }
 
-    private KeywordDefinition getPreviousStep(Action action, Set<SourceNode> nodes){
-        if(action.getType() != Action.Type.REMOVE_STEP){
+    private KeywordDefinition getPreviousStep(Edit edit, Set<SourceNode> nodes){
+        if(edit.getType() != Edit.Type.REMOVE_STEP){
             return null;
         }
 
-        if(!Step.class.isAssignableFrom(action.getLeft().getClass())){
+        if(!Step.class.isAssignableFrom(edit.getLeft().getClass())){
             return null;
         }
 
-        return getRelevantStep((Step) action.getLeft(), nodes);
+        return getRelevantStep((Step) edit.getLeft(), nodes);
     }
 
     private KeywordDefinition getRelevantStep(Step step, Set<SourceNode> nodes){

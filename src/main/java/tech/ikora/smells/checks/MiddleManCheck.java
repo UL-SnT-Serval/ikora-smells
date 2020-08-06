@@ -1,6 +1,6 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Action;
+import tech.ikora.analytics.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.*;
 import tech.ikora.smells.*;
@@ -24,14 +24,14 @@ public class MiddleManCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        if(SmellCheck.isFix(action, nodes, Action.Type.REMOVE_USER_KEYWORD)){
+    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        if(SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_USER_KEYWORD)){
             return true;
         }
 
-        if(action.getType() == Action.Type.CHANGE_STEP){
-            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
-            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
+        if(edit.getType() == Edit.Type.CHANGE_STEP){
+            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
+            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(edit.getRight());
 
             if(!oldNode.isPresent() || !newNode.isPresent()){
                 return false;

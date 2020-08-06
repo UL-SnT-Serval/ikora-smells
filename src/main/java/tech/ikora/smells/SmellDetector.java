@@ -1,6 +1,6 @@
 package tech.ikora.smells;
 
-import tech.ikora.analytics.Action;
+import tech.ikora.analytics.Edit;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
 import tech.ikora.smells.checks.*;
@@ -48,8 +48,8 @@ public class SmellDetector {
         return results;
     }
 
-    public static boolean isFix(SmellMetric.Type type, Set<SourceNode> nodes, Action action, SmellConfiguration configuration){
-        return smellChecks.get(type).isFix(action, nodes, configuration);
+    public static boolean isFix(SmellMetric.Type type, Set<SourceNode> nodes, Edit edit, SmellConfiguration configuration){
+        return smellChecks.get(type).isFix(edit, nodes, configuration);
     }
 
     public static SmellDetector all(){

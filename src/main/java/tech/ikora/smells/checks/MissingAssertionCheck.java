@@ -1,7 +1,6 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
+import tech.ikora.analytics.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.*;
 import tech.ikora.smells.*;
@@ -21,12 +20,12 @@ public class MissingAssertionCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        if(action.getType() == Action.Type.ADD_STEP && isAddAssertion((Step)action.getRight())){
+    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        if(edit.getType() == Edit.Type.ADD_STEP && isAddAssertion((Step)edit.getRight())){
             return true;
         }
 
-        return action.getType() == Action.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword) action.getRight());
+        return edit.getType() == Edit.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword) edit.getRight());
     }
 
     private boolean isAddAssertion(Step step){

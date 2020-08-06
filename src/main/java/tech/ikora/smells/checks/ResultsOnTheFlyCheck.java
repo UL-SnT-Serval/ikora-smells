@@ -1,7 +1,6 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
+import tech.ikora.analytics.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
@@ -22,7 +21,7 @@ public class ResultsOnTheFlyCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
         return false;
     }
 }

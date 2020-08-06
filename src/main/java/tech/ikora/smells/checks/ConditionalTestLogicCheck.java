@@ -1,7 +1,6 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
+import tech.ikora.analytics.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.TestCase;
@@ -21,7 +20,7 @@ public class ConditionalTestLogicCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(action, nodes, Action.Type.REMOVE_STEP, Action.Type.CHANGE_STEP);
+    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        return SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_STEP, Edit.Type.CHANGE_STEP);
     }
 }
