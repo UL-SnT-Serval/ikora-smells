@@ -26,21 +26,18 @@ public class UsingPersonalPronounCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        for(Action action: change.getActions()){
-            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
-            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
-
-            if(oldNode.isPresent()
-                    && newNode.isPresent()
-                    && nodes.contains(oldNode.get())
-                    && !isUsingPersonalPronoun((Step)newNode.get())
-            ){
-                return true;
-            }
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        if(action.getType() != Action.Type.CHANGE_NAME){
+            return false;
         }
 
-        return false;
+        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+        final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
+
+        return oldNode.isPresent()
+                && newNode.isPresent()
+                && nodes.contains(oldNode.get())
+                && !isUsingPersonalPronoun((Step) newNode.get());
     }
 
     private Set<SourceNode> collectStepsUsingPersonalPronoun(List<Step> steps){

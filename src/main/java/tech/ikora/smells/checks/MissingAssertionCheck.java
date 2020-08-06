@@ -21,18 +21,12 @@ public class MissingAssertionCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        for(Action action: change.getActions()){
-            if(action.getType() == Action.Type.ADD_STEP && isAddAssertion((Step)action.getRight())){
-                return true;
-            }
-
-            if(action.getType() == Action.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword)action.getRight())){
-                return true;
-            }
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        if(action.getType() == Action.Type.ADD_STEP && isAddAssertion((Step)action.getRight())){
+            return true;
         }
 
-        return false;
+        return action.getType() == Action.Type.ADD_USER_KEYWORD && isAddAssertion((UserKeyword) action.getRight());
     }
 
     private boolean isAddAssertion(Step step){

@@ -25,20 +25,14 @@ public class ComplexLocatorCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        for(Action action: change.getActions()){
-            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
-            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+        final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
 
-            if(oldNode.isPresent()
+        return oldNode.isPresent()
                 && newNode.isPresent()
                 && nodes.contains(oldNode.get())
                 && Literal.class.isAssignableFrom(newNode.get().getClass())
-                && !LocatorUtils.isComplex(newNode.get().getName(), 4)){
-                return true;
-            }
-        }
-
-        return false;
+                && !LocatorUtils.isComplex(newNode.get().getName(), 4);
     }
 }

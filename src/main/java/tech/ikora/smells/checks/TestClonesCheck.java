@@ -22,7 +22,7 @@ public class TestClonesCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_USER_KEYWORD);
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        return SmellCheck.isFix(action, nodes, Action.Type.REMOVE_USER_KEYWORD);
     }
 }

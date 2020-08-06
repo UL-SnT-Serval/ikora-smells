@@ -30,7 +30,7 @@ public class LackOfEncapsulationCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(change, nodes, Action.Type.REMOVE_STEP, Action.Type.CHANGE_STEP);
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        return SmellCheck.isFix(action, nodes, Action.Type.REMOVE_STEP, Action.Type.CHANGE_STEP);
     }
 }

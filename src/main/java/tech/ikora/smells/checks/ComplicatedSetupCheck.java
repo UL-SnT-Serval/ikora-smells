@@ -31,8 +31,7 @@ public class ComplicatedSetupCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        for(Action action: change.getActions()){
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
             final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
             final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
 
@@ -44,7 +43,6 @@ public class ComplicatedSetupCheck implements SmellCheck {
 
                 return oldSize > newSize;
             }
-        }
 
         return false;
     }

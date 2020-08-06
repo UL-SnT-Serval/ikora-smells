@@ -1,7 +1,6 @@
 package tech.ikora.smells.checks;
 
 import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.KeywordStatistics;
 import tech.ikora.model.KeywordDefinition;
 import tech.ikora.model.SourceNode;
@@ -10,11 +9,7 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.*;
 import tech.ikora.utils.Cfg;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class LongTestStepsCheck implements SmellCheck {
     @Override
@@ -33,24 +28,26 @@ public class LongTestStepsCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        for(KeywordDefinition keyword: getPreviousSteps(change, nodes)){
-            if(KeywordStatistics.getSequenceSize(keyword) < configuration.getMaximumStepSize()){
-                return true;
-            }
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
+        final KeywordDefinition previousStep = getPreviousStep(action, nodes);
+
+        if(previousStep == null){
+            return false;
         }
 
-        return false;
+        return KeywordStatistics.getSequenceSize(previousStep) < configuration.getMaximumStepSize();
     }
 
-    private Set<KeywordDefinition> getPreviousSteps(Difference change, Set<SourceNode> nodes){
-        return change.getActions().stream()
-                .filter(a -> a.getType() == Action.Type.REMOVE_STEP)
-                .filter(a -> Step.class.isAssignableFrom(a.getLeft().getClass()))
-                .map(a -> (Step)a.getLeft())
-                .map(s -> getRelevantStep(s, nodes))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+    private KeywordDefinition getPreviousStep(Action action, Set<SourceNode> nodes){
+        if(action.getType() != Action.Type.REMOVE_STEP){
+            return null;
+        }
+
+        if(!Step.class.isAssignableFrom(action.getLeft().getClass())){
+            return null;
+        }
+
+        return getRelevantStep((Step) action.getLeft(), nodes);
     }
 
     private KeywordDefinition getRelevantStep(Step step, Set<SourceNode> nodes){

@@ -22,7 +22,7 @@ public class HardcodedValuesCheck implements SmellCheck {
     }
 
     @Override
-    public boolean isFix(Difference change, Set<SourceNode> nodes, SmellConfiguration configuration){
-        return SmellCheck.isFix(change, nodes, Action.Type.CHANGE_VALUE_TYPE);
+    public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration){
+        return SmellCheck.isFix(action, nodes, Action.Type.CHANGE_VALUE_TYPE);
     }
 }
