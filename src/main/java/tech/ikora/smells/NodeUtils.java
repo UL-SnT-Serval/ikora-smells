@@ -1,11 +1,8 @@
 package tech.ikora.smells;
 
-import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
 import tech.ikora.model.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class NodeUtils {
     public static Optional<SourceNode> toSourceNode(Differentiable differentiable){
@@ -14,12 +11,6 @@ public class NodeUtils {
         }
 
         return SourceNode.class.isAssignableFrom(differentiable.getClass()) ? Optional.of((SourceNode)differentiable) : Optional.empty();
-    }
-
-    public static Set<Action> getActionsByType(Difference change, Action.Type... types){
-        return change.getActions().stream()
-                .filter(a -> Arrays.asList(types).contains(a.getType()))
-                .collect(Collectors.toSet());
     }
 
     public static boolean isCallType(SourceNode sourceNode, Keyword.Type type, boolean allowIndirectCall){

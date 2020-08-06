@@ -1,14 +1,13 @@
 package tech.ikora.smells.checks;
 
 import tech.ikora.analytics.Action;
-import tech.ikora.analytics.Difference;
 import tech.ikora.analytics.visitor.PathMemory;
-import tech.ikora.model.Keyword;
-import tech.ikora.model.SourceNode;
-import tech.ikora.model.TestCase;
+import tech.ikora.model.*;
 import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.OneActionVisitor;
+import tech.ikora.utils.Ast;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class MiddleManCheck implements SmellCheck {
@@ -26,6 +25,32 @@ public class MiddleManCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Action action, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(action, nodes, Action.Type.REMOVE_USER_KEYWORD);
+        if(SmellCheck.isFix(action, nodes, Action.Type.REMOVE_USER_KEYWORD)){
+            return true;
+        }
+
+        if(action.getType() == Action.Type.CHANGE_STEP){
+            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(action.getLeft());
+            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(action.getRight());
+
+            if(!oldNode.isPresent() || !newNode.isPresent()){
+                return false;
+            }
+
+            final Optional<UserKeyword> parent = Ast.getParentByType(oldNode.get(), UserKeyword.class);
+
+            if(!parent.isPresent() || !nodes.contains(parent.get())){
+                return false;
+            }
+
+            if(!Step.class.isAssignableFrom(newNode.get().getClass())){
+                return false;
+            }
+
+            return ((Step) newNode.get()).getKeywordCall()
+                    .filter(call -> call.getKeywordType() != Keyword.Type.USER).isPresent();
+        }
+
+        return false;
     }
 }
