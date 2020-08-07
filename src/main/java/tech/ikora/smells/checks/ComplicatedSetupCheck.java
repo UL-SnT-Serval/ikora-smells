@@ -7,7 +7,6 @@ import tech.ikora.model.TestCase;
 import tech.ikora.smells.*;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 public class ComplicatedSetupCheck implements SmellCheck {
@@ -31,14 +30,9 @@ public class ComplicatedSetupCheck implements SmellCheck {
 
     @Override
     public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
-            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(edit.getRight());
-
-            if(oldNode.isPresent()
-                    && newNode.isPresent()
-                    && nodes.contains(oldNode.get())){
-                int oldSize = KeywordStatistics.getSequenceSize(oldNode.get());
-                int newSize = KeywordStatistics.getSequenceSize(newNode.get());
+            if(nodes.contains(edit.getLeft())){
+                int oldSize = KeywordStatistics.getSequenceSize(edit.getLeft());
+                int newSize = KeywordStatistics.getSequenceSize(edit.getRight());
 
                 return oldSize > newSize;
             }

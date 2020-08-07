@@ -4,7 +4,6 @@ import tech.ikora.analytics.Edit;
 import tech.ikora.model.*;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Set;
 
 public interface SmellCheck {
@@ -16,7 +15,6 @@ public interface SmellCheck {
             return false;
         }
 
-        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
-        return oldNode.isPresent() && nodes.contains(oldNode.get());
+        return nodes.contains(edit.getLeft());
     }
 }

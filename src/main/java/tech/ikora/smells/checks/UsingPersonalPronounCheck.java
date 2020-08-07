@@ -30,13 +30,7 @@ public class UsingPersonalPronounCheck implements SmellCheck {
             return false;
         }
 
-        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
-        final Optional<SourceNode> newNode = NodeUtils.toSourceNode(edit.getRight());
-
-        return oldNode.isPresent()
-                && newNode.isPresent()
-                && nodes.contains(oldNode.get())
-                && !isUsingPersonalPronoun((Step) newNode.get());
+        return nodes.contains(edit.getLeft()) && !isUsingPersonalPronoun((Step) edit.getRight());
     }
 
     private Set<SourceNode> collectStepsUsingPersonalPronoun(List<Step> steps){

@@ -27,13 +27,7 @@ public class ConditionalAssertionCheck implements SmellCheck {
     }
 
     public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
-        final Optional<SourceNode> newNode = NodeUtils.toSourceNode(edit.getRight());
-
-        return oldNode.isPresent()
-                && newNode.isPresent()
-                && nodes.contains(oldNode.get())
-                && NodeUtils.isCallType(newNode.get(), Keyword.Type.ASSERTION, true);
+        return nodes.contains(edit.getLeft()) && NodeUtils.isCallType(edit.getRight(), Keyword.Type.ASSERTION, true);
     }
 
     private boolean isCallingAssertion(KeywordCall assertion) {

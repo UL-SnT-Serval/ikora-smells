@@ -30,24 +30,17 @@ public class MiddleManCheck implements SmellCheck {
         }
 
         if(edit.getType() == Edit.Type.CHANGE_STEP){
-            final Optional<SourceNode> oldNode = NodeUtils.toSourceNode(edit.getLeft());
-            final Optional<SourceNode> newNode = NodeUtils.toSourceNode(edit.getRight());
-
-            if(!oldNode.isPresent() || !newNode.isPresent()){
-                return false;
-            }
-
-            final Optional<UserKeyword> parent = Ast.getParentByType(oldNode.get(), UserKeyword.class);
+            final Optional<UserKeyword> parent = Ast.getParentByType(edit.getLeft(), UserKeyword.class);
 
             if(!parent.isPresent() || !nodes.contains(parent.get())){
                 return false;
             }
 
-            if(!Step.class.isAssignableFrom(newNode.get().getClass())){
+            if(!Step.class.isAssignableFrom(edit.getRight().getClass())){
                 return false;
             }
 
-            return ((Step) newNode.get()).getKeywordCall()
+            return ((Step)edit.getRight()).getKeywordCall()
                     .filter(call -> call.getKeywordType() != Keyword.Type.USER).isPresent();
         }
 

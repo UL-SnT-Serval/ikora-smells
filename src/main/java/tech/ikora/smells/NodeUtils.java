@@ -5,14 +5,6 @@ import tech.ikora.model.*;
 import java.util.*;
 
 public class NodeUtils {
-    public static Optional<SourceNode> toSourceNode(Differentiable differentiable){
-        if(differentiable == null){
-            return Optional.empty();
-        }
-
-        return SourceNode.class.isAssignableFrom(differentiable.getClass()) ? Optional.of((SourceNode)differentiable) : Optional.empty();
-    }
-
     public static boolean isCallType(SourceNode sourceNode, Keyword.Type type, boolean allowIndirectCall){
         if(sourceNode instanceof KeywordCall){
             return isType((KeywordCall)sourceNode, type, allowIndirectCall);
