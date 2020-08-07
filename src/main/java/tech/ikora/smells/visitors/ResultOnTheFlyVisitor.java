@@ -10,9 +10,10 @@ import java.util.Optional;
 
 public class ResultOnTheFlyVisitor extends SmellVisitor {
     private int expected = 0;
+    private int onTheFly = 0;
 
     public int getOnTheFly() {
-        return getNodes().size();
+        return onTheFly;
     }
 
     public int getExpected() {
@@ -63,6 +64,8 @@ public class ResultOnTheFlyVisitor extends SmellVisitor {
     private void processVariable(Variable variable){
         for(Node definition: variable.getDefinition(Link.Import.BOTH)){
            if(isComputed(definition)){
+               ++onTheFly;
+               addNode((SourceNode) definition);
                addNode(variable);
            }
         }
