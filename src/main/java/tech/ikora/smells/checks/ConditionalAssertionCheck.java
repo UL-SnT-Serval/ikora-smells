@@ -1,12 +1,11 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Edit;
+import tech.ikora.analytics.difference.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.*;
 import tech.ikora.smells.*;
 import tech.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
-import java.util.Optional;
 import java.util.Set;
 
 public class ConditionalAssertionCheck implements SmellCheck {

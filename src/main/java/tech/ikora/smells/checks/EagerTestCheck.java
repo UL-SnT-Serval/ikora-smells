@@ -2,7 +2,7 @@ package tech.ikora.smells.checks;
 
 import edu.stanford.nlp.neural.NeuralUtils;
 import org.ejml.simple.SimpleMatrix;
-import tech.ikora.analytics.Edit;
+import tech.ikora.analytics.difference.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.SourceNode;
 import tech.ikora.model.Step;

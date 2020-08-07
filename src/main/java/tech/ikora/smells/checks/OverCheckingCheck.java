@@ -1,6 +1,6 @@
 package tech.ikora.smells.checks;
 
-import tech.ikora.analytics.Edit;
+import tech.ikora.analytics.difference.Edit;
 import tech.ikora.analytics.visitor.PathMemory;
 import tech.ikora.model.Keyword;
 import tech.ikora.model.SourceNode;

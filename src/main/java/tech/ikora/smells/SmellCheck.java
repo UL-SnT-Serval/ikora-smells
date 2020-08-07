@@ -1,6 +1,6 @@
 package tech.ikora.smells;
 
-import tech.ikora.analytics.Edit;
+import tech.ikora.analytics.difference.Edit;
 import tech.ikora.model.*;
 
 import java.util.Arrays;
