@@ -10,7 +10,6 @@ import lu.uni.serval.ikora.model.KeywordDefinition;
 import lu.uni.serval.ikora.model.SourceNode;
 import lu.uni.serval.ikora.model.Step;
 import lu.uni.serval.ikora.model.TestCase;
-import lu.uni.serval.ikora.smells.*;
 import lu.uni.serval.ikora.utils.Cfg;
 
 import java.util.*;

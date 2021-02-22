@@ -11,7 +11,6 @@ import lu.uni.serval.ikora.analytics.difference.Edit;
 import lu.uni.serval.ikora.model.SourceNode;
 import lu.uni.serval.ikora.model.Step;
 import lu.uni.serval.ikora.model.TestCase;
-import lu.uni.serval.ikora.smells.*;
 
 import java.util.List;
 import java.util.Optional;

@@ -10,7 +10,6 @@ import lu.uni.serval.ikora.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.model.Keyword;
 import lu.uni.serval.ikora.model.SourceNode;
 import lu.uni.serval.ikora.model.TestCase;
-import lu.uni.serval.ikora.smells.*;
 
 import java.util.Set;
 

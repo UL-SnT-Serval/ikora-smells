@@ -1,5 +1,6 @@
 package lu.uni.serval.ikora.smells.checks;
 
+import lu.uni.serval.ikora.model.KeywordCall;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
@@ -8,9 +9,9 @@ import lu.uni.serval.ikora.analytics.difference.Edit;
 import lu.uni.serval.ikora.analytics.KeywordStatistics;
 import lu.uni.serval.ikora.model.SourceNode;
 import lu.uni.serval.ikora.model.TestCase;
-import lu.uni.serval.ikora.smells.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class ComplicatedSetupCheck implements SmellCheck {
@@ -18,13 +19,14 @@ public class ComplicatedSetupCheck implements SmellCheck {
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         double metric = Double.NaN;
 
-        Set<SourceNode> nodes = new HashSet<>();
+        final Set<SourceNode> nodes = new HashSet<>();
+        final Optional<KeywordCall> setup = testCase.getSetup();
 
-        if(testCase.getSetup().isPresent()){
-            int setupSize = KeywordStatistics.getSequenceSize(testCase.getSetup().get());
+        if(setup.isPresent()){
+            int setupSize = KeywordStatistics.getSequenceSize(setup.get());
             int testCaseSize = KeywordStatistics.getSequenceSize(testCase);
 
-            nodes.add(testCase.getSetup().get());
+            nodes.add(setup.get());
 
             metric = (double)setupSize / (double)(setupSize + testCaseSize);
         }

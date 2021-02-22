@@ -7,7 +7,6 @@ import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.analytics.difference.Edit;
 import lu.uni.serval.ikora.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.model.*;
-import lu.uni.serval.ikora.smells.*;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 import java.util.Set;
