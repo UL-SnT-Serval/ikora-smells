@@ -214,9 +214,9 @@
         </dependency>
 
         <dependency>
-            <groupId>tech.ikora</groupId>
+            <groupId>lu.uni.serval</groupId>
             <artifactId>ikora-core</artifactId>
-            <version>0.1.2</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
