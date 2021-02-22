@@ -4,21 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tech.ikora</groupId>
+    <groupId>lu.uni.serval</groupId>
     <artifactId>ikora-smells</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <name>Ikora Smells</name>
-    <url>https://github.com/kabinja/ikora-smells</url>
+    <url>https://github.com/UL-SnT-Serval/ikora-smells</url>
 
     <description>
         Package performing smell detection on the Robot Framework language.
     </description>
 
     <scm>
-        <connection>scm:git:git://github.com/kabinja/ikora-smells.git</connection>
+        <connection>scm:git:git://github.com/UL-SnT-Serval/ikora-smells.git</connection>
         <developerConnection>scm:git:git@github.com:kabinja/kabinja.git</developerConnection>
-        <url>https://github.com/kabinja/ikora-smells</url>
+        <url>https://github.com/UL-SnT-Serval/ikora-smells</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -41,32 +41,32 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.2</version>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>prepare-agent</goal>
-                </goals>
-            </execution>
-            <execution>
-                <id>report</id>
-                <phase>test</phase>
-                <goals>
-                    <goal>report</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -236,7 +236,7 @@
         <dependency>
             <groupId>lu.uni.serval</groupId>
             <artifactId>ikora-core</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
 
         <dependency>
