@@ -1,9 +1,9 @@
 package lu.uni.serval.ikora.smells.visitors;
 
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.libraries.builtin.keywords.Sleep;
-import lu.uni.serval.ikora.model.Keyword;
-import lu.uni.serval.ikora.model.KeywordCall;
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.libraries.builtin.keywords.Sleep;
+import lu.uni.serval.ikora.core.model.Keyword;
+import lu.uni.serval.ikora.core.model.KeywordCall;
 
 import java.util.Optional;
 

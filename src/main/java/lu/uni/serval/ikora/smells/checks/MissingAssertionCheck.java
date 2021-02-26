@@ -4,10 +4,11 @@ import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
-import lu.uni.serval.ikora.analytics.difference.Edit;
-import lu.uni.serval.ikora.analytics.visitor.PathMemory;
-import lu.uni.serval.ikora.model.*;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
+
+import lu.uni.serval.ikora.core.analytics.difference.Edit;
+import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
+import lu.uni.serval.ikora.core.model.*;
 
 import java.util.Set;
 

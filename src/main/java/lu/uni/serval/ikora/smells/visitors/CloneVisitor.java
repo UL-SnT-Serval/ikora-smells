@@ -1,9 +1,9 @@
 package lu.uni.serval.ikora.smells.visitors;
 
-import lu.uni.serval.ikora.analytics.clones.Clones;
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.KeywordDefinition;
-import lu.uni.serval.ikora.model.UserKeyword;
+import lu.uni.serval.ikora.core.analytics.clones.Clones;
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.KeywordDefinition;
+import lu.uni.serval.ikora.core.model.UserKeyword;
 
 public class CloneVisitor extends SmellVisitor {
     private int totalKeywordsCounter;

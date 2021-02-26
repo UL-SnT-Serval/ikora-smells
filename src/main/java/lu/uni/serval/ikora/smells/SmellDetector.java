@@ -1,10 +1,10 @@
 package lu.uni.serval.ikora.smells;
 
 import lu.uni.serval.ikora.smells.checks.*;
-import lu.uni.serval.ikora.analytics.difference.Edit;
-import lu.uni.serval.ikora.model.SourceNode;
-import lu.uni.serval.ikora.model.TestCase;
-import lu.uni.serval.ikora.smells.checks.*;
+
+import lu.uni.serval.ikora.core.analytics.difference.Edit;
+import lu.uni.serval.ikora.core.model.SourceNode;
+import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.*;
 

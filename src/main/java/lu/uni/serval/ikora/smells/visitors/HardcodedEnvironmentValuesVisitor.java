@@ -1,7 +1,7 @@
 package lu.uni.serval.ikora.smells.visitors;
 
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.*;
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.*;
 
 public class HardcodedEnvironmentValuesVisitor extends SmellVisitor {
     private int totalArguments = 0;

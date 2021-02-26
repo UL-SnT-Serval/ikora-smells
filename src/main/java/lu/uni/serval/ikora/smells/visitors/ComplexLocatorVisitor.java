@@ -1,12 +1,14 @@
 package lu.uni.serval.ikora.smells.visitors;
 
 import lu.uni.serval.ikora.smells.utils.LocatorUtils;
+
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.*;
+import lu.uni.serval.ikora.core.types.BaseTypeList;
+import lu.uni.serval.ikora.core.types.LocatorType;
+import lu.uni.serval.ikora.core.utils.ArgumentUtils;
+
 import org.apache.commons.lang3.tuple.Pair;
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.*;
-import lu.uni.serval.ikora.types.BaseTypeList;
-import lu.uni.serval.ikora.types.LocatorType;
-import lu.uni.serval.ikora.utils.ArgumentUtils;
 
 import java.util.List;
 import java.util.Optional;

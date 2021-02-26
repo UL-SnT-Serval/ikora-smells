@@ -4,13 +4,14 @@ import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
-import lu.uni.serval.ikora.analytics.difference.Edit;
-import lu.uni.serval.ikora.analytics.KeywordStatistics;
-import lu.uni.serval.ikora.model.KeywordDefinition;
-import lu.uni.serval.ikora.model.SourceNode;
-import lu.uni.serval.ikora.model.Step;
-import lu.uni.serval.ikora.model.TestCase;
-import lu.uni.serval.ikora.utils.Cfg;
+
+import lu.uni.serval.ikora.core.analytics.difference.Edit;
+import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
+import lu.uni.serval.ikora.core.model.KeywordDefinition;
+import lu.uni.serval.ikora.core.model.SourceNode;
+import lu.uni.serval.ikora.core.model.Step;
+import lu.uni.serval.ikora.core.model.TestCase;
+import lu.uni.serval.ikora.core.utils.Cfg;
 
 import java.util.*;
 

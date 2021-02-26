@@ -3,13 +3,14 @@ package lu.uni.serval.ikora.smells.checks;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellResult;
-import org.junit.jupiter.api.Test;
-import lu.uni.serval.ikora.analytics.clones.KeywordCloneDetection;
-import lu.uni.serval.ikora.builder.BuildResult;
-import lu.uni.serval.ikora.builder.Builder;
-import lu.uni.serval.ikora.model.Project;
-import lu.uni.serval.ikora.model.TestCase;
 
+import lu.uni.serval.ikora.core.analytics.clones.KeywordCloneDetection;
+import lu.uni.serval.ikora.core.builder.BuildResult;
+import lu.uni.serval.ikora.core.builder.Builder;
+import lu.uni.serval.ikora.core.model.Project;
+import lu.uni.serval.ikora.core.model.TestCase;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestClonesCheckTest {

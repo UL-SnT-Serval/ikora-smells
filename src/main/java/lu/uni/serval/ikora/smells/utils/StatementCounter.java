@@ -1,7 +1,7 @@
 package lu.uni.serval.ikora.smells.utils;
 
-import lu.uni.serval.ikora.analytics.KeywordStatistics;
-import lu.uni.serval.ikora.model.TestCase;
+import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
+import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.HashMap;
 import java.util.Map;

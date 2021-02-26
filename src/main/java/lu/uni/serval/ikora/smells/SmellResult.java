@@ -1,6 +1,6 @@
 package lu.uni.serval.ikora.smells;
 
-import lu.uni.serval.ikora.model.SourceNode;
+import lu.uni.serval.ikora.core.model.SourceNode;
 
 import java.util.Set;
 

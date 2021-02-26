@@ -1,7 +1,7 @@
 package lu.uni.serval.ikora.smells;
 
-import lu.uni.serval.ikora.analytics.difference.Edit;
-import lu.uni.serval.ikora.model.*;
+import lu.uni.serval.ikora.core.analytics.difference.Edit;
+import lu.uni.serval.ikora.core.model.*;
 
 import java.util.Arrays;
 import java.util.Set;

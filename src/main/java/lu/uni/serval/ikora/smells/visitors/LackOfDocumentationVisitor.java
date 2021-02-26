@@ -1,7 +1,7 @@
 package lu.uni.serval.ikora.smells.visitors;
 
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.UserKeyword;
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.UserKeyword;
 
 public class LackOfDocumentationVisitor extends SmellVisitor {
     private int totalKeywordsCounter = 0;

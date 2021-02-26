@@ -1,17 +1,20 @@
 package lu.uni.serval.ikora.smells.checks;
 
-import edu.stanford.nlp.neural.NeuralUtils;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.smells.visitors.EagerTestVisitor;
+
+import lu.uni.serval.ikora.core.analytics.difference.Edit;
+import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
+import lu.uni.serval.ikora.core.model.SourceNode;
+import lu.uni.serval.ikora.core.model.Step;
+import lu.uni.serval.ikora.core.model.TestCase;
+
+import edu.stanford.nlp.neural.NeuralUtils;
+
 import org.ejml.simple.SimpleMatrix;
-import lu.uni.serval.ikora.analytics.difference.Edit;
-import lu.uni.serval.ikora.analytics.visitor.PathMemory;
-import lu.uni.serval.ikora.model.SourceNode;
-import lu.uni.serval.ikora.model.Step;
-import lu.uni.serval.ikora.model.TestCase;
 
 import java.util.*;
 

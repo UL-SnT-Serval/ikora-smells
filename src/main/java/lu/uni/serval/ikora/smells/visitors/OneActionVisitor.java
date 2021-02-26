@@ -1,9 +1,10 @@
 package lu.uni.serval.ikora.smells.visitors;
 
 import lu.uni.serval.ikora.smells.NodeUtils;
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.Keyword;
-import lu.uni.serval.ikora.model.UserKeyword;
+
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.Keyword;
+import lu.uni.serval.ikora.core.model.UserKeyword;
 
 import java.util.Arrays;
 import java.util.HashSet;

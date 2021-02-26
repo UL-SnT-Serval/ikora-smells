@@ -1,12 +1,13 @@
 package lu.uni.serval.ikora.smells.visitors;
 
+import lu.uni.serval.ikora.core.analytics.visitor.FixedMemory;
+import lu.uni.serval.ikora.core.builder.BuildResult;
+import lu.uni.serval.ikora.core.builder.Builder;
+import lu.uni.serval.ikora.core.model.KeywordCall;
+import lu.uni.serval.ikora.core.model.Project;
+import lu.uni.serval.ikora.core.model.UserKeyword;
+
 import org.junit.jupiter.api.Test;
-import lu.uni.serval.ikora.analytics.visitor.FixedMemory;
-import lu.uni.serval.ikora.builder.BuildResult;
-import lu.uni.serval.ikora.builder.Builder;
-import lu.uni.serval.ikora.model.KeywordCall;
-import lu.uni.serval.ikora.model.Project;
-import lu.uni.serval.ikora.model.UserKeyword;
 
 import static org.junit.jupiter.api.Assertions.*;
 

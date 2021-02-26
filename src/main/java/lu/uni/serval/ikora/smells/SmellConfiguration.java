@@ -2,8 +2,9 @@ package lu.uni.serval.ikora.smells;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lu.uni.serval.ikora.analytics.clones.Clones;
-import lu.uni.serval.ikora.model.KeywordDefinition;
+
+import lu.uni.serval.ikora.core.analytics.clones.Clones;
+import lu.uni.serval.ikora.core.model.KeywordDefinition;
 
 public class SmellConfiguration {
     @JsonProperty(value = "maximum step size")

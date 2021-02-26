@@ -1,10 +1,11 @@
 package lu.uni.serval.ikora.smells.visitors;
 
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.UserKeyword;
+
 import edu.stanford.nlp.simple.Sentence;
 import lu.uni.serval.ikora.smells.utils.WordFrequency;
 import org.ejml.simple.SimpleMatrix;
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.UserKeyword;
 
 import java.util.List;
 

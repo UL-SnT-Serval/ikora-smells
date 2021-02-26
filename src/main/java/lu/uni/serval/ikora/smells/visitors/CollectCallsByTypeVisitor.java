@@ -1,9 +1,10 @@
 package lu.uni.serval.ikora.smells.visitors;
 
 import lu.uni.serval.ikora.smells.NodeUtils;
-import lu.uni.serval.ikora.analytics.visitor.VisitorMemory;
-import lu.uni.serval.ikora.model.Keyword;
-import lu.uni.serval.ikora.model.KeywordCall;
+
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.model.Keyword;
+import lu.uni.serval.ikora.core.model.KeywordCall;
 
 public class CollectCallsByTypeVisitor extends SmellVisitor {
     private final Keyword.Type type;
