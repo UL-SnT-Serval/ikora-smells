@@ -14,12 +14,13 @@ import java.util.Set;
 public class MissingAssertionCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.ASSERTION);
+        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.ASSERTION);
         visitor.visit(testCase, new PathMemory());
 
-        double metric = visitor.getNodes().isEmpty() ? 1. : 0.;
+        double rawValue = visitor.getNodes().size();
+        double normalized = visitor.getNodes().isEmpty() ? 1. : 0.;
 
-        return new SmellResult(SmellMetric.Type.MISSING_ASSERTION, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.MISSING_ASSERTION, rawValue, normalized, visitor.getNodes());
     }
 
     @Override

@@ -15,11 +15,13 @@ import java.util.Set;
 public class ConditionalTestLogicCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        ConditionalTestLogicVisitor visitor = new ConditionalTestLogicVisitor();
+        final ConditionalTestLogicVisitor visitor = new ConditionalTestLogicVisitor();
         visitor.visit(testCase, new PathMemory());
-        float metric = (float)visitor.getNodes().size() / (float)visitor.getConditionsCount();
 
-        return new SmellResult(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, metric, visitor.getNodes());
+        double rawValue = visitor.getNodes().size() ;
+        double normalizedValue = rawValue / visitor.getConditionsCount();
+
+        return new SmellResult(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

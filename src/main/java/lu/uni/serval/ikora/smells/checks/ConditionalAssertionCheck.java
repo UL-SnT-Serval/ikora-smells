@@ -11,18 +11,19 @@ import java.util.Set;
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
+        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
         visitor.visit(testCase, new PathMemory());
 
         int totalAssertions = visitor.getNodes().size();
-        long conditionalAssertions = visitor.getNodes().stream()
+
+        double rawValue = visitor.getNodes().stream()
                 .map(n -> (KeywordCall)n)
                 .filter(this::isCallingAssertion)
                 .count();
 
-        double metric = totalAssertions > 0 ? (double)conditionalAssertions / (double)totalAssertions : 0.0;
+        double normalizedValue = totalAssertions > 0 ? rawValue / totalAssertions : 0.0;
 
-        return new SmellResult(SmellMetric.Type.CONDITIONAL_ASSERTION, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.CONDITIONAL_ASSERTION, rawValue, normalizedValue, visitor.getNodes());
     }
 
     public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {

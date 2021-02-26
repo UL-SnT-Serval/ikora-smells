@@ -38,7 +38,7 @@ class LackOfEncapsulationCheckTest {
         final LackOfEncapsulationCheck check = new LackOfEncapsulationCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(metric.getValue(), 0.33333, 0.0001);
+        assertEquals(0.33333, metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -67,6 +67,6 @@ class LackOfEncapsulationCheckTest {
         final LackOfEncapsulationCheck check = new LackOfEncapsulationCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
     }
 }

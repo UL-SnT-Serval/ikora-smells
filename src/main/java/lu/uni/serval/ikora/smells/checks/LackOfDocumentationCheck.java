@@ -15,14 +15,13 @@ import java.util.Set;
 public class LackOfDocumentationCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        LackOfDocumentationVisitor visitor = new LackOfDocumentationVisitor();
+        final LackOfDocumentationVisitor visitor = new LackOfDocumentationVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        final int documented = visitor.getDocumentedKeyword();
-        final int total = visitor.getTotalKeywords();
-        final double metric = (double)documented / (double)total;
+        final double rawValue = visitor.getDocumentedKeyword();
+        final double normalizedValue = rawValue / visitor.getTotalKeywords();
 
-        return new SmellResult(SmellMetric.Type.LACK_OF_DOCUMENTATION, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.LACK_OF_DOCUMENTATION, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

@@ -34,6 +34,6 @@ class ConditionalAssertionCheckTest {
         final ConditionalAssertionCheck check = new ConditionalAssertionCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
     }
 }

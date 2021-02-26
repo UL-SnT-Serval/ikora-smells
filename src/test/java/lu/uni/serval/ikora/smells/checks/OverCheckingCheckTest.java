@@ -15,17 +15,17 @@ class OverCheckingCheckTest {
     void testWithNoAssertion(){
         final String code =
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Set Selenium Speed    ${DELAY}\n" +
-                        "    Maximize Browser Window\n" +
-                        "\n" +
-                        "*** Variables ***\n" +
-                        "${DELAY}      0\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Set Selenium Speed    ${DELAY}\n" +
+                "    Maximize Browser Window\n" +
+                "\n" +
+                "*** Variables ***\n" +
+                "${DELAY}      0\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
@@ -36,25 +36,26 @@ class OverCheckingCheckTest {
         final OverCheckingCheck check = new OverCheckingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
+        assertEquals(0., metric.getRawValue(), 0.0001);
     }
 
     @Test
     void testWithOneAssertion(){
         final String code =
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Set Selenium Speed    ${DELAY}\n" +
-                        "    Maximize Browser Window\n" +
-                        "    Title Should Be    Login Page\n" +
-                        "\n" +
-                        "*** Variables ***\n" +
-                        "${DELAY}      0\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Set Selenium Speed    ${DELAY}\n" +
+                "    Maximize Browser Window\n" +
+                "    Title Should Be    Login Page\n" +
+                "\n" +
+                "*** Variables ***\n" +
+                "${DELAY}      0\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
@@ -65,28 +66,29 @@ class OverCheckingCheckTest {
         final OverCheckingCheck check = new OverCheckingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.2, metric.getValue(), 0.0001);
+        assertEquals(0.2, metric.getNormalizedValue(), 0.0001);
+        assertEquals(1., metric.getRawValue(), 0.0001);
     }
 
     @Test
     void testWithManyAssertions(){
         final String code =
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Should Be Equal    ${Delay}    0\n" +
-                        "    Should Be Equal As Numbers    ${Delay}    0\n" +
-                        "    Set Selenium Speed    ${DELAY}\n" +
-                        "    Maximize Browser Window\n" +
-                        "    Title Should Be    Login Page\n" +
-                        "    Page Should Not Contain Image    http://localhost/\n" +
-                        "\n" +
-                        "*** Variables ***\n" +
-                        "${DELAY}      0\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Should Be Equal    ${Delay}    0\n" +
+                "    Should Be Equal As Numbers    ${Delay}    0\n" +
+                "    Set Selenium Speed    ${DELAY}\n" +
+                "    Maximize Browser Window\n" +
+                "    Title Should Be    Login Page\n" +
+                "    Page Should Not Contain Image    http://localhost/\n" +
+                "\n" +
+                "*** Variables ***\n" +
+                "${DELAY}      0\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
@@ -96,6 +98,7 @@ class OverCheckingCheckTest {
         final OverCheckingCheck check = new OverCheckingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.5, metric.getValue(), 0.0001);
+        assertEquals(0.5, metric.getNormalizedValue(), 0.0001);
+        assertEquals(4., metric.getRawValue(), 0.0001);
     }
 }

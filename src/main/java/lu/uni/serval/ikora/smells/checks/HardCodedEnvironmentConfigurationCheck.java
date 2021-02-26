@@ -16,12 +16,13 @@ import java.util.Set;
 public class HardCodedEnvironmentConfigurationCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        HardCodedValuesVisitor visitor = new HardCodedValuesVisitor(Keyword.Type.CONFIGURATION);
+        final HardCodedValuesVisitor visitor = new HardCodedValuesVisitor(Keyword.Type.CONFIGURATION);
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getNumberHardcodedValues() / (double) visitor.getTotalArguments();
+        double rawValue = visitor.getNumberHardcodedValues();
+        double normalizedValue = rawValue / (double) visitor.getTotalArguments();
 
-        return new SmellResult(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

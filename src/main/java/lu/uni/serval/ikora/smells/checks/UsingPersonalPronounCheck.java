@@ -21,10 +21,12 @@ import java.util.stream.Collectors;
 public class UsingPersonalPronounCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase.getSteps());
-        double metric = (double)nodes.size() / (double)testCase.getSteps().size();
+        final Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase.getSteps());
 
-        return new SmellResult(SmellMetric.Type.USING_PERSONAL_PRONOUN, metric, nodes);
+        double rawValue = nodes.size();
+        double normalizedValue = rawValue / testCase.getSteps().size();
+
+        return new SmellResult(SmellMetric.Type.USING_PERSONAL_PRONOUN, rawValue, normalizedValue, nodes);
     }
 
     @Override

@@ -39,7 +39,7 @@ class ConditionalTestLogicCheckTest {
         final SmellCheck check = new ConditionalTestLogicCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -69,7 +69,7 @@ class ConditionalTestLogicCheckTest {
         final SmellCheck check = new ConditionalTestLogicCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.16666, metric.getValue(), 0.0001);
+        assertEquals(0.16666, metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -99,6 +99,6 @@ class ConditionalTestLogicCheckTest {
         final SmellCheck check = new ConditionalTestLogicCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.285714, metric.getValue(), 0.0001);
+        assertEquals(0.285714, metric.getNormalizedValue(), 0.0001);
     }
 }

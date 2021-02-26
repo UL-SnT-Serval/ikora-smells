@@ -20,9 +20,10 @@ public class ComplexLocatorCheck implements SmellCheck {
         ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getComplexLocators() / (double)visitor.getLocators();
+        double rawValue = visitor.getComplexLocators();
+        double normalizedValue = rawValue / visitor.getLocators();
 
-        return new SmellResult(SmellMetric.Type.COMPLEX_LOCATORS, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.COMPLEX_LOCATORS, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

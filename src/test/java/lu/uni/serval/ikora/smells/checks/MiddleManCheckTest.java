@@ -36,7 +36,8 @@ public class MiddleManCheckTest {
         final MiddleManCheck check = new MiddleManCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.5, metric.getValue(), 0.0001);
+        assertEquals(0.5, metric.getNormalizedValue(), 0.0001);
+        assertEquals(1., metric.getRawValue(), 0.0001);
     }
 
     @Test
@@ -62,6 +63,7 @@ public class MiddleManCheckTest {
         final MiddleManCheck check = new MiddleManCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(metric.getValue(), 0., 0.0001);
+        assertEquals(metric.getNormalizedValue(), 0., 0.0001);
+        assertEquals(0., metric.getRawValue(), 0.0001);
     }
 }

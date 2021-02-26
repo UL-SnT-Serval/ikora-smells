@@ -17,7 +17,8 @@ import java.util.Set;
 public class ComplicatedSetupCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        double metric = Double.NaN;
+        double rawValue = Double.NaN;
+        double normalizedValue = Double.NaN;
 
         final Set<SourceNode> nodes = new HashSet<>();
         final Optional<KeywordCall> setup = testCase.getSetup();
@@ -28,10 +29,11 @@ public class ComplicatedSetupCheck implements SmellCheck {
 
             nodes.add(setup.get());
 
-            metric = (double)setupSize / (double)(setupSize + testCaseSize);
+            rawValue = setupSize;
+            normalizedValue = rawValue / (setupSize + testCaseSize);
         }
 
-        return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, metric, nodes);
+        return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, rawValue, normalizedValue, nodes);
     }
 
     @Override

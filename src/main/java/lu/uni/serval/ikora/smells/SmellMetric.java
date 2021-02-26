@@ -25,22 +25,28 @@ public class SmellMetric {
     }
 
     private final Type type;
-    private final double value;
+    private final double rawValue;
+    private final double normalizedValue;
 
-    public SmellMetric(Type type, double value) {
+    public SmellMetric(Type type, double rawValue, double normalizedValue) {
         this.type = type;
-        this.value = value;
+        this.rawValue = rawValue;
+        this.normalizedValue = normalizedValue;
     }
 
     public Type getType() {
         return type;
     }
 
-    public double getValue() {
-        return value;
+    public double getRawValue() {
+        return rawValue;
+    }
+
+    public double getNormalizedValue() {
+        return normalizedValue;
     }
 
     public static SmellMetric nan(Type type){
-        return new SmellMetric(type, Double.NaN);
+        return new SmellMetric(type, Double.NaN, Double.NaN);
     }
 }

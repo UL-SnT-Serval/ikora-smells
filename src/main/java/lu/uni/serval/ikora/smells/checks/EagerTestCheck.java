@@ -18,7 +18,7 @@ import java.util.*;
 public class EagerTestCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        EagerTestVisitor visitor = new EagerTestVisitor(testCase.getSteps().size());
+        final EagerTestVisitor visitor = new EagerTestVisitor(testCase.getSteps().size());
 
         int position = 0;
         for(Step step: testCase.getSteps()){
@@ -26,10 +26,10 @@ public class EagerTestCheck implements SmellCheck {
             visitor.visit(step, new PathMemory());
         }
 
-        List<SimpleMatrix> frequencyVectors = visitor.getFrequencyVectors();
+        final List<SimpleMatrix> frequencyVectors = visitor.getFrequencyVectors();
 
         if(frequencyVectors.isEmpty() || frequencyVectors.get(0).numCols() == 0){
-            return new SmellResult(SmellMetric.Type.EAGER_TEST, Double.NaN, Collections.emptySet());
+            return new SmellResult(SmellMetric.Type.EAGER_TEST, Double.NaN, Double.NaN, Collections.emptySet());
         }
 
         int size = frequencyVectors.size();
@@ -45,9 +45,10 @@ public class EagerTestCheck implements SmellCheck {
             }
         }
 
-        double metric = 1 -  (sum / (double)size);
+        double rawValue = sum;
+        double normalizedValue = 1 -  (rawValue / size);
 
-        return new SmellResult(SmellMetric.Type.EAGER_TEST, metric, new HashSet<>(testCase.getSteps()));
+        return new SmellResult(SmellMetric.Type.EAGER_TEST, rawValue, normalizedValue, new HashSet<>(testCase.getSteps()));
     }
 
     @Override

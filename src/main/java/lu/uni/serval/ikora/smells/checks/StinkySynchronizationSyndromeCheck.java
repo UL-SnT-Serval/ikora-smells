@@ -18,11 +18,10 @@ public class StinkySynchronizationSyndromeCheck implements SmellCheck {
         final SleepCounterVisitor visitor = new SleepCounterVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        final int sleepCalls = visitor.getSleepCalls();
-        final int syncCalls = visitor.getSyncCalls();
-        final double metric = (double)sleepCalls / (double)syncCalls;
+        double rawValue = visitor.getSleepCalls();
+        double normalizedValue = rawValue / visitor.getSyncCalls();
 
-        return new SmellResult(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

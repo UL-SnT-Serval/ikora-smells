@@ -19,17 +19,19 @@ public class LoggingInFixtureCodeCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         Set<SourceNode> nodes = Collections.emptySet();
-        double metric = Double.NaN;
+        double rawValue = Double.NaN;
+        double normalizedValud = Double.NaN;
 
         if(testCase.getSetup().isPresent() || testCase.getTearDown().isPresent()){
             int statements = testCase.getSetup().map(KeywordStatistics::getStatementCount).orElse(1) - 1
                     + testCase.getTearDown().map(KeywordStatistics::getStatementCount).orElse(1) - 1;
 
             nodes = getFixtureLoggingNodes(testCase);
-            metric = (double)nodes.size() / (double)statements;
+            rawValue = nodes.size();
+            normalizedValud = rawValue / statements;
         }
 
-        return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, metric, nodes);
+        return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, rawValue, normalizedValud, nodes);
     }
 
     @Override

@@ -92,6 +92,6 @@ public class EagerTestCheckTest {
         final EagerTestCheck check = new EagerTestCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertThat(metric.getValue(), allOf(greaterThan(0.0), lessThan(1.0)));
+        assertThat(metric.getNormalizedValue(), allOf(greaterThan(0.0), lessThan(1.0)));
     }
 }

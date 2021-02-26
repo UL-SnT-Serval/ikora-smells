@@ -19,9 +19,10 @@ public class OverCheckingCheck implements SmellCheck {
         CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.ASSERTION);
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getNodes().size() / (double)visitor.getTotalVisited();
+        double rawValue = visitor.getNodes().size();
+        double normalizedValue = rawValue / visitor.getTotalVisited();
 
-        return new SmellResult(SmellMetric.Type.OVER_CHECKING, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.OVER_CHECKING, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

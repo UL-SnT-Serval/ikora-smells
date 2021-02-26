@@ -27,7 +27,7 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -133,7 +133,7 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -160,6 +160,6 @@ public class ComplexLocatorCheckTest {
         final ComplexLocatorCheck check = new ComplexLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
     }
 }

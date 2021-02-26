@@ -15,12 +15,13 @@ import java.util.Set;
 public class TestClonesCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        CloneVisitor visitor = new CloneVisitor(configuration.getClones());
+        final CloneVisitor visitor = new CloneVisitor(configuration.getClones());
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getCloneCount() / (double)visitor.getTotalKeywordsCount();
+        double rawValue = visitor.getCloneCount();
+        double normalizedValue = rawValue / visitor.getTotalKeywordsCount();
 
-        return new SmellResult(SmellMetric.Type.TEST_CLONES, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.TEST_CLONES, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

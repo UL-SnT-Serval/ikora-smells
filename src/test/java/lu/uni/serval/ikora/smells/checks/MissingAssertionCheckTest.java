@@ -36,7 +36,8 @@ class MissingAssertionCheckTest {
         final MissingAssertionCheck check = new MissingAssertionCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
+        assertEquals(0., metric.getRawValue(), 0.0001);
     }
 
     @Test
@@ -65,6 +66,7 @@ class MissingAssertionCheckTest {
         final MissingAssertionCheck check = new MissingAssertionCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
+        assertEquals(1., metric.getRawValue(), 0.0001);
     }
 }

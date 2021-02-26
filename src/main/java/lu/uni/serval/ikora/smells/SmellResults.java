@@ -15,14 +15,24 @@ public class SmellResults implements Iterable<SmellResult> {
         this.results.put(smellResult.getType(), smellResult);
     }
 
-    public double getValue(SmellMetric.Type type){
+    public double getRawValue(SmellMetric.Type type){
         final SmellResult smellResult = results.get(type);
 
         if(smellResult == null){
             return Double.NaN;
         }
 
-        return smellResult.getValue();
+        return smellResult.getRawValue();
+    }
+
+    public double getNormalizedValue(SmellMetric.Type type){
+        final SmellResult smellResult = results.get(type);
+
+        if(smellResult == null){
+            return Double.NaN;
+        }
+
+        return smellResult.getNormalizedValue();
     }
 
     public Set<SourceNode> getNodes(SmellMetric.Type type){

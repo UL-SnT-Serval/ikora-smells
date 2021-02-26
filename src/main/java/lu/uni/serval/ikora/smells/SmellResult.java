@@ -8,8 +8,8 @@ public class SmellResult {
     final SmellMetric metric;
     final Set<SourceNode> nodes;
 
-    public SmellResult(SmellMetric.Type type, double metric, Set<SourceNode> nodes) {
-        this.metric = new SmellMetric(type, metric);
+    public SmellResult(SmellMetric.Type type, double rawValue, double normalizedValue, Set<SourceNode> nodes) {
+        this.metric = new SmellMetric(type, rawValue, normalizedValue);
         this.nodes = nodes;
     }
 
@@ -17,8 +17,12 @@ public class SmellResult {
         return this.metric.getType();
     }
 
-    public double getValue(){
-        return this.metric.getValue();
+    public double getRawValue(){
+        return this.metric.getRawValue();
+    }
+
+    public double getNormalizedValue(){
+        return this.metric.getNormalizedValue();
     }
 
     public Set<SourceNode> getNodes(){

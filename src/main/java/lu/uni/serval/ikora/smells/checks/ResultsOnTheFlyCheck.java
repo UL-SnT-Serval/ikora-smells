@@ -14,12 +14,13 @@ import java.util.Set;
 public class ResultsOnTheFlyCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        ResultOnTheFlyVisitor visitor = new ResultOnTheFlyVisitor();
+        final ResultOnTheFlyVisitor visitor = new ResultOnTheFlyVisitor();
         visitor.visit(testCase, new PathMemory());
 
-        double metric = (double)visitor.getOnTheFly() / (double)visitor.getExpected();
+        double rawValue = visitor.getOnTheFly();
+        double normalizedValue = rawValue / visitor.getExpected();
 
-        return new SmellResult(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

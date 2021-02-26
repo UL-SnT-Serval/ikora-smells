@@ -17,7 +17,7 @@ import java.util.*;
 public class LongTestStepsCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        Set<SourceNode> nodes = new HashSet<>();
+        final Set<SourceNode> nodes = new HashSet<>();
 
         for(Step step: testCase.getSteps()){
             if(KeywordStatistics.getSequenceSize(step) > configuration.getMaximumStepSize()){
@@ -25,9 +25,10 @@ public class LongTestStepsCheck implements SmellCheck {
             }
         }
 
-        double metric = (double)nodes.size() / (double)testCase.getSteps().size();
+        double rawValue = nodes.size();
+        double normalizedValue = rawValue / testCase.getSteps().size();
 
-        return new SmellResult(SmellMetric.Type.LONG_TEST_STEPS, metric, nodes);
+        return new SmellResult(SmellMetric.Type.LONG_TEST_STEPS, rawValue, normalizedValue, nodes);
     }
 
     @Override

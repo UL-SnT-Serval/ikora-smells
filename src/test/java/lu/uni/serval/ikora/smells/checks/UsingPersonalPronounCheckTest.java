@@ -41,7 +41,8 @@ public class UsingPersonalPronounCheckTest {
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
+        assertEquals(0., metric.getRawValue(), 0.0001);
     }
 
     @Test
@@ -73,7 +74,8 @@ public class UsingPersonalPronounCheckTest {
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(1., metric.getValue(), 0.0001);
+        assertEquals(1., metric.getNormalizedValue(), 0.0001);
+        assertEquals(3., metric.getRawValue(), 0.0001);
     }
 
     @Test
@@ -115,6 +117,7 @@ public class UsingPersonalPronounCheckTest {
         final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.6666, metric.getValue(), 0.0001);
+        assertEquals(0.6666, metric.getNormalizedValue(), 0.0001);
+        assertEquals(2., metric.getRawValue(), 0.0001);
     }
 }

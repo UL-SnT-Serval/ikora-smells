@@ -13,9 +13,9 @@ import java.util.Set;
 public class LackOfEncapsulationCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        int[] libraryKeywordCalls = { 0 };
+        final int[] libraryKeywordCalls = { 0 };
 
-        Set<SourceNode> nodes = new HashSet<>();
+        final Set<SourceNode> nodes = new HashSet<>();
 
         for(Step step: testCase.getSteps()){
             step.getKeywordCall().flatMap(KeywordCall::getKeyword).ifPresent(keyword -> {
@@ -26,9 +26,10 @@ public class LackOfEncapsulationCheck implements SmellCheck {
             });
         }
 
-        double metric = (double)libraryKeywordCalls[0] / (double)testCase.getSteps().size();
+        double rawValue = libraryKeywordCalls[0];
+        double normalizedValue = rawValue / (double)testCase.getSteps().size();
 
-        return new SmellResult(SmellMetric.Type.LACK_OF_ENCAPSULATION, metric, nodes);
+        return new SmellResult(SmellMetric.Type.LACK_OF_ENCAPSULATION, rawValue, normalizedValue, nodes);
     }
 
     @Override

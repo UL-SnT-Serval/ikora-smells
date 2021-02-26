@@ -16,12 +16,13 @@ import java.util.Set;
 public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.GET);
+        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.GET);
         testCase.getSetup().ifPresent(s -> visitor.visit(s, new PathMemory()));
 
-        double metric = visitor.getTotalVisited() > 0 ? (double)visitor.getNodes().size() / (double)visitor.getTotalVisited() : 0.;
+        double rawValue = visitor.getNodes().size();
+        double normalizedValue = visitor.getTotalVisited() > 0 ? rawValue / visitor.getTotalVisited() : 0.;
 
-        return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, metric, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override
