@@ -35,10 +35,14 @@ public class WordFrequency {
     }
 
     public List<SimpleMatrix> getFrequencyVectors(){
-        List<SimpleMatrix> vectors = new ArrayList<>(this.words.size());
+        if(this.words.isEmpty()){
+            return Collections.emptyList();
+        }
+
+        final List<SimpleMatrix> vectors = new ArrayList<>(this.words.size());
 
         int size = this.words.get(0).size();
-        List<String> words = new ArrayList<>(this.words.get(0).keySet());
+        final List<String> words = new ArrayList<>(this.words.get(0).keySet());
 
         for(Map<String, Long> frequencies: this.words){
             SimpleMatrix vector = new SimpleMatrix(1, size);
