@@ -1,5 +1,6 @@
 package lu.uni.serval.ikora.smells.checks;
 
+import edu.stanford.nlp.neural.NeuralUtils;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellResult;
 
@@ -8,6 +9,7 @@ import lu.uni.serval.ikora.core.builder.Builder;
 import lu.uni.serval.ikora.core.model.Project;
 import lu.uni.serval.ikora.core.model.TestCase;
 
+import org.ejml.simple.SimpleMatrix;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +18,12 @@ import static org.hamcrest.Matchers.*;
 
 class EagerTestCheckTest {
     private static String codeLogin;
+    private static double[][] values;
 
     @BeforeAll
-    static void loadProject(){
+    static void setup(){
+        values = new double[1][3];
+
         codeLogin =
                 "*** Settings ***\n" +
                 "Documentation     A test suite with a single Gherkin style test.\n" +
@@ -95,5 +100,38 @@ class EagerTestCheckTest {
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertThat(metric.getNormalizedValue(), allOf(greaterThan(0.0), lessThan(1.0)));
+    }
+
+    @Test
+    void testCosineWithSameVectors(){
+        values[0] = new double[]{0.,0.,15.};
+        final SimpleMatrix vector1 = new SimpleMatrix(values);
+
+        values[0] = new double[]{0.,0.,10.};
+        final SimpleMatrix vector2 = new SimpleMatrix(values);
+
+        assertThat(NeuralUtils.cosine(vector1, vector2), equalTo(1.));
+    }
+
+    @Test
+    void testWithOrthogonalVectors(){
+        values[0] = new double[]{1.,0.,0.};
+        final SimpleMatrix vector1 = new SimpleMatrix(values);
+
+        values[0] = new double[]{0.,0.,3.};
+        final SimpleMatrix vector2 = new SimpleMatrix(values);
+
+        assertThat(NeuralUtils.cosine(vector1, vector2), equalTo(0.));
+    }
+
+    @Test
+    void testWithOppositeVectors(){
+        values[0] = new double[]{5.,0.,0.};
+        SimpleMatrix vector1 = new SimpleMatrix(values);
+
+        values[0] = new double[]{-3.,0.,0.};
+        SimpleMatrix vector2 = new SimpleMatrix(values);
+
+        assertThat(NeuralUtils.cosine(vector1, vector2), equalTo(-1.));
     }
 }

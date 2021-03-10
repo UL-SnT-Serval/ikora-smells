@@ -36,6 +36,7 @@ public class EagerTestCheck implements SmellCheck {
         }
 
         int size = frequencyVectors.size();
+        int count = 0;
         double sum = 0.0;
 
         for(int i = 0; i < size; ++i){
@@ -44,12 +45,13 @@ public class EagerTestCheck implements SmellCheck {
 
                 if(!Double.isNaN(similarity)){
                     sum += similarity;
+                    ++count;
                 }
             }
         }
 
-        double rawValue = sum;
-        double normalizedValue = 1 -  (rawValue / size);
+        double rawValue = count == 0 ? Double.NaN : sum;
+        double normalizedValue = count == 0 ? Double.NaN : 1 -  (rawValue / count);
 
         return new SmellResult(SmellMetric.Type.EAGER_TEST, rawValue, normalizedValue, new HashSet<>(testCase.getSteps()));
     }
