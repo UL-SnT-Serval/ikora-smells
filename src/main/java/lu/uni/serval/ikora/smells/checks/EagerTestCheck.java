@@ -40,7 +40,7 @@ public class EagerTestCheck implements SmellCheck {
 
         for(int i = 0; i < size; ++i){
             for(int j = i + 1; j< size; ++j){
-                double similarity = NeuralUtils.cosine(frequencyVectors.get(i), frequencyVectors.get(j));
+                double similarity = Math.abs(NeuralUtils.cosine(frequencyVectors.get(i), frequencyVectors.get(j)));
 
                 if(!Double.isNaN(similarity)){
                     sum += similarity;
