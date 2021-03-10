@@ -41,7 +41,7 @@ public class UsingPersonalPronounCheck implements SmellCheck {
 
     private Set<SourceNode> collectStepsUsingPersonalPronoun(List<Step> steps){
         return steps.stream().filter(this::isUsingPersonalPronoun)
-                .map(s -> (SourceNode)s)
+                .map(SourceNode.class::cast)
                 .collect(Collectors.toSet());
     }
 

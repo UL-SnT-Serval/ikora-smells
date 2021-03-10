@@ -5,6 +5,8 @@ import lu.uni.serval.ikora.core.model.*;
 import java.util.*;
 
 public class NodeUtils {
+    private NodeUtils() {}
+
     public static boolean isCallType(SourceNode sourceNode, Keyword.Type type, boolean allowIndirectCall){
         if(sourceNode instanceof KeywordCall){
             return isType((KeywordCall)sourceNode, type, allowIndirectCall);

@@ -42,14 +42,14 @@ public class WordFrequency {
         final List<SimpleMatrix> vectors = new ArrayList<>(this.words.size());
 
         int size = this.words.get(0).size();
-        final List<String> words = new ArrayList<>(this.words.get(0).keySet());
+        final List<String> wordLabels = new ArrayList<>(this.words.get(0).keySet());
 
         for(Map<String, Long> frequencies: this.words){
             SimpleMatrix vector = new SimpleMatrix(1, size);
 
             int col = 0;
-            for(String word: words){
-                vector.set(0, col++, frequencies.get(word));
+            for(String wordLabel: wordLabels){
+                vector.set(0, col++, frequencies.get(wordLabel));
             }
 
             vectors.add(vector);

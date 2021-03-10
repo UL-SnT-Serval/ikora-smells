@@ -22,13 +22,11 @@ public class SleepCounterVisitor extends SmellVisitor {
     public void visit(KeywordCall call, VisitorMemory memory) {
         final Optional<Keyword> keyword = call.getKeyword();
 
-        if(keyword.isPresent()){
-            if(keyword.get().getType() == Keyword.Type.SYNCHRONIZATION){
-                if(keyword.get() instanceof Sleep){
-                    addNode(call);
-                }
-                ++syncCounter;
+        if(keyword.isPresent() && keyword.get().getType() == Keyword.Type.SYNCHRONIZATION){
+            if(keyword.get() instanceof Sleep){
+                addNode(call);
             }
+            ++syncCounter;
         }
 
         super.visit(call, memory);

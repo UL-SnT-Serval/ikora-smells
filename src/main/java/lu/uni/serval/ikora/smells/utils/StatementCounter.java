@@ -9,12 +9,9 @@ import java.util.Map;
 public class StatementCounter {
     private static final Map<TestCase, Integer> cache = new HashMap<>();
 
-    public static int getCount(TestCase testCase){
-        if(!cache.containsKey(testCase)){
-            int count = KeywordStatistics.getStatementCount(testCase);
-            cache.put(testCase, count);
-        }
+    private StatementCounter() {}
 
-        return cache.get(testCase);
+    public static int getCount(TestCase testCase){
+        return cache.computeIfAbsent(testCase, KeywordStatistics::getStatementCount);
     }
 }

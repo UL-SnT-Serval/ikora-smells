@@ -10,6 +10,8 @@ public class LocatorUtils {
     private static final Pattern xPathPattern =  Pattern.compile("^xpath:", Pattern.CASE_INSENSITIVE);
     private static final Pattern cssPattern =  Pattern.compile("^css:", Pattern.CASE_INSENSITIVE);
 
+    private LocatorUtils() {}
+
     public static boolean isComplex(final String value, int maxSize){
         if(xPathPattern.matcher(value).find()){
             return getXPathSize(value.replaceAll(xPathPattern.pattern(), "")) > maxSize;

@@ -9,15 +9,15 @@ import lu.uni.serval.ikora.core.utils.ArgumentUtils;
 import java.util.Optional;
 
 public class ResultOnTheFlyVisitor extends SmellVisitor {
-    private int expected = 0;
-    private int onTheFly = 0;
+    private int expectedCount = 0;
+    private int onTheFlyCount = 0;
 
     public int getOnTheFly() {
-        return onTheFly;
+        return onTheFlyCount;
     }
 
     public int getExpected() {
-        return expected;
+        return expectedCount;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ResultOnTheFlyVisitor extends SmellVisitor {
                 processVariable((Variable)expected.get());
             }
 
-            ++this.expected;
+            ++this.expectedCount;
         }
 
         super.visit(call, memory);
@@ -62,9 +62,9 @@ public class ResultOnTheFlyVisitor extends SmellVisitor {
     }
 
     private void processVariable(Variable variable){
-        for(Node definition: variable.getDefinition(Link.Import.BOTH)){
+        for(Dependable definition: variable.getDefinition(Link.Import.BOTH)){
            if(isComputed(definition)){
-               ++onTheFly;
+               ++onTheFlyCount;
                addNode((SourceNode) definition);
                addNode(variable);
            }

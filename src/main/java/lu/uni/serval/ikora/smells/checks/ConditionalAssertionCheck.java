@@ -19,7 +19,7 @@ public class ConditionalAssertionCheck implements SmellCheck {
         int totalAssertions = visitor.getNodes().size();
 
         double rawValue = visitor.getNodes().stream()
-                .map(n -> (KeywordCall)n)
+                .map(KeywordCall.class::cast)
                 .filter(this::isCallingAssertion)
                 .count();
 

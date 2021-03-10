@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MiddleManCheckTest {
+class MiddleManCheckTest {
     @Test
     void testWithOneIndirection(){
         final String code =
@@ -65,7 +65,7 @@ public class MiddleManCheckTest {
         final MiddleManCheck check = new MiddleManCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(metric.getNormalizedValue(), 0., 0.0001);
+        assertEquals( 0., metric.getNormalizedValue(), 0.0001);
         assertEquals(0., metric.getRawValue(), 0.0001);
     }
 }

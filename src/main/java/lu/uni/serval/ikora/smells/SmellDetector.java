@@ -9,7 +9,7 @@ import lu.uni.serval.ikora.core.model.TestCase;
 import java.util.*;
 
 public class SmellDetector {
-    private final static Map<SmellMetric.Type, SmellCheck> smellChecks;
+    private static final Map<SmellMetric.Type, SmellCheck> smellChecks;
     private final Set<SmellMetric.Type> smellsToDetect;
 
     static {

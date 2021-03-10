@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ComplexLocatorVisitorTest {
+class ComplexLocatorVisitorTest {
     @Test
     void testVisitCallWithoutLocators(){
         final String code =
