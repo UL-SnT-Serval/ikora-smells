@@ -15,6 +15,11 @@ import java.util.Optional;
 
 public class ComplexLocatorVisitor extends SmellVisitor {
     private int locators = 0;
+    private int maximumLocatorSize;
+
+    public ComplexLocatorVisitor(int maximumLocatorSize){
+        this.maximumLocatorSize = maximumLocatorSize;
+    }
 
     public int getComplexLocators() {
         return getNodes().size();
@@ -39,7 +44,7 @@ public class ComplexLocatorVisitor extends SmellVisitor {
                     if(ArgumentUtils.isExpendedUntilPosition(argumentList, index)){
                         final Argument argument = argumentList.get(index);
                         for(Pair<String, SourceNode> value: ArgumentUtils.getArgumentValues(argument)){
-                            if(LocatorUtils.isComplex(value.getLeft(), 4)){
+                            if(LocatorUtils.isComplex(value.getLeft(), this.maximumLocatorSize)){
                                 addNode(value.getRight());
                             }
 

@@ -18,7 +18,7 @@ class ComplexLocatorCheckTest {
         final String code =
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
-                "    Input Text    username_field    Bob";
+                "    Input Text    css:username_field    Bob";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
@@ -78,7 +78,7 @@ class ComplexLocatorCheckTest {
                 "    Input Text    ${locator}    Bob\n" +
                 "\n" +
                 "*** Variables ***\n" +
-                "${locator}    username_field";
+                "${locator}    css:username_field";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();

@@ -18,7 +18,7 @@ import java.util.Set;
 public class ComplexLocatorCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
+        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor(configuration.getMaximumLocatorSize());
         visitor.visit(testCase, new PathMemory());
 
         double rawValue = visitor.getComplexLocators();
@@ -31,6 +31,6 @@ public class ComplexLocatorCheck implements SmellCheck {
     public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
         return nodes.contains(edit.getLeft())
                 && Literal.class.isAssignableFrom(edit.getRight().getClass())
-                && !LocatorUtils.isComplex(edit.getRight().getName(), 4);
+                && !LocatorUtils.isComplex(edit.getRight().getName(), configuration.getMaximumLocatorSize());
     }
 }

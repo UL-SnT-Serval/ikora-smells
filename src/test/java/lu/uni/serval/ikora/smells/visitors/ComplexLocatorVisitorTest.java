@@ -41,7 +41,7 @@ class ComplexLocatorVisitorTest {
         final UserKeyword login = project.findUserKeyword("<IN_MEMORY>", "User \"${username}\" logs in with password \"${password}\"").iterator().next();
         assertNotNull(login);
 
-        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
+        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor(1);
         visitor.visit(login, new FixedMemory(1, KeywordCall.class));
 
         assertEquals(0, visitor.getComplexLocators());
@@ -78,7 +78,7 @@ class ComplexLocatorVisitorTest {
         final UserKeyword inputUsername = project.findUserKeyword("<IN_MEMORY>", "Input Username").iterator().next();
         assertNotNull(inputUsername);
 
-        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
+        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor(1);
         visitor.visit(inputUsername, new FixedMemory(1, KeywordCall.class));
 
         assertEquals(0, visitor.getComplexLocators());
@@ -115,7 +115,7 @@ class ComplexLocatorVisitorTest {
         final UserKeyword inputPassword = project.findUserKeyword("<IN_MEMORY>", "Input Password").iterator().next();
         assertNotNull(inputPassword);
 
-        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
+        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor(1);
         visitor.visit(inputPassword, new FixedMemory(1, KeywordCall.class));
 
         assertEquals(0, visitor.getComplexLocators());
@@ -152,7 +152,7 @@ class ComplexLocatorVisitorTest {
         final UserKeyword followLink = project.findUserKeyword("<IN_MEMORY>", "Follow the link").iterator().next();
         assertNotNull(followLink);
 
-        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor();
+        ComplexLocatorVisitor visitor = new ComplexLocatorVisitor(1);
         visitor.visit(followLink, new FixedMemory(1, KeywordCall.class));
 
         assertEquals(1, visitor.getComplexLocators());
