@@ -9,11 +9,11 @@ import lu.uni.serval.ikora.core.model.TestCase;
 import java.util.*;
 
 public class SmellDetector {
-    private static final Map<SmellMetric.Type, SmellCheck> smellChecks;
+    private static final EnumMap<SmellMetric.Type, SmellCheck> smellChecks;
     private final Set<SmellMetric.Type> smellsToDetect;
 
     static {
-        smellChecks = new HashMap<>(SmellMetric.Type.values().length);
+        smellChecks = new EnumMap<>(SmellMetric.Type.class);
 
         smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
         smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
