@@ -8,7 +8,7 @@ import lu.uni.serval.ikora.core.model.KeywordDefinition;
 
 public class SmellConfiguration {
     @JsonProperty(value = "maximum step size")
-    private int maximumStepSize = 30;
+    private int maximumStepSize = 13;
     @JsonProperty(value = "maximum locator size")
     private int maximumLocatorSize = 1;
     @JsonIgnore
