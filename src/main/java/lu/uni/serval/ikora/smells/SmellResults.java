@@ -5,10 +5,10 @@ import lu.uni.serval.ikora.core.model.SourceNode;
 import java.util.*;
 
 public class SmellResults implements Iterable<SmellResult> {
-    private final Map<SmellMetric.Type, SmellResult> results;
+    private final EnumMap<SmellMetric.Type, SmellResult> results;
 
     public SmellResults(){
-        this.results = new HashMap<>();
+        this.results = new EnumMap<>(SmellMetric.Type.class);
     }
 
     public void add(SmellResult smellResult){
