@@ -13,8 +13,8 @@ import org.ejml.simple.SimpleMatrix;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 class EagerTestCheckTest {
     private static String codeLogin;
@@ -99,7 +99,8 @@ class EagerTestCheckTest {
         final EagerTestCheck check = new EagerTestCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertThat(metric.getNormalizedValue(), allOf(greaterThan(0.0), lessThan(1.0)));
+        assertTrue(metric.getNormalizedValue() < 1.);
+        assertTrue(metric.getNormalizedValue() > 0.);
     }
 
     @Test
@@ -110,7 +111,7 @@ class EagerTestCheckTest {
         values[0] = new double[]{0.,0.,10.};
         final SimpleMatrix vector2 = new SimpleMatrix(values);
 
-        assertThat(NeuralUtils.cosine(vector1, vector2), equalTo(1.));
+        assertEquals(1., NeuralUtils.cosine(vector1, vector2));
     }
 
     @Test
@@ -121,7 +122,7 @@ class EagerTestCheckTest {
         values[0] = new double[]{0.,0.,3.};
         final SimpleMatrix vector2 = new SimpleMatrix(values);
 
-        assertThat(NeuralUtils.cosine(vector1, vector2), equalTo(0.));
+        assertEquals(0., NeuralUtils.cosine(vector1, vector2));
     }
 
     @Test
@@ -132,6 +133,6 @@ class EagerTestCheckTest {
         values[0] = new double[]{-3.,0.,0.};
         SimpleMatrix vector2 = new SimpleMatrix(values);
 
-        assertThat(NeuralUtils.cosine(vector1, vector2), equalTo(-1.));
+        assertEquals(-1., NeuralUtils.cosine(vector1, vector2));
     }
 }

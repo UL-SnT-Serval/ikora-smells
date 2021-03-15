@@ -237,13 +237,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-library</artifactId>
-            <version>2.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>lu.uni.serval</groupId>
             <artifactId>ikora-core</artifactId>
             <version>0.1.2</version>
