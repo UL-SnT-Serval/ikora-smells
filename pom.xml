@@ -254,12 +254,6 @@
             <version>4.2.0</version>
             <classifier>models</classifier>
         </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>30.1-jre</version>
-        </dependency>
     </dependencies>
 
 </project>
