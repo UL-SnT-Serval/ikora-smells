@@ -6,9 +6,7 @@ import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.smells.visitors.EagerTestVisitor;
 
-import lu.uni.serval.ikora.core.analytics.difference.Edit;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
-import lu.uni.serval.ikora.core.model.SourceNode;
 import lu.uni.serval.ikora.core.model.Step;
 import lu.uni.serval.ikora.core.model.TestCase;
 
@@ -54,10 +52,5 @@ public class EagerTestCheck implements SmellCheck {
         double normalizedValue = count == 0 ? Double.NaN : 1 -  (rawValue / count);
 
         return new SmellResult(SmellMetric.Type.EAGER_TEST, rawValue, normalizedValue, new HashSet<>(testCase.getSteps()));
-    }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_STEP);
     }
 }

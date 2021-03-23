@@ -6,13 +6,9 @@ import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
-import lu.uni.serval.ikora.core.analytics.difference.Edit;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.model.Keyword;
-import lu.uni.serval.ikora.core.model.SourceNode;
 import lu.uni.serval.ikora.core.model.TestCase;
-
-import java.util.Set;
 
 public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     @Override
@@ -24,10 +20,5 @@ public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
         double normalizedValue = visitor.getTotalVisited() > 0 ? rawValue / visitor.getTotalVisited() : 0.;
 
         return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, rawValue, normalizedValue, visitor.getNodes());
-    }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_STEP);
     }
 }

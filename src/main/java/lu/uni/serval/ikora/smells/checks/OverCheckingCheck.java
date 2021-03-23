@@ -6,13 +6,9 @@ import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
-import lu.uni.serval.ikora.core.analytics.difference.Edit;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.model.Keyword;
-import lu.uni.serval.ikora.core.model.SourceNode;
 import lu.uni.serval.ikora.core.model.TestCase;
-
-import java.util.Set;
 
 public class OverCheckingCheck implements SmellCheck {
     @Override
@@ -24,10 +20,5 @@ public class OverCheckingCheck implements SmellCheck {
         double normalizedValue = rawValue / visitor.getTotalVisited();
 
         return new SmellResult(SmellMetric.Type.OVER_CHECKING, rawValue, normalizedValue, visitor.getNodes());
-    }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_STEP);
     }
 }

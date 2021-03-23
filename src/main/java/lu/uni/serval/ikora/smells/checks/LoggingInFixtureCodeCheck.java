@@ -5,7 +5,6 @@ import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
-import lu.uni.serval.ikora.core.analytics.difference.Edit;
 import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.model.Keyword;
@@ -32,11 +31,6 @@ public class LoggingInFixtureCodeCheck implements SmellCheck {
         }
 
         return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, rawValue, normalizedValud, nodes);
-    }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_STEP);
     }
 
     private Set<SourceNode> getFixtureLoggingNodes(TestCase testCase){

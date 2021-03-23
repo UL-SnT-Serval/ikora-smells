@@ -5,7 +5,6 @@ import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 
-import lu.uni.serval.ikora.core.analytics.difference.Edit;
 import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
 import lu.uni.serval.ikora.core.model.KeywordCall;
 import lu.uni.serval.ikora.core.model.SourceNode;
@@ -35,17 +34,5 @@ public class ComplicatedSetupCheck implements SmellCheck {
         }
 
         return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, rawValue, normalizedValue, nodes);
-    }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-            if(nodes.contains(edit.getLeft())){
-                int oldSize = KeywordStatistics.getSequenceSize(edit.getLeft());
-                int newSize = KeywordStatistics.getSequenceSize(edit.getRight());
-
-                return oldSize > newSize;
-            }
-
-        return false;
     }
 }

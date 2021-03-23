@@ -24,9 +24,4 @@ public class HardcodedValuesCheck implements SmellCheck {
 
         return new SmellResult(SmellMetric.Type.HARD_CODED_VALUES, rawValue, normalizedValue, visitor.getNodes());
     }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration){
-        return SmellCheck.isFix(edit, nodes, Edit.Type.CHANGE_VALUE_TYPE);
-    }
 }

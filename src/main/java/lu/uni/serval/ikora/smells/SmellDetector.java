@@ -2,8 +2,6 @@ package lu.uni.serval.ikora.smells;
 
 import lu.uni.serval.ikora.smells.checks.*;
 
-import lu.uni.serval.ikora.core.analytics.difference.Edit;
-import lu.uni.serval.ikora.core.model.SourceNode;
 import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.*;
@@ -23,7 +21,7 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, new LoggingInFixtureCodeCheck());
         smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, new HidingTestDataInFixtureCodeCheck());
         smellChecks.put(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, new StinkySynchronizationSyndromeCheck());
-        smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new ResultsOnTheFlyCheck());
+        smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new CalculateExpectedResultsOnTheFlyCheck());
         smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
         smellChecks.put(SmellMetric.Type.COMPLEX_LOCATORS, new ComplexLocatorCheck());
         smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
@@ -47,10 +45,6 @@ public class SmellDetector {
        }
 
         return results;
-    }
-
-    public static boolean isFix(SmellMetric.Type type, Set<SourceNode> nodes, Edit edit, SmellConfiguration configuration){
-        return smellChecks.get(type).isFix(edit, nodes, configuration);
     }
 
     public static SmellDetector all(){

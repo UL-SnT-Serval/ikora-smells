@@ -24,9 +24,4 @@ public class ConditionalTestLogicCheck implements SmellCheck {
 
         return new SmellResult(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, rawValue, normalizedValue, visitor.getNodes());
     }
-
-    @Override
-    public boolean isFix(Edit edit, Set<SourceNode> nodes, SmellConfiguration configuration) {
-        return SmellCheck.isFix(edit, nodes, Edit.Type.REMOVE_STEP, Edit.Type.CHANGE_STEP);
-    }
 }
