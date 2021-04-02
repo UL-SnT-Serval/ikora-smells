@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.Properties;
 
 public class NLPUtils {
+    private NLPUtils() {}
+
     public static boolean isUsingPersonalPronoun(Step step){
         final String text = step.getName();
 
