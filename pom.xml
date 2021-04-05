@@ -17,7 +17,7 @@
         <connection>scm:git:git://github.com/UL-SnT-Serval/ikora-smells.git</connection>
         <developerConnection>scm:git:git@github.com:kabinja/kabinja.git</developerConnection>
         <url>https://github.com/UL-SnT-Serval/ikora-smells</url>
-        <tag>ikora-smells-0.1.6</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
@@ -260,7 +260,7 @@
         <dependency>
             <groupId>lu.uni.serval</groupId>
             <artifactId>ikora-core</artifactId>
-            <version>0.1.5</version>
+            <version>0.1.6</version>
         </dependency>
 
         <dependency>
