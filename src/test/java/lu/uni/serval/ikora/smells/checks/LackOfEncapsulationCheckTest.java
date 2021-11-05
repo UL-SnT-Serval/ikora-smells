@@ -21,6 +21,7 @@ class LackOfEncapsulationCheckTest {
             "    Input username    user\n" +
             "    Input password    password\n" +
             "    Click Button    login_button\n" +
+            "    Click Button    confirm_button\n" +
             "\n" +
             "*** Keywords ***\n" +
             "Input Username\n" +
@@ -40,7 +41,8 @@ class LackOfEncapsulationCheckTest {
         final LackOfEncapsulationCheck check = new LackOfEncapsulationCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.33333, metric.getNormalizedValue(), 0.0001);
+        assertEquals(0.5, metric.getNormalizedValue(), 0.0001);
+        assertEquals(2, metric.getRawValue(), 0.0001);
     }
 
     @Test
