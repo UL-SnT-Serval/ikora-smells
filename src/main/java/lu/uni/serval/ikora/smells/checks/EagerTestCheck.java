@@ -1,5 +1,7 @@
 package lu.uni.serval.ikora.smells.checks;
 
+import lu.uni.serval.ikora.core.model.Node;
+import lu.uni.serval.ikora.core.model.SourceFile;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
@@ -52,5 +54,10 @@ public class EagerTestCheck implements SmellCheck {
         double normalizedValue = count == 0 ? Double.NaN : 1 -  (rawValue / count);
 
         return new SmellResult(SmellMetric.Type.EAGER_TEST, rawValue, normalizedValue, new HashSet<>(testCase.getSteps()));
+    }
+
+    @Override
+    public List<Node> collectInstances(SourceFile file) {
+        return null;
     }
 }

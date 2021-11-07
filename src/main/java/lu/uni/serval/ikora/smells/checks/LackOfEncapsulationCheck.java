@@ -8,6 +8,7 @@ import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.core.model.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class LackOfEncapsulationCheck implements SmellCheck {
@@ -30,5 +31,10 @@ public class LackOfEncapsulationCheck implements SmellCheck {
         double normalizedValue = rawValue / (double)testCase.getSteps().size();
 
         return new SmellResult(SmellMetric.Type.LACK_OF_ENCAPSULATION, rawValue, normalizedValue, nodes);
+    }
+
+    @Override
+    public List<Node> collectInstances(SourceFile file) {
+        return null;
     }
 }

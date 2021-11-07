@@ -1,16 +1,15 @@
 package lu.uni.serval.ikora.smells.checks;
 
+import lu.uni.serval.ikora.core.model.*;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
 
 import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
-import lu.uni.serval.ikora.core.model.KeywordCall;
-import lu.uni.serval.ikora.core.model.SourceNode;
-import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,5 +33,10 @@ public class ComplicatedSetupCheck implements SmellCheck {
         }
 
         return new SmellResult(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, rawValue, normalizedValue, nodes);
+    }
+
+    @Override
+    public List<Node> collectInstances(SourceFile file) {
+        return null;
     }
 }

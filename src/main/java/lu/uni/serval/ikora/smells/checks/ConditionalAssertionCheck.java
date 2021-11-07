@@ -6,6 +6,8 @@ import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
 import lu.uni.serval.ikora.core.model.*;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 
+import java.util.List;
+
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
@@ -22,6 +24,11 @@ public class ConditionalAssertionCheck implements SmellCheck {
         double normalizedValue = totalAssertions > 0 ? rawValue / totalAssertions : 0.0;
 
         return new SmellResult(SmellMetric.Type.CONDITIONAL_ASSERTION, rawValue, normalizedValue, visitor.getNodes());
+    }
+
+    @Override
+    public List<Node> collectInstances(SourceFile file) {
+        return null;
     }
 
     private boolean isCallingAssertion(KeywordCall assertion) {

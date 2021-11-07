@@ -10,6 +10,7 @@ import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.model.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class MissingAssertionCheck implements SmellCheck {
@@ -22,5 +23,10 @@ public class MissingAssertionCheck implements SmellCheck {
         final Set<SourceNode> nodes = visitor.getNodes().isEmpty() ? Collections.singleton(testCase) : Collections.emptySet();
 
         return new SmellResult(SmellMetric.Type.MISSING_ASSERTION, normalized, normalized, nodes);
+    }
+
+    @Override
+    public List<Node> collectInstances(SourceFile file) {
+        return null;
     }
 }

@@ -9,6 +9,8 @@ import lu.uni.serval.ikora.smells.visitors.OneActionVisitor;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.model.*;
 
+import java.util.List;
+
 public class MiddleManCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
@@ -19,5 +21,10 @@ public class MiddleManCheck implements SmellCheck {
         double normalizedValue = rawValue / visitor.getKeywordsCount();
 
         return new SmellResult(SmellMetric.Type.MIDDLE_MAN, rawValue, normalizedValue, visitor.getNodes());
+    }
+
+    @Override
+    public List<Node> collectInstances(SourceFile file) {
+        return null;
     }
 }
