@@ -1,7 +1,7 @@
 package lu.uni.serval.ikora.smells.checks;
 
-import lu.uni.serval.ikora.core.model.Node;
 import lu.uni.serval.ikora.core.model.SourceFile;
+import lu.uni.serval.ikora.core.model.SourceNode;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
@@ -57,7 +57,18 @@ public class EagerTestCheck implements SmellCheck {
     }
 
     @Override
-    public List<Node> collectInstances(SourceFile file) {
-        return null;
+    public Set<SourceNode> collectInstances(SourceFile file, SmellConfiguration configuration) {
+        final Set<SourceNode> nodes = new HashSet<>();
+
+        for(TestCase testCase: file.getTestCases()){
+            final SmellResult result = computeMetric(testCase, configuration);
+
+            if(result.getNormalizedValue() > configuration.getEagerTestThreshold()){
+                nodes.add(testCase);
+            }
+        }
+
+        return nodes;
     }
+
 }

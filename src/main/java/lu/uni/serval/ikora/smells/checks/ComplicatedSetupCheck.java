@@ -9,7 +9,6 @@ import lu.uni.serval.ikora.smells.SmellResult;
 import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,7 +35,14 @@ public class ComplicatedSetupCheck implements SmellCheck {
     }
 
     @Override
-    public List<Node> collectInstances(SourceFile file) {
-        return null;
+    public Set<SourceNode> collectInstances(SourceFile file, SmellConfiguration configuration) {
+        final Set<SourceNode> nodes = new HashSet<>();
+
+        for(TestCase testCase: file.getTestCases()){
+            testCase.getSetup().ifPresent(nodes::add);
+        }
+
+        return nodes;
     }
+
 }

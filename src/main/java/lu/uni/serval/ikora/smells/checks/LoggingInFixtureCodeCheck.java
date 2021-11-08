@@ -10,15 +10,15 @@ import lu.uni.serval.ikora.core.analytics.KeywordStatistics;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LoggingInFixtureCodeCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         Set<SourceNode> nodes = Collections.emptySet();
         double rawValue = Double.NaN;
-        double normalizedValud = Double.NaN;
+        double normalizedValue = Double.NaN;
 
         if(testCase.getSetup().isPresent() || testCase.getTearDown().isPresent()){
             int statements = testCase.getSetup().map(KeywordStatistics::getStatementCount).orElse(1) - 1
@@ -26,15 +26,18 @@ public class LoggingInFixtureCodeCheck implements SmellCheck {
 
             nodes = getFixtureLoggingNodes(testCase);
             rawValue = nodes.size();
-            normalizedValud = rawValue / statements;
+            normalizedValue = rawValue / statements;
         }
 
-        return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, rawValue, normalizedValud, nodes);
+        return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, rawValue, normalizedValue, nodes);
     }
 
     @Override
-    public List<Node> collectInstances(SourceFile file) {
-        return null;
+    public Set<SourceNode> collectInstances(SourceFile file, SmellConfiguration configuration) {
+        return file.getTestCases().stream()
+                .flatMap(t -> getFixtureLoggingNodes(t).stream())
+                .filter(n -> n.getSourceFile() == file)
+                .collect(Collectors.toSet());
     }
 
     private Set<SourceNode> getFixtureLoggingNodes(TestCase testCase){

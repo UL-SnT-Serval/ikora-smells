@@ -1,18 +1,20 @@
 package lu.uni.serval.ikora.smells.checks;
 
+import lu.uni.serval.ikora.core.analytics.visitor.FileMemory;
+import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
+import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
 import lu.uni.serval.ikora.smells.*;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
 import lu.uni.serval.ikora.core.model.*;
-import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConditionalAssertionCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
-        visitor.visit(testCase, new PathMemory());
+        final CollectCallsByTypeVisitor visitor = visit(testCase, new PathMemory());
 
         int totalAssertions = visitor.getNodes().size();
 
@@ -27,8 +29,18 @@ public class ConditionalAssertionCheck implements SmellCheck {
     }
 
     @Override
-    public List<Node> collectInstances(SourceFile file) {
-        return null;
+    public Set<SourceNode> collectInstances(SourceFile file, SmellConfiguration configuration) {
+        return visit(file, new FileMemory(file)).getNodes().stream()
+                .map(KeywordCall.class::cast)
+                .filter(this::isCallingAssertion)
+                .collect(Collectors.toSet());
+    }
+
+    private CollectCallsByTypeVisitor visit(SourceNode node, VisitorMemory memory){
+        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
+        visitor.visit(node, memory);
+
+        return visitor;
     }
 
     private boolean isCallingAssertion(KeywordCall assertion) {

@@ -1,7 +1,7 @@
 package lu.uni.serval.ikora.smells.checks;
 
-import lu.uni.serval.ikora.core.model.Node;
 import lu.uni.serval.ikora.core.model.SourceFile;
+import lu.uni.serval.ikora.core.model.SourceNode;
 import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
@@ -12,7 +12,8 @@ import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.model.Keyword;
 import lu.uni.serval.ikora.core.model.TestCase;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     @Override
@@ -27,7 +28,11 @@ public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
     }
 
     @Override
-    public List<Node> collectInstances(SourceFile file) {
-        return null;
+    public Set<SourceNode> collectInstances(SourceFile file, SmellConfiguration configuration) {
+        return file.getTestCases().stream()
+                .map(t -> computeMetric(t, configuration))
+                .flatMap(r -> r.getNodes().stream())
+                .filter(n -> n.getSourceFile() == file)
+                .collect(Collectors.toSet());
     }
 }

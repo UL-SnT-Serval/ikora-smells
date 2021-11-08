@@ -8,14 +8,13 @@ import lu.uni.serval.ikora.smells.SmellResult;
 
 import lu.uni.serval.ikora.smells.utils.NLPUtils;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UsingPersonalPronounCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
-        final Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase.getSteps());
+        final Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase);
 
         double rawValue = nodes.size();
         double normalizedValue = rawValue / testCase.getSteps().size();
@@ -24,12 +23,15 @@ public class UsingPersonalPronounCheck implements SmellCheck {
     }
 
     @Override
-    public List<Node> collectInstances(SourceFile file) {
-        return null;
+    public Set<SourceNode> collectInstances(SourceFile file, SmellConfiguration configuration) {
+        return file.getTestCases().stream()
+                .flatMap(t -> collectStepsUsingPersonalPronoun(t).stream())
+                .collect(Collectors.toSet());
     }
 
-    private Set<SourceNode> collectStepsUsingPersonalPronoun(List<Step> steps){
-        return steps.stream().filter(NLPUtils::isUsingPersonalPronoun)
+
+    private Set<SourceNode> collectStepsUsingPersonalPronoun(TestCase testCase){
+        return testCase.getSteps().stream().filter(NLPUtils::isUsingPersonalPronoun)
                 .map(SourceNode.class::cast)
                 .collect(Collectors.toSet());
     }
