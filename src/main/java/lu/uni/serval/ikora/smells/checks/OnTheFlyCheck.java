@@ -13,7 +13,7 @@ import lu.uni.serval.ikora.core.model.*;
 
 import java.util.Set;
 
-public class CalculateExpectedResultsOnTheFlyCheck implements SmellCheck {
+public class OnTheFlyCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         final ResultOnTheFlyVisitor visitor = visit(testCase, new PathMemory());

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CalculateExpectedResultsOnTheFlyCheckTest {
+class OnTheFlyCheckTest {
     @Test
     void testWithNoResultsOnTheFly(){
         final String code =
@@ -35,7 +35,7 @@ class CalculateExpectedResultsOnTheFlyCheckTest {
 
         final SmellConfiguration configuration = new SmellConfiguration();
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final CalculateExpectedResultsOnTheFlyCheck check = new CalculateExpectedResultsOnTheFlyCheck();
+        final OnTheFlyCheck check = new OnTheFlyCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getNormalizedValue(), 0.0001);
@@ -66,7 +66,7 @@ class CalculateExpectedResultsOnTheFlyCheckTest {
 
         final SmellConfiguration configuration = new SmellConfiguration();
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final CalculateExpectedResultsOnTheFlyCheck check = new CalculateExpectedResultsOnTheFlyCheck();
+        final OnTheFlyCheck check = new OnTheFlyCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getNormalizedValue(), 0.0001);
@@ -96,7 +96,7 @@ class CalculateExpectedResultsOnTheFlyCheckTest {
 
         final SmellConfiguration configuration = new SmellConfiguration();
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final CalculateExpectedResultsOnTheFlyCheck check = new CalculateExpectedResultsOnTheFlyCheck();
+        final OnTheFlyCheck check = new OnTheFlyCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);
@@ -128,7 +128,7 @@ class CalculateExpectedResultsOnTheFlyCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final CalculateExpectedResultsOnTheFlyCheck check = new CalculateExpectedResultsOnTheFlyCheck();
+        final OnTheFlyCheck check = new OnTheFlyCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0.5, metric.getNormalizedValue(), 0.0001);

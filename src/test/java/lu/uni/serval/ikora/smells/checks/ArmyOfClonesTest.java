@@ -13,7 +13,7 @@ import lu.uni.serval.ikora.core.model.TestCase;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestClonesCheckTest {
+class ArmyOfClonesTest {
     @Test
     void testWithNoClones(){
         final String code =
@@ -42,7 +42,7 @@ class TestClonesCheckTest {
         configuration.setClones(KeywordCloneDetection.findClones(project));
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final SmellCheck check = new TestClonesCheck();
+        final SmellCheck check = new ArmyOfClonesCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getNormalizedValue(), 0.0001);
@@ -79,7 +79,7 @@ class TestClonesCheckTest {
         configuration.setClones(KeywordCloneDetection.findClones(project));
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final SmellCheck check = new TestClonesCheck();
+        final SmellCheck check = new ArmyOfClonesCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);
@@ -116,7 +116,7 @@ class TestClonesCheckTest {
         configuration.setClones(KeywordCloneDetection.findClones(project));
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final SmellCheck check = new TestClonesCheck();
+        final SmellCheck check = new ArmyOfClonesCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);
@@ -154,7 +154,7 @@ class TestClonesCheckTest {
         configuration.setClones(KeywordCloneDetection.findClones(project));
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final SmellCheck check = new TestClonesCheck();
+        final SmellCheck check = new ArmyOfClonesCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);

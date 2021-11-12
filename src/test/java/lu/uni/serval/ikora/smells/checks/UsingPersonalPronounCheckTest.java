@@ -105,7 +105,7 @@ class UsingPersonalPronounCheckTest {
                 "    Log    I am on login page\n" +
                 "\n" +
                 "I put my usernam and password\n" +
-                "    Log    I put my usernam and password\n" +
+                "    Log    I put my username and password\n" +
                 "\n" +
                 "I should be on the welcome page\n" +
                 "    Log    I should be on the welcome page";

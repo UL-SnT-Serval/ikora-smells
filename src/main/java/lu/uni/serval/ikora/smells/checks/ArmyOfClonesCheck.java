@@ -15,7 +15,7 @@ import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.Set;
 
-public class TestClonesCheck implements SmellCheck {
+public class ArmyOfClonesCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         final CloneVisitor visitor = visit(testCase, new PathMemory(), configuration);

@@ -15,13 +15,13 @@ public class SmellDetector {
 
         smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
         smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
-        smellChecks.put(SmellMetric.Type.TEST_CLONES, new TestClonesCheck());
+        smellChecks.put(SmellMetric.Type.TEST_CLONES, new ArmyOfClonesCheck());
         smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCheck());
         smellChecks.put(SmellMetric.Type.LACK_OF_ENCAPSULATION, new LackOfEncapsulationCheck());
         smellChecks.put(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, new LoggingInFixtureCodeCheck());
         smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, new HidingTestDataInFixtureCodeCheck());
         smellChecks.put(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, new StinkySynchronizationSyndromeCheck());
-        smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new CalculateExpectedResultsOnTheFlyCheck());
+        smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new OnTheFlyCheck());
         smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
         smellChecks.put(SmellMetric.Type.COMPLEX_LOCATORS, new ComplexLocatorCheck());
         smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
