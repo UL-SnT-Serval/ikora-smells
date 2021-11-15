@@ -3,10 +3,10 @@ package lu.uni.serval.ikora.smells.visitors;
 import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
 import lu.uni.serval.ikora.core.model.UserKeyword;
 
-public class LackOfDocumentationVisitor extends SmellVisitor {
+public class MissingDocumentationVisitor extends SmellVisitor {
     private int totalKeywordsCounter = 0;
 
-    public int getDocumentedKeyword(){
+    public int getUndocumentedKeywords(){
         return getNodes().size();
     }
 
@@ -16,7 +16,7 @@ public class LackOfDocumentationVisitor extends SmellVisitor {
 
     @Override
     public void visit(UserKeyword keyword, VisitorMemory memory) {
-        if(!keyword.getDocumentation().isEmpty()){
+        if(keyword.getDocumentation().isEmpty()){
             addNode(keyword);
         }
 

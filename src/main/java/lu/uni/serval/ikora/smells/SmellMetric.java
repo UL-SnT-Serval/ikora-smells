@@ -21,7 +21,8 @@ public class SmellMetric {
         CONDITIONAL_ASSERTION,
         OVER_CHECKING,
         SNEAKY_CHECKING,
-        LACK_OF_DOCUMENTATION
+        MISSING_DOCUMENTATION,
+        SAME_DOCUMENTATION
     }
 
     private final Type type;
