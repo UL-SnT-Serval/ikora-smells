@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoggingInFixtureCodeCheckTest {
+class NoisyLoggingCheckTest {
     @Test
     void testWithOneLogInSetup(){
         final String code =
@@ -38,7 +38,7 @@ class LoggingInFixtureCodeCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final LoggingInFixtureCodeCheck check = new LoggingInFixtureCodeCheck();
+        final NoisyLoggingCheck check = new NoisyLoggingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0.3333, metric.getNormalizedValue(), 0.0001);
@@ -69,7 +69,7 @@ class LoggingInFixtureCodeCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final LoggingInFixtureCodeCheck check = new LoggingInFixtureCodeCheck();
+        final NoisyLoggingCheck check = new NoisyLoggingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getNormalizedValue(), 0.0001);
@@ -95,7 +95,7 @@ class LoggingInFixtureCodeCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
-        final LoggingInFixtureCodeCheck check = new LoggingInFixtureCodeCheck();
+        final NoisyLoggingCheck check = new NoisyLoggingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(Double.NaN, metric.getNormalizedValue(), 0.0001);

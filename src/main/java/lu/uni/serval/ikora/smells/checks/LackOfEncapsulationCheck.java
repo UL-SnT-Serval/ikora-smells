@@ -42,5 +42,4 @@ public class LackOfEncapsulationCheck implements SmellCheck {
 
         return nodes;
     }
-
 }

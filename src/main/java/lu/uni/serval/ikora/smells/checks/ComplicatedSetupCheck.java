@@ -39,7 +39,10 @@ public class ComplicatedSetupCheck implements SmellCheck {
         final Set<SourceNode> nodes = new HashSet<>();
 
         for(TestCase testCase: file.getTestCases()){
-            testCase.getSetup().ifPresent(nodes::add);
+            final SmellResult smellResult = computeMetric(testCase, configuration);
+            if(smellResult.getNormalizedValue() < configuration.getSetupTestRatio()){
+                nodes.addAll(smellResult.getNodes());
+            }
         }
 
         return nodes;

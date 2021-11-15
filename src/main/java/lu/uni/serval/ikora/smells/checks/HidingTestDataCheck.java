@@ -15,7 +15,7 @@ import lu.uni.serval.ikora.core.model.TestCase;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class HidingTestDataInFixtureCodeCheck implements SmellCheck {
+public class HidingTestDataCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.GET);

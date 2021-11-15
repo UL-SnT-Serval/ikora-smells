@@ -11,7 +11,7 @@ import lu.uni.serval.ikora.smells.utils.NLPUtils;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UsingPersonalPronounCheck implements SmellCheck {
+public class NarcissisticCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         final Set<SourceNode> nodes = collectStepsUsingPersonalPronoun(testCase);

@@ -17,6 +17,8 @@ public class SmellConfiguration {
     private double eagerTestThreshold = 0.5;
     @JsonProperty(value = "assertion density threshold")
     private double assertionDensityThreshold;
+    @JsonProperty(value = "setup test ratio")
+    private double setupTestRatio = 0.5;
     @JsonIgnore
     private Clones<KeywordDefinition> clones = new Clones<>();
 
@@ -68,6 +70,16 @@ public class SmellConfiguration {
     @JsonProperty(value = "assertion density threshold")
     public void setAssertionDensityThreshold(double assertionDensityThreshold) {
         this.assertionDensityThreshold = assertionDensityThreshold;
+    }
+
+    @JsonProperty(value = "setup test ratio")
+    public double getSetupTestRatio() {
+        return setupTestRatio;
+    }
+
+    @JsonProperty(value = "setup test ratio")
+    public void setSetupTestRatio(double setupTestRatio) {
+        this.setupTestRatio = setupTestRatio;
     }
 
     public void setClones(Clones<KeywordDefinition> clones){

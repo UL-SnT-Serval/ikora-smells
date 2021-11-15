@@ -16,7 +16,7 @@ public class MissingDocumentationVisitor extends SmellVisitor {
 
     @Override
     public void visit(UserKeyword keyword, VisitorMemory memory) {
-        if(keyword.getDocumentation().isEmpty()){
+        if(!keyword.getDocumentation().isPresent() || keyword.getDocumentation().isEmpty()){
             addNode(keyword);
         }
 

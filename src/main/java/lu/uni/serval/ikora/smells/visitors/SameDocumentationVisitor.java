@@ -30,7 +30,7 @@ public class SameDocumentationVisitor extends SmellVisitor {
 
     public void check(KeywordDefinition keyword){
         if(keyword.getDocumentation().toString().equalsIgnoreCase(keyword.getName())){
-            addNode(keyword);
+            addNode(keyword.getDocumentation());
         }
 
         ++totalKeywordsCounter;

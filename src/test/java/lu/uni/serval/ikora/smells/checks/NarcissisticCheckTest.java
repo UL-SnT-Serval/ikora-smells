@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsingPersonalPronounCheckTest {
+class NarcissisticCheckTest {
     @Test
     void testWithNoPronoun(){
         final String code =
@@ -40,7 +40,7 @@ class UsingPersonalPronounCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case without personal pronoun").iterator().next();
-        final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
+        final NarcissisticCheck check = new NarcissisticCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getNormalizedValue(), 0.0001);
@@ -73,7 +73,7 @@ class UsingPersonalPronounCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with all personal pronoun").iterator().next();
-        final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
+        final NarcissisticCheck check = new NarcissisticCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);
@@ -116,7 +116,7 @@ class UsingPersonalPronounCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Test case with some personal pronoun").iterator().next();
-        final UsingPersonalPronounCheck check = new UsingPersonalPronounCheck();
+        final NarcissisticCheck check = new NarcissisticCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0.6666, metric.getNormalizedValue(), 0.0001);

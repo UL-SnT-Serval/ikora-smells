@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LoggingInFixtureCodeCheck implements SmellCheck {
+public class NoisyLoggingCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         Set<SourceNode> nodes = Collections.emptySet();
