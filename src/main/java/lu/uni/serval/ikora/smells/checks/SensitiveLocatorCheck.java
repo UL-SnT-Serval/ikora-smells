@@ -15,7 +15,7 @@ import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.Set;
 
-public class ComplexLocatorCheck implements SmellCheck {
+public class SensitiveLocatorCheck implements SmellCheck {
     @Override
     public SmellResult computeMetric(TestCase testCase, SmellConfiguration configuration) {
         ComplexLocatorVisitor visitor = visit(testCase, new PathMemory(), configuration);
@@ -23,7 +23,7 @@ public class ComplexLocatorCheck implements SmellCheck {
         double rawValue = visitor.getComplexLocators();
         double normalizedValue = rawValue / visitor.getLocators();
 
-        return new SmellResult(SmellMetric.Type.COMPLEX_LOCATORS, rawValue, normalizedValue, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.SENSITIVE_LOCATOR, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

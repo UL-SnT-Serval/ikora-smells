@@ -13,24 +13,27 @@ public class SmellDetector {
     static {
         smellChecks = new EnumMap<>(SmellMetric.Type.class);
 
-        smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
-        smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
-        smellChecks.put(SmellMetric.Type.TEST_CLONES, new ArmyOfClonesCheck());
-        smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCheck());
-        smellChecks.put(SmellMetric.Type.LACK_OF_ENCAPSULATION, new LackOfEncapsulationCheck());
-        smellChecks.put(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, new NoisyLoggingCheck());
-        smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, new HidingTestDataCheck());
-        smellChecks.put(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, new StinkySynchronizationSyndromeCheck());
-        smellChecks.put(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, new OnTheFlyCheck());
+        smellChecks.put(SmellMetric.Type.ARMY_OF_CLONES, new ArmyOfClonesCheck());
         smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
-        smellChecks.put(SmellMetric.Type.COMPLEX_LOCATORS, new ComplexLocatorCheck());
-        smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
-        smellChecks.put(SmellMetric.Type.USING_PERSONAL_PRONOUN, new NarcissisticCheck());
-        smellChecks.put(SmellMetric.Type.MISSING_ASSERTION, new MissingAssertionCheck());
-        smellChecks.put(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, new HardCodedEnvironmentConfigurationCheck());
         smellChecks.put(SmellMetric.Type.CONDITIONAL_ASSERTION, new ConditionalAssertionCheck());
+        smellChecks.put(SmellMetric.Type.CONDITIONAL_TEST_LOGIC, new ConditionalTestLogicCheck());
+        smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
+        smellChecks.put(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, new HardCodedEnvironmentConfigurationCheck());
+        smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
+        smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA, new HidingTestDataCheck());
+        smellChecks.put(SmellMetric.Type.LACK_OF_ENCAPSULATION, new LackOfEncapsulationCheck());
+        smellChecks.put(SmellMetric.Type.LONG_TEST_STEPS, new LongTestStepsCheck());
+        smellChecks.put(SmellMetric.Type.MIDDLE_MAN, new MiddleManCheck());
+        smellChecks.put(SmellMetric.Type.MISSING_ASSERTION, new MissingAssertionCheck());
+        smellChecks.put(SmellMetric.Type.MISSING_DOCUMENTATION, new MissingDocumentationCheck());
+        smellChecks.put(SmellMetric.Type.NARCISSISTIC, new NarcissisticCheck());
+        smellChecks.put(SmellMetric.Type.NOISY_LOGGING, new NoisyLoggingCheck());
+        smellChecks.put(SmellMetric.Type.ON_THE_FLY, new OnTheFlyCheck());
         smellChecks.put(SmellMetric.Type.OVER_CHECKING, new OverCheckingCheck());
+        smellChecks.put(SmellMetric.Type.SAME_DOCUMENTATION, new SameDocumentationCheck());
+        smellChecks.put(SmellMetric.Type.SENSITIVE_LOCATOR, new SensitiveLocatorCheck());
         smellChecks.put(SmellMetric.Type.SNEAKY_CHECKING, new SneakyCheckingCheck());
+        smellChecks.put(SmellMetric.Type.STINKY_SYNCHRONIZATION_SYNDROME, new StinkySynchronizationSyndromeCheck());
     }
 
     public SmellDetector(Set<SmellMetric.Type> smellsToDetect){
@@ -45,6 +48,10 @@ public class SmellDetector {
        }
 
         return results;
+    }
+
+    public int getNumberMetrics(){
+        return this.smellsToDetect.size();
     }
 
     public static SmellDetector all(){

@@ -9,16 +9,23 @@ import lu.uni.serval.ikora.core.model.Project;
 import lu.uni.serval.ikora.core.model.TestCase;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ComplexLocatorCheckTest {
-    @Test
-    void testDirectSimpleLocator(){
+class SensitiveLocatorCheckTest {
+    @ParameterizedTest
+    @CsvSource ({
+            "css:username_field,0.",
+            "css:.covid-form > div > div.react-grid-Container > div > div,1.",
+            "xpath:/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1],1."
+    })
+    void testHardcodedLocator(String locator, double normalizedValue){
         final String code =
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
-                "    Input Text    css:username_field    Bob";
+                "    Input Text    " + locator + "    Bob";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
@@ -26,48 +33,10 @@ class ComplexLocatorCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
+        final SensitiveLocatorCheck check = new SensitiveLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0., metric.getNormalizedValue(), 0.0001);
-    }
-
-    @Test
-    void testDirectComplexCssLocator(){
-        final String code =
-                "*** Test Cases ***\n" +
-                "Write in text field\n" +
-                "    Input Text    css:.covid-form > div > div.react-grid-Container > div > div    Bob";
-
-        final BuildResult build = Builder.build(code, true);
-        final Project project = build.getProjects().iterator().next();
-
-        final SmellConfiguration configuration = new SmellConfiguration();
-
-        final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
-        final SmellResult metric = check.computeMetric(testCase, configuration);
-
-        assertEquals(1., metric.getNormalizedValue(), 0.0001);
-    }
-
-    @Test
-    void testDirectComplexXmlLocator(){
-        final String code =
-                "*** Test Cases ***\n" +
-                "Write in text field\n" +
-                "    Input Text    xpath:/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1]    Bob";
-
-        final BuildResult build = Builder.build(code, true);
-        final Project project = build.getProjects().iterator().next();
-
-        final SmellConfiguration configuration = new SmellConfiguration();
-
-        final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
-        final SmellResult metric = check.computeMetric(testCase, configuration);
-
-        assertEquals(1., metric.getNormalizedValue(), 0.0001);
+        assertEquals(normalizedValue, metric.getNormalizedValue(), 0.0001);
     }
 
     @Test
@@ -86,7 +55,7 @@ class ComplexLocatorCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
+        final SensitiveLocatorCheck check = new SensitiveLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(0., metric.getNormalizedValue(), 0.0001);
@@ -108,7 +77,7 @@ class ComplexLocatorCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
+        final SensitiveLocatorCheck check = new SensitiveLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);
@@ -132,7 +101,7 @@ class ComplexLocatorCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
+        final SensitiveLocatorCheck check = new SensitiveLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);
@@ -159,7 +128,7 @@ class ComplexLocatorCheckTest {
         final SmellConfiguration configuration = new SmellConfiguration();
 
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Write in text field").iterator().next();
-        final ComplexLocatorCheck check = new ComplexLocatorCheck();
+        final SensitiveLocatorCheck check = new SensitiveLocatorCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
         assertEquals(1., metric.getNormalizedValue(), 0.0001);

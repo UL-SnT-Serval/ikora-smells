@@ -21,7 +21,7 @@ public class OnTheFlyCheck implements SmellCheck {
         double rawValue = visitor.getOnTheFly();
         double normalizedValue = rawValue / visitor.getExpected();
 
-        return new SmellResult(SmellMetric.Type.CALCULATE_EXPECTED_RESULTS_ON_THE_FLY, rawValue, normalizedValue, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.ON_THE_FLY, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

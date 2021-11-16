@@ -19,7 +19,7 @@ public class NarcissisticCheck implements SmellCheck {
         double rawValue = nodes.size();
         double normalizedValue = rawValue / testCase.getSteps().size();
 
-        return new SmellResult(SmellMetric.Type.USING_PERSONAL_PRONOUN, rawValue, normalizedValue, nodes);
+        return new SmellResult(SmellMetric.Type.NARCISSISTIC, rawValue, normalizedValue, nodes);
     }
 
     @Override

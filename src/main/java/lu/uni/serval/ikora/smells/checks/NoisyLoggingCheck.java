@@ -29,7 +29,7 @@ public class NoisyLoggingCheck implements SmellCheck {
             normalizedValue = rawValue / statements;
         }
 
-        return new SmellResult(SmellMetric.Type.LOGGING_IN_FIXTURE_CODE, rawValue, normalizedValue, nodes);
+        return new SmellResult(SmellMetric.Type.NOISY_LOGGING, rawValue, normalizedValue, nodes);
     }
 
     @Override

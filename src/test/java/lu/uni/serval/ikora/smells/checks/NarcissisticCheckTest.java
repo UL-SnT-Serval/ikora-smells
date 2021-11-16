@@ -54,15 +54,15 @@ class NarcissisticCheckTest {
                 "\n" +
                 "Test case with all personal pronoun\n" +
                 "    Given I am on login page\n" +
-                "    When I put my usernam and password\n" +
+                "    When I put my username and password\n" +
                 "    Then I should be on the welcome page\n" +
                 "\n" +
                 "*** Keywords ***\n" +
                 "I am on login page\n" +
                 "    Log    I am on login page\n" +
                 "\n" +
-                "I put my usernam and password\n" +
-                "    Log    I put my usernam and password\n" +
+                "I put my username and password\n" +
+                "    Log    I put my username and password\n" +
                 "\n" +
                 "I should be on the welcome page\n" +
                 "    Log    I should be on the welcome page";

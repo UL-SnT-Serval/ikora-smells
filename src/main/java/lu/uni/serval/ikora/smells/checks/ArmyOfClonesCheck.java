@@ -22,7 +22,7 @@ public class ArmyOfClonesCheck implements SmellCheck {
         double rawValue = visitor.getCloneCount();
         double normalizedValue = rawValue / visitor.getTotalKeywordsCount();
 
-        return new SmellResult(SmellMetric.Type.TEST_CLONES, rawValue, normalizedValue, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.ARMY_OF_CLONES, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

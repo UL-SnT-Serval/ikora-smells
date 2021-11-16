@@ -24,7 +24,7 @@ public class HidingTestDataCheck implements SmellCheck {
         double rawValue = visitor.getNodes().size();
         double normalizedValue = visitor.getTotalVisited() > 0 ? rawValue / visitor.getTotalVisited() : 0.;
 
-        return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA_IN_FIXTURE_CODE, rawValue, normalizedValue, visitor.getNodes());
+        return new SmellResult(SmellMetric.Type.HIDING_TEST_DATA, rawValue, normalizedValue, visitor.getNodes());
     }
 
     @Override

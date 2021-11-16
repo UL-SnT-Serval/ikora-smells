@@ -34,12 +34,10 @@ class LackOfEncapsulationCheckTest {
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
-
-        final SmellConfiguration configuration = new SmellConfiguration();
-
         final TestCase testCase = project.findTestCase("<IN_MEMORY>", "Valid Login").iterator().next();
+
         final LackOfEncapsulationCheck check = new LackOfEncapsulationCheck();
-        final SmellResult metric = check.computeMetric(testCase, configuration);
+        final SmellResult metric = check.computeMetric(testCase, new SmellConfiguration());
 
         assertEquals(0.5, metric.getNormalizedValue(), 0.0001);
         assertEquals(2, metric.getRawValue(), 0.0001);

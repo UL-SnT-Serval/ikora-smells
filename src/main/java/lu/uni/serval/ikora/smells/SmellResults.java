@@ -15,6 +15,10 @@ public class SmellResults implements Iterable<SmellResult> {
         this.results.put(smellResult.getType(), smellResult);
     }
 
+    public int getNumberMetrics() {
+        return results.size();
+    }
+
     public double getRawValue(SmellMetric.Type type){
         final SmellResult smellResult = results.get(type);
 
