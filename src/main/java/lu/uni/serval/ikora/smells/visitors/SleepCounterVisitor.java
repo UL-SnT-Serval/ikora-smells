@@ -21,7 +21,6 @@ public class SleepCounterVisitor extends SmellVisitor {
     @Override
     public void visit(KeywordCall call, VisitorMemory memory) {
         final Optional<Keyword> keyword = call.getKeyword();
-
         if(keyword.isPresent() && keyword.get().getType() == Keyword.Type.SYNCHRONIZATION){
             if(keyword.get() instanceof Sleep){
                 addNode(call);

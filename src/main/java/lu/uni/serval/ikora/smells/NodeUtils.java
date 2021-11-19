@@ -25,7 +25,8 @@ public class NodeUtils {
                 .map(Optional::get)
                 .map(Keyword::getType)
                 .filter(t -> t != Keyword.Type.LOG)
-                .anyMatch(types::contains);
+                .filter(types::contains)
+                .count() == 1;
     }
 
     public static boolean isType(KeywordCall call, Keyword.Type type, boolean allowIndirectCall){

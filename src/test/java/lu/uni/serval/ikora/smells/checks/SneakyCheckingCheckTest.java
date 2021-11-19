@@ -91,7 +91,7 @@ class SneakyCheckingCheckTest {
     }
 
     @Test
-    void testWithBlockOfTwoSneakyAssertion(){
+    void testWithBlockOfTwoAssertion(){
         final String code =
                 "*** Test Cases ***\n" +
                         "Valid Login\n" +
@@ -125,8 +125,8 @@ class SneakyCheckingCheckTest {
         final SneakyCheckingCheck check = new SneakyCheckingCheck();
         final SmellResult metric = check.computeMetric(testCase, configuration);
 
-        assertEquals(0.25, metric.getNormalizedValue(), 0.0001);
-        assertEquals(1., metric.getRawValue(), 0.0001);
+        assertEquals(0., metric.getNormalizedValue(), 0.0001);
+        assertEquals(0., metric.getRawValue(), 0.0001);
     }
 
     @Test
