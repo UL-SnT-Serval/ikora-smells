@@ -15,6 +15,8 @@ class ComplexLocatorVisitorTest {
     @Test
     void testVisitCallWithoutLocators(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Keywords ***\n" +
                 "User \"${username}\" logs in with password \"${password}\"\n" +
                 "    Input username    ${username}\n" +
@@ -52,6 +54,8 @@ class ComplexLocatorVisitorTest {
     @Test
     void testVisitCallWithLiteralLocator(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Keywords ***\n" +
                 "User \"${username}\" logs in with password \"${password}\"\n" +
                 "    Input username    ${username}\n" +
@@ -89,6 +93,8 @@ class ComplexLocatorVisitorTest {
     @Test
     void testVisitCallWithVariableLocator(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Keywords ***\n" +
                 "User \"${username}\" logs in with password \"${password}\"\n" +
                 "    Input username    ${username}\n" +
@@ -127,7 +133,7 @@ class ComplexLocatorVisitorTest {
     void testVisitCallWithArgumentLocator(){
         final String code =
                 "*** Settings ***\n" +
-                "Library           SeleniumLibrary\n" +
+                "Library    Selenium2Library\n" +
                 "\n" +
                 "*** Test Cases ***\n" +
                 "Run the test\n" +

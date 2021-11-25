@@ -17,6 +17,8 @@ class StinkySynchronizationSyndromeCheckTest {
     @Test
     void testWithNoSynchronization(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -47,20 +49,22 @@ class StinkySynchronizationSyndromeCheckTest {
     @Test
     void testWithSynchronizationWithNoSleep(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Set Selenium Speed    ${DELAY}\n" +
-                        "    Maximize Browser Window\n" +
-                        "    Wait Until Page Contains Element    element_to_display\n" +
-                        "    Title Should Be    Login Page\n" +
-                        "\n" +
-                        "*** Variables ***\n" +
-                        "${DELAY}      0\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Set Selenium Speed    ${DELAY}\n" +
+                "    Maximize Browser Window\n" +
+                "    Wait Until Page Contains Element    element_to_display\n" +
+                "    Title Should Be    Login Page\n" +
+                "\n" +
+                "*** Variables ***\n" +
+                "${DELAY}      0\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();
@@ -78,20 +82,22 @@ class StinkySynchronizationSyndromeCheckTest {
     @Test
     void testWithSynchronizationWithSleep(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Set Selenium Speed    ${DELAY}\n" +
-                        "    Maximize Browser Window\n" +
-                        "    Sleep    3 seconds\n" +
-                        "    Title Should Be    Login Page\n" +
-                        "\n" +
-                        "*** Variables ***\n" +
-                        "${DELAY}      0\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Set Selenium Speed    ${DELAY}\n" +
+                "    Maximize Browser Window\n" +
+                "    Sleep    3 seconds\n" +
+                "    Title Should Be    Login Page\n" +
+                "\n" +
+                "*** Variables ***\n" +
+                "${DELAY}      0\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();

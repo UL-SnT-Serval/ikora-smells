@@ -16,6 +16,8 @@ class OverCheckingCheckTest {
     @Test
     void testWithNoAssertion(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -45,6 +47,8 @@ class OverCheckingCheckTest {
     @Test
     void testWithOneAssertion(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -75,6 +79,8 @@ class OverCheckingCheckTest {
     @Test
     void testWithManyAssertions(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +

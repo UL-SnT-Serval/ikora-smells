@@ -16,6 +16,8 @@ class OnTheFlyCheckTest {
     @Test
     void testWithNoResultsOnTheFly(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -45,6 +47,8 @@ class OnTheFlyCheckTest {
     @Test
     void testWithResultsOnTheFlyFromVariableAssignment(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -76,6 +80,8 @@ class OnTheFlyCheckTest {
     @Test
     void testWithResultsOnTheFlyFromKeywordAssignment(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -106,6 +112,8 @@ class OnTheFlyCheckTest {
     @Test
     void testWithResultsOnTheFlyKeywordAssignment(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To   Login Page\n" +

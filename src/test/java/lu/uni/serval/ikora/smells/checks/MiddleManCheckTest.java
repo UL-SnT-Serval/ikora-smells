@@ -16,6 +16,8 @@ class MiddleManCheckTest {
     @Test
     void testWithOneIndirection(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    User \"demo\" logs in with password \"mode\"\n" +
@@ -45,15 +47,17 @@ class MiddleManCheckTest {
     @Test
     void testWithNoIndirection(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    User \"demo\" logs in with password \"mode\"\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "\n" +
-                        "User \"${username}\" logs in with password \"${password}\"\n" +
-                        "    [Arguments]    ${username}\n" +
-                        "    Input Text    username_field    ${username}\n";
+                "Valid Login\n" +
+                "    User \"demo\" logs in with password \"mode\"\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "\n" +
+                "User \"${username}\" logs in with password \"${password}\"\n" +
+                "    [Arguments]    ${username}\n" +
+                "    Input Text    username_field    ${username}\n";
 
 
         final BuildResult build = Builder.build(code, true);

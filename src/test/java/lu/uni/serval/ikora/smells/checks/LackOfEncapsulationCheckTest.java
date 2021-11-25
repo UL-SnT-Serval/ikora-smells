@@ -16,6 +16,8 @@ class LackOfEncapsulationCheckTest {
     @Test
     void testWithOneDirectLibraryCall(){
         final String code =
+            "*** Settings ***\n" +
+            "Library    Selenium2Library\n" +
             "*** Test Cases ***\n" +
             "Valid Login\n" +
             "    Input username    user\n" +
@@ -46,19 +48,21 @@ class LackOfEncapsulationCheckTest {
     @Test
     void testWithNoDirectLibraryCall(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Input username    user\n" +
-                        "    Input password    password\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Input Username\n" +
-                        "    [Arguments]    ${username}\n" +
-                        "    Input Text    username_field    ${username}\n" +
-                        "\n" +
-                        "Input Password\n" +
-                        "    [Arguments]    ${password}\n" +
-                        "    Input Text    password_field    ${password}";
+                "Valid Login\n" +
+                "    Input username    user\n" +
+                "    Input password    password\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Input Username\n" +
+                "    [Arguments]    ${username}\n" +
+                "    Input Text    username_field    ${username}\n" +
+                "\n" +
+                "Input Password\n" +
+                "    [Arguments]    ${password}\n" +
+                "    Input Text    password_field    ${password}";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();

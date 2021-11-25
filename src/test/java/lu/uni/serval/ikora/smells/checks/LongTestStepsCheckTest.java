@@ -44,6 +44,8 @@ class LongTestStepsCheckTest {
     @Test
     void testLongStep(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    User \"demo\" logs in with password \"mode\"\n" +

@@ -19,7 +19,7 @@ public class ComplicatedSetupCheck implements SmellCheck {
         double normalizedValue = Double.NaN;
 
         final Set<SourceNode> nodes = new HashSet<>();
-        final Optional<KeywordCall> setup = testCase.getSetup();
+        final Optional<KeywordCall> setup = testCase.getSetup().flatMap(TestProcessing::getCall);
 
         if(setup.isPresent()){
             int setupSize = KeywordStatistics.getSequenceSize(setup.get());

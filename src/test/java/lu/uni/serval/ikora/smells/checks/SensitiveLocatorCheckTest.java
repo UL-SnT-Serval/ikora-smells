@@ -23,6 +23,8 @@ class SensitiveLocatorCheckTest {
     })
     void testHardcodedLocator(String locator, double normalizedValue){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
                 "    Input Text    " + locator + "    Bob";
@@ -42,6 +44,8 @@ class SensitiveLocatorCheckTest {
     @Test
     void testIndirectFromVariableTableSimpleXmlLocator(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
                 "    Input Text    ${locator}    Bob\n" +
@@ -64,6 +68,8 @@ class SensitiveLocatorCheckTest {
     @Test
     void testIndirectFromVariableTableComplexXmlLocator(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
                 "    Input Text    ${locator}    Bob\n" +
@@ -86,6 +92,8 @@ class SensitiveLocatorCheckTest {
     @Test
     void testIndirectFromKeywordParametersComplexXmlLocator(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
                 "    Input Name Bob    css:.covid-form > div > div.react-grid-Container > div > div\n" +
@@ -110,6 +118,8 @@ class SensitiveLocatorCheckTest {
     @Test
     void testIndirectFromKeywordParametersAndVariableTableComplexXmlLocator(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Write in text field\n" +
                 "    Input Name Bob    ${locator_global}\n" +

@@ -17,7 +17,9 @@ class ConditionalTestLogicCheckTest {
     @Test
     void testWithNoCondition(){
         final String code =
-                "*** Test Cases ***\n" +
+                "*** Settings ***\n" +
+                        "Library    Selenium2Library\n" +
+                        "*** Test Cases ***\n" +
                         "Valid Login\n" +
                         "    Open Browser To   Login Page\n" +
                         "\n" +
@@ -47,7 +49,9 @@ class ConditionalTestLogicCheckTest {
     @Test
     void testWithOneCondition(){
         final String code =
-                "*** Test Cases ***\n" +
+                "*** Settings ***\n" +
+                        "Library    Selenium2Library\n" +
+                        "*** Test Cases ***\n" +
                         "Valid Login\n" +
                         "    Open Browser To   Login Page\n" +
                         "\n" +
@@ -77,7 +81,9 @@ class ConditionalTestLogicCheckTest {
     @Test
     void testWithTwoConditionsOnSameLine(){
         final String code =
-                "*** Test Cases ***\n" +
+                "*** Settings ***\n" +
+                        "Library    Selenium2Library\n" +
+                        "*** Test Cases ***\n" +
                         "Valid Login\n" +
                         "    Open Browser To   Login Page\n" +
                         "\n" +

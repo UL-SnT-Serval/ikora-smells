@@ -12,6 +12,9 @@ class HidingTestDataCheckTest {
     @Test
     void testWithHiddenTestData(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
+                "Library    OperatingSystem\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    [Setup]    Open Browser To Login Page\n" +

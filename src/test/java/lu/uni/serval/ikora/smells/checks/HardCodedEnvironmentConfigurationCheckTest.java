@@ -16,6 +16,8 @@ class HardCodedEnvironmentConfigurationCheckTest {
     @Test
     void testWithHardcodedEnvironmentConfiguration(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -39,6 +41,8 @@ class HardCodedEnvironmentConfigurationCheckTest {
     @Test
     void testWithoutHardcodedEnvironmentConfiguration(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -67,14 +71,16 @@ class HardCodedEnvironmentConfigurationCheckTest {
     @Test
     void testWithoutEnvironmentConfiguration(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Maximize Browser Window\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Maximize Browser Window\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();

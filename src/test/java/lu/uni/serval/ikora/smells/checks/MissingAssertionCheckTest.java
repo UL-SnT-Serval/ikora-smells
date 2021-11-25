@@ -16,6 +16,8 @@ class MissingAssertionCheckTest {
     @Test
     void testWithNoAssertion(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Open Browser To Login Page\n" +
@@ -47,19 +49,21 @@ class MissingAssertionCheckTest {
     @Test
     void testWithAssertion(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
-                        "Valid Login\n" +
-                        "    Open Browser To Login Page\n" +
-                        "\n" +
-                        "*** Keywords ***\n" +
-                        "Open Browser To Login Page\n" +
-                        "    Open Browser    http://localhost/    chrome\n" +
-                        "    Set Selenium Speed    ${DELAY}\n" +
-                        "    Maximize Browser Window\n" +
-                        "    Title Should Be    Login Page\n" +
-                        "\n" +
-                        "*** Variables ***\n" +
-                        "${DELAY}      0\n";
+                "Valid Login\n" +
+                "    Open Browser To Login Page\n" +
+                "\n" +
+                "*** Keywords ***\n" +
+                "Open Browser To Login Page\n" +
+                "    Open Browser    http://localhost/    chrome\n" +
+                "    Set Selenium Speed    ${DELAY}\n" +
+                "    Maximize Browser Window\n" +
+                "    Title Should Be    Login Page\n" +
+                "\n" +
+                "*** Variables ***\n" +
+                "${DELAY}      0\n";
 
         final BuildResult build = Builder.build(code, true);
         final Project project = build.getProjects().iterator().next();

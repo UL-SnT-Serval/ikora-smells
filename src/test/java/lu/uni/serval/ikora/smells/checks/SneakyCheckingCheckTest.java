@@ -16,6 +16,8 @@ class SneakyCheckingCheckTest {
     @Test
     void testWithBlockOfOneSneakyAssertion(){
         final String code =
+                "*** Settings ***\n" +
+                "Library    Selenium2Library\n" +
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +
                 "    Input username    user\n" +
@@ -54,7 +56,9 @@ class SneakyCheckingCheckTest {
     @Test
     void testWithBlockOfOneSneakyAssertionWithLogging(){
         final String code =
-                "*** Test Cases ***\n" +
+                "*** Settings ***\n" +
+                        "Library    Selenium2Library\n" +
+                        "*** Test Cases ***\n" +
                         "Valid Login\n" +
                         "    Input username    user\n" +
                         "    Input password    password\n" +
@@ -93,7 +97,9 @@ class SneakyCheckingCheckTest {
     @Test
     void testWithBlockOfTwoAssertion(){
         final String code =
-                "*** Test Cases ***\n" +
+                "*** Settings ***\n" +
+                        "Library    Selenium2Library\n" +
+                        "*** Test Cases ***\n" +
                         "Valid Login\n" +
                         "    Input username    user\n" +
                         "    Input password    password\n" +
@@ -132,7 +138,9 @@ class SneakyCheckingCheckTest {
     @Test
     void testWithNoSneakyAssertion(){
         final String code =
-                "*** Test Cases ***\n" +
+                "*** Settings ***\n" +
+                        "Library    Selenium2Library\n" +
+                        "*** Test Cases ***\n" +
                         "Valid Login\n" +
                         "    Input username    user\n" +
                         "    Input password    password\n" +
