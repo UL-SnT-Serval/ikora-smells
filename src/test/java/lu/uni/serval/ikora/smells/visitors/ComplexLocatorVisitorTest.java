@@ -1,6 +1,7 @@
 package lu.uni.serval.ikora.smells.visitors;
 
 import lu.uni.serval.ikora.core.analytics.visitor.FixedMemory;
+import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.builder.BuildResult;
 import lu.uni.serval.ikora.core.builder.Builder;
 import lu.uni.serval.ikora.core.model.KeywordCall;
@@ -159,13 +160,12 @@ class ComplexLocatorVisitorTest {
         assertNotNull(followLink);
 
         ComplexLocatorVisitor visitor = new ComplexLocatorVisitor(1);
-        visitor.visit(followLink, new FixedMemory(1, KeywordCall.class));
+        visitor.visit(followLink, new PathMemory());
 
         assertEquals(1, visitor.getComplexLocators());
-        assertEquals(2, visitor.getLocators());
+        assertEquals(1, visitor.getLocators());
         assertEquals(1, visitor.getNodes().size());
 
-        final String value = visitor.getNodes().iterator().next().getName();
-        assertEquals("css:.covid-form > div > div.react-grid-Container > div > div > div.react-grid-Header > div > div > div:nth-child(3) > div", value);
+        assertEquals(followLink.getStep(0).getArgumentList().get(0), visitor.getNodes().iterator().next());
     }
 }

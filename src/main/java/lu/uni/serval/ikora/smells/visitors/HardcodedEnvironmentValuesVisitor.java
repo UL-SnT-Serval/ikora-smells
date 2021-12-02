@@ -18,7 +18,7 @@ public class HardcodedEnvironmentValuesVisitor extends SmellVisitor {
     public void visit(KeywordCall call, VisitorMemory memory) {
         if(isConfiguration(call)){
             for(Argument argument: call.getArgumentList()){
-                if(argument.isType(Literal.class)){
+                if(argument.isLiteral()){
                     addNode(argument.getDefinition());
                 }
 

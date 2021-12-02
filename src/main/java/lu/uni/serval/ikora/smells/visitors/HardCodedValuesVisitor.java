@@ -2,6 +2,7 @@ package lu.uni.serval.ikora.smells.visitors;
 
 import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
 import lu.uni.serval.ikora.core.model.*;
+import lu.uni.serval.ikora.core.types.ConditionType;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -27,7 +28,7 @@ public class HardCodedValuesVisitor extends SmellVisitor {
     public void visit(KeywordCall call, VisitorMemory memory) {
         if(ofInterest(call)){
             for(Argument argument: call.getArgumentList()){
-                if(argument.isType(Literal.class)){
+                if(argument.isLiteral() && !argument.isType(ConditionType.class)){
                     addNode(argument.getDefinition());
                 }
 

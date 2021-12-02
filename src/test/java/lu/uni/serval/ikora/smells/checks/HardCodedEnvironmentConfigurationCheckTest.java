@@ -25,7 +25,7 @@ class HardCodedEnvironmentConfigurationCheckTest {
                 "*** Keywords ***\n" +
                 "Open Browser To Login Page\n" +
                 "    Open Browser    http://localhost/    chrome\n" +
-                "    Set Selenium Speed    0" +
+                "    Set Selenium Speed    0\n" +
                 "    Maximize Browser Window\n";
 
         final BuildResult build = Builder.build(code, true);

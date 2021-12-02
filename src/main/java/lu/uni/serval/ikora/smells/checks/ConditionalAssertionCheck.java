@@ -3,6 +3,7 @@ package lu.uni.serval.ikora.smells.checks;
 import lu.uni.serval.ikora.core.analytics.visitor.FileMemory;
 import lu.uni.serval.ikora.core.analytics.visitor.PathMemory;
 import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
+import lu.uni.serval.ikora.core.types.KeywordType;
 import lu.uni.serval.ikora.smells.*;
 import lu.uni.serval.ikora.smells.visitors.CollectCallsByTypeVisitor;
 
@@ -45,7 +46,7 @@ public class ConditionalAssertionCheck implements SmellCheck {
 
     private boolean isCallingAssertion(KeywordCall assertion) {
         for(Argument argument: assertion.getArgumentList()){
-            if(argument.isType(KeywordCall.class)){
+            if(argument.isType(KeywordType.class)){
                 final KeywordCall call = (KeywordCall)argument.getDefinition();
                 return NodeUtils.isCallType(call, Keyword.Type.ASSERTION, true);
             }

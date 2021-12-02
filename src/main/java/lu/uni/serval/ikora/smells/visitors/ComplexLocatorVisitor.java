@@ -1,17 +1,11 @@
 package lu.uni.serval.ikora.smells.visitors;
 
+import lu.uni.serval.ikora.core.utils.ValueFetcher;
 import lu.uni.serval.ikora.smells.utils.LocatorUtils;
 
 import lu.uni.serval.ikora.core.analytics.visitor.VisitorMemory;
 import lu.uni.serval.ikora.core.model.*;
-import lu.uni.serval.ikora.core.types.BaseTypeList;
 import lu.uni.serval.ikora.core.types.LocatorType;
-import lu.uni.serval.ikora.core.utils.ArgumentUtils;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
-import java.util.Optional;
 
 public class ComplexLocatorVisitor extends SmellVisitor {
     private int locators = 0;
@@ -30,32 +24,10 @@ public class ComplexLocatorVisitor extends SmellVisitor {
     }
 
     @Override
-    public void visit(KeywordCall call, VisitorMemory memory) {
-        final Optional<Keyword> keyword = call.getKeyword();
-
-        if(keyword.isPresent()){
-            final NodeList<Argument> argumentList = call.getArgumentList();
-            final BaseTypeList argumentTypes = keyword.get().getArgumentTypes();
-
-            if(argumentTypes.containsType(LocatorType.class)){
-                List<Integer> locatorIndexes = argumentTypes.findAll(LocatorType.class);
-
-                for(int index: locatorIndexes){
-                    if(ArgumentUtils.isExpendedUntilPosition(argumentList, index)){
-                        final Argument argument = argumentList.get(index);
-                        visitArgument(argument);
-                    }
-                }
-            }
-        }
-
-        super.visit(call, memory);
-    }
-
-    private void visitArgument(Argument argument){
-        for(Pair<String, SourceNode> value: ArgumentUtils.getArgumentValues(argument)){
-            if(LocatorUtils.isComplex(value.getLeft(), this.maximumLocatorSize)){
-                addNode(value.getRight());
+    public void visit(Argument argument, VisitorMemory memory) {
+        if(argument.isType(LocatorType.class)){
+            if(ValueFetcher.getValues(argument).stream().anyMatch(v -> LocatorUtils.isComplex(v, this.maximumLocatorSize))){
+                addNode(argument);
             }
 
             ++locators;
