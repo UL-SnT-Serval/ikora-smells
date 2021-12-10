@@ -38,7 +38,7 @@ public class ConditionalAssertionCheck implements SmellCheck {
     }
 
     private CollectCallsByTypeVisitor visit(SourceNode node, VisitorMemory memory){
-        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.CONTROL_FLOW);
+        final CollectCallsByTypeVisitor visitor = new CollectCallsByTypeVisitor(Keyword.Type.BRANCHING);
         visitor.visit(node, memory);
 
         return visitor;

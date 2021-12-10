@@ -291,7 +291,7 @@
         <dependency>
             <groupId>lu.uni.serval</groupId>
             <artifactId>ikora-core</artifactId>
-            <version>0.1.14</version>
+            <version>0.1.15-SNAPSHOT</version>
         </dependency>
 
         <dependency>
