@@ -39,7 +39,8 @@ class SensitiveLocatorCheckTest {
     @CsvSource ({
             "css:username_field,0.",
             "css:.covid-form > div > div.react-grid-Container > div > div,1.",
-            "xpath:/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1],1."
+            "xpath:/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1],1.",
+            "xpath = //div[@id = \"form-input-1081\"]//button[text()=\"Jessica Doe\")],1."
     })
     void testHardcodedLocator(String locator, double normalizedValue){
         final String code =
