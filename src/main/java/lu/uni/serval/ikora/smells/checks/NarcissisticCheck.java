@@ -25,7 +25,6 @@ import lu.uni.serval.ikora.smells.SmellCheck;
 import lu.uni.serval.ikora.smells.SmellConfiguration;
 import lu.uni.serval.ikora.smells.SmellMetric;
 import lu.uni.serval.ikora.smells.SmellResult;
-
 import lu.uni.serval.ikora.smells.utils.NLPUtils;
 
 import java.util.Set;
@@ -51,7 +50,8 @@ public class NarcissisticCheck implements SmellCheck {
 
 
     private Set<SourceNode> collectStepsUsingPersonalPronoun(TestCase testCase){
-        return testCase.getSteps().stream().filter(NLPUtils::isUsingPersonalPronoun)
+        return testCase.getSteps().stream()
+                .filter(s -> NLPUtils.isUsingPersonalPronoun(s.getName()))
                 .map(SourceNode.class::cast)
                 .collect(Collectors.toSet());
     }

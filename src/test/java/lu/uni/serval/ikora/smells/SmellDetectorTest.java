@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SmellDetectorTest {
-    private static final int NUMBER_METRICS = 20;
+    private static final int NUMBER_METRICS = 19;
     @Test
     void testSizeAll(){
         assertEquals(NUMBER_METRICS, SmellDetector.all().getNumberMetrics());
