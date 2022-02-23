@@ -24,9 +24,9 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class LocatorUtils {
-    private static final Pattern xPathPattern =  Pattern.compile("^xpath:", Pattern.CASE_INSENSITIVE);
-    private static final Pattern cssPattern =  Pattern.compile("^css:", Pattern.CASE_INSENSITIVE);
-    private static final Pattern jqueryPattern =  Pattern.compile("^jquery:", Pattern.CASE_INSENSITIVE);
+    private static final Pattern xPathPattern =  Pattern.compile("^xpath(\\s?)[:=](\\s?)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern cssPattern =  Pattern.compile("^css(\\s?)[:=](\\s?)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern jqueryPattern =  Pattern.compile("^jquery(\\s?)[:=](\\s?)", Pattern.CASE_INSENSITIVE);
 
     private LocatorUtils() {}
 

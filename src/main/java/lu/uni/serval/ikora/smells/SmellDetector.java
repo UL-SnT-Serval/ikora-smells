@@ -36,7 +36,6 @@ public class SmellDetector {
         smellChecks.put(SmellMetric.Type.ARMY_OF_CLONES, new ArmyOfClonesCheck());
         smellChecks.put(SmellMetric.Type.COMPLICATED_SETUP_SCENARIOS, new ComplicatedSetupCheck());
         smellChecks.put(SmellMetric.Type.CONDITIONAL_ASSERTION, new ConditionalAssertionCheck());
-        smellChecks.put(SmellMetric.Type.EAGER_TEST, new EagerTestCheck());
         smellChecks.put(SmellMetric.Type.HARDCODED_ENVIRONMENT_CONFIGURATIONS, new HardCodedEnvironmentConfigurationCheck());
         smellChecks.put(SmellMetric.Type.HARD_CODED_VALUES, new HardcodedValuesCheck());
         smellChecks.put(SmellMetric.Type.HIDING_TEST_DATA, new HidingTestDataCheck());

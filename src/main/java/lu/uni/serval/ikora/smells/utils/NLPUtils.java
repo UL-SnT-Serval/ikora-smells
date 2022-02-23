@@ -4,7 +4,7 @@ package lu.uni.serval.ikora.smells.utils;
  * #%L
  * Ikora Smells
  * %%
- * Copyright (C) 2020 - 2021 University of Luxembourg
+ * Copyright (C) 2020 - 2022 University of Luxembourg
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
@@ -20,48 +20,51 @@ package lu.uni.serval.ikora.smells.utils;
  * #L%
  */
 
-import edu.stanford.nlp.pipeline.CoreDocument;
-import edu.stanford.nlp.pipeline.CoreSentence;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import lu.uni.serval.ikora.core.model.Step;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.tokenize.Tokenizer;
+import opennlp.tools.tokenize.TokenizerME;
+import opennlp.tools.tokenize.TokenizerModel;
 
-import java.util.Optional;
-import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class NLPUtils {
     private NLPUtils() {}
 
-    public static boolean isUsingPersonalPronoun(Step step){
-        final String text = step.getName();
-
-        Properties props = new Properties();
-        props.setProperty("annotators", "tokenize,ssplit,pos");
-        props.setProperty("coref.algorithm", "neural");
-
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-        CoreDocument document = new CoreDocument(text);
-        pipeline.annotate(document);
-
-        for(CoreSentence sentence: document.sentences()){
-            if(findPronoun(sentence).isPresent()){
-                return true;
-            }
+    public static boolean isUsingPersonalPronoun(String sentence) {
+        if(sentence == null || sentence.isEmpty()){
+            return false;
         }
 
-        return false;
-    }
+        try {
+            final InputStream tokenModelIn = NLPUtils.class.getResourceAsStream("/en-token.bin");
 
-    public static Optional<String> findPronoun(CoreSentence sentence){
-        for(int i = 0; i < sentence.tokens().size(); ++i){
-            if(sentence.posTags().get(i).startsWith("VB")){
-                break;
+            if(tokenModelIn == null){
+                throw new IOException("Failed to load en-token.bin");
             }
 
-            if(sentence.posTags().get(i).equals("PRP")){
-                return Optional.of(sentence.tokens().get(i).value());
+            final TokenizerModel tokenModel = new TokenizerModel(tokenModelIn);
+            final Tokenizer tokenizer = new TokenizerME(tokenModel);
+            final String[] tokens = tokenizer.tokenize(sentence);
+
+            final InputStream posModelIn = NLPUtils.class.getResourceAsStream("/en-pos-maxent.bin");
+
+            if(posModelIn == null){
+                throw new IOException("Failed to load en-pos-maxent.bin");
             }
+
+            final POSModel posModel = new POSModel(posModelIn);
+            final POSTaggerME posTagger = new POSTaggerME(posModel);
+
+            for(String tag: posTagger.tag(tokens)) {
+                if(tag.equals("PRP")) return true;
+                if(tag.startsWith("N") || tag.startsWith("V")) return false;
+            }
+
+            return false;
+        } catch (IOException e) {
+            return false;
         }
-
-        return Optional.empty();
     }
 }
