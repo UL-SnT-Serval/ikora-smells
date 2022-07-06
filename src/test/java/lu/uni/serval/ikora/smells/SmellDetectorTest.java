@@ -33,7 +33,7 @@ class SmellDetectorTest {
     }
 
     @Test
-    void testSizeComputeAllMetrics(){
+    void testSizeComputeAllMetrics() throws InterruptedException {
         final String code =
                 "*** Test Cases ***\n" +
                 "Valid Login\n" +

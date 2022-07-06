@@ -31,7 +31,7 @@ public class SmellResults implements Iterable<SmellResult> {
         this.results = new EnumMap<>(SmellMetric.Type.class);
     }
 
-    public void add(SmellResult smellResult){
+    public synchronized void add(SmellResult smellResult){
         this.results.put(smellResult.getType(), smellResult);
     }
 

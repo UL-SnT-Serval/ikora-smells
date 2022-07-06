@@ -25,6 +25,9 @@ import lu.uni.serval.ikora.smells.checks.*;
 import lu.uni.serval.ikora.core.model.TestCase;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class SmellDetector {
     private static final EnumMap<SmellMetric.Type, SmellCheck> smellChecks;
@@ -58,12 +61,18 @@ public class SmellDetector {
         this.smellsToDetect = smellsToDetect;
     }
 
-    public SmellResults computeMetrics(TestCase testCase, SmellConfiguration configuration){
-        SmellResults results = new SmellResults();
+    public SmellResults computeMetrics(TestCase testCase, SmellConfiguration configuration) throws InterruptedException {
+        final SmellResults results = new SmellResults();
 
-       for(SmellMetric.Type type: smellsToDetect){
-           results.add(smellChecks.get(type).computeMetric(testCase, configuration));
-       }
+        int processors = Runtime.getRuntime().availableProcessors();
+        final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(processors);
+
+        for(SmellMetric.Type type: smellsToDetect){
+            executor.execute(() -> results.add(smellChecks.get(type).computeMetric(testCase, configuration)));
+        }
+
+        executor.shutdown();
+        executor.awaitTermination(5, TimeUnit.HOURS);
 
         return results;
     }
