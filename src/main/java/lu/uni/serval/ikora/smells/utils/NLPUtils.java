@@ -30,13 +30,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class NLPUtils {
-    private NLPUtils() {}
+    private static final POSTaggerME posTagger;
+    private static final Tokenizer tokenizer;
 
-    public static boolean isUsingPersonalPronoun(String sentence) {
-        if(sentence == null || sentence.isEmpty()){
-            return false;
-        }
-
+    static {
         try {
             final InputStream tokenModelIn = NLPUtils.class.getResourceAsStream("/en-token.bin");
 
@@ -45,9 +42,12 @@ public class NLPUtils {
             }
 
             final TokenizerModel tokenModel = new TokenizerModel(tokenModelIn);
-            final Tokenizer tokenizer = new TokenizerME(tokenModel);
-            final String[] tokens = tokenizer.tokenize(sentence);
+            tokenizer = new TokenizerME(tokenModel);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to initialize TokenizerModel for OpenNLP: " + e.getMessage());
+        }
 
+        try {
             final InputStream posModelIn = NLPUtils.class.getResourceAsStream("/en-pos-maxent.bin");
 
             if(posModelIn == null){
@@ -55,16 +55,26 @@ public class NLPUtils {
             }
 
             final POSModel posModel = new POSModel(posModelIn);
-            final POSTaggerME posTagger = new POSTaggerME(posModel);
-
-            for(String tag: posTagger.tag(tokens)) {
-                if(tag.equals("PRP")) return true;
-                if(tag.startsWith("N") || tag.startsWith("V")) return false;
-            }
-
-            return false;
+            posTagger = new POSTaggerME(posModel);
         } catch (IOException e) {
+            throw new RuntimeException("Failed to initialize TokenizerModel for OpenNLP: " + e.getMessage());
+        }
+    }
+
+    private NLPUtils() {}
+
+    public static boolean isUsingPersonalPronoun(String sentence) {
+        if(sentence == null || sentence.isEmpty()){
             return false;
         }
+
+        final String[] tokens = tokenizer.tokenize(sentence);
+
+        for(String tag: posTagger.tag(tokens)) {
+            if(tag.equals("PRP")) return true;
+            if(tag.startsWith("N") || tag.startsWith("V")) return false;
+        }
+
+        return false;
     }
 }
