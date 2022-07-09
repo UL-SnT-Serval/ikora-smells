@@ -11,7 +11,7 @@ Ikora Smells relies on [Ikora Core](https://github.com/UL-SnT-Serval/ikora-core)
 
 ## Build requirements
 
-* Java Development Kit (JDK) 8 or higher
+* Java Development Kit (JDK) 11 or higher
 * Maven 3.6.0 or higher
 
 ## Build from source
